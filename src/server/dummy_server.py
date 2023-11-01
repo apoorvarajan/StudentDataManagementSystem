@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import logging
 
-from password_auth import hash_password, check_password, validate_password
+from server.password_auth import hash_password, check_password, validate_password
 
 DATA_ROOT = Path('data/')
 

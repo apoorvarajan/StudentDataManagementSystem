@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from contact_details import ContactDetails, EmergencyContact
-from department import Department
+from server.contact_details import ContactDetails, EmergencyContact
+from server.department import Department
 
 class BaseUser(ABC):
     def __init__(self, user_id:str, first_name:str, middle_name:str,
