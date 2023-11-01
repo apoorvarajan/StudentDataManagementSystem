@@ -1,0 +1,73 @@
+.academics-section-wrap{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        top: 0;
+        display: flex;
+}
+.academics-left-section{
+    width: 20%;
+    background: lightgray;
+    height: 100%;
+    padding-top: 3em;
+    z-index: -1;
+}
+.academics-right-section{
+    width: 70%;
+    height: 100%;
+    padding-top: 3em;
+    text-align: center;
+}
+.academic-content{
+    width: 100%;
+    background: lightblue;
+    min-height: 3em;
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid black;
+    border-radius: 0.3em;
+    line-height: 3em;
+    text-align: left;
+}
+.academic-label{
+    text-align: left;
+    margin: 1em;
+    font-weight: bold;
+}
+.academic-sec-item{
+    height: 3em;
+    line-height: 3em;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold;
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    border-right: 1px solid black;
+    text-align: center;
+}
+.myclasses-wrap{
+    margin: 3em;
+    border: 1px solid lightblue;
+    border-radius: 0.3em;
+    padding: 1em;
+}
+.myclass-classtitle{
+    background-color: lightblue;
+    height: 2.5em;
+    line-height: 2.5em;
+    border-radius: 0.3em;
+    margin-bottom: 2em;
+}
+.myclass-class-details{
+    border: 1px solid lightgray;
+    border-radius: 0.3em;
+    padding: 2em;
+    text-align: left;
+}
+.myclass-details-elem{
+    line-height: 2em;
+}
+.req-icon{
+    width: 1em;
+}

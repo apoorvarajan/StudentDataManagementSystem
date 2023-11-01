@@ -1,0 +1,70 @@
+.home-header-wrap{
+    height: 2em;
+    background: black;
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 3em;
+    text-align: center;
+}
+.home-heading-text{
+    line-height: 2em;
+}
+.login-button-wrap{
+    padding: 3em 1em;
+    border: 1px solid black;
+    border-radius: 0.3em;
+    width: 35%;
+    margin: auto;
+    display: flex;
+}
+.login-button{
+    margin: 1.5em;
+    padding: 1em;
+    background: darkred;
+    border-radius: 0.3em;
+    color: white;
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.login-modal-wrap{
+    position: absolute;
+    z-index: 10001;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.login-modal-container{
+    background-color: grey;
+    height: 10em;
+    width: 20em;
+    margin: auto;
+    padding: 1em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.login-modal-input-wrap{
+    margin: auto;
+}
+.login-modal-submit-button-wrap{
+    border-radius: 0.3em;
+    color: white;
+    background: darkred;
+    width: 10em;
+    margin: auto;
+    padding: 0.5em;
+    font-weight: bold;
+}
+.login-modal-input{
+    padding: 0.5em 0em;
+    display: flex;
+    justify-content: space-between;
+}

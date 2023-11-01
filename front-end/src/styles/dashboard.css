@@ -1,0 +1,13 @@
+.dashboard-wrap{
+    margin: auto;
+    width: 50em;
+}
+.dashboard-item{
+    width: 100%;
+    background-color: lightblue;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 1em;
+    margin: 1em auto;
+    text-align: center;
+}
