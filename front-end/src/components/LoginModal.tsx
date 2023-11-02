@@ -12,7 +12,7 @@ const LoginModal = (props:any) => {
                 <input name="password" id="pwd" type="password"/>
             </div>
         </div>
-        <div className="login-modal-submit-button-wrap">
+        <div className="login-modal-submit-button-wrap" href="/dashboard">
             <div>
                 Login
             </div>
