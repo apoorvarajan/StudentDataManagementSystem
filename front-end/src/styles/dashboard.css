@@ -1,13 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+.dashboard-page{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 .dashboard-wrap{
     margin: auto;
-    width: 50em;
+    width: 100%;
+    background: lightgray;
+    /* height: 100%; */
+}
+.dashboard-row{
+    display: flex;
 }
 .dashboard-item{
-    width: 100%;
-    background-color: lightblue;
+    width: 25%;
+    height: 10em;
     font-weight: bold;
-    font-size: 1.2em;
-    padding: 1em;
-    margin: 1em auto;
+    font-size: 1.5em;
     text-align: center;
+    border: 5px solid white;
+    background-color: darkred;
+    color: white;
+    margin: 2em;
+    display: flex;
+}
+.dashboard-item>div{
+    margin: auto;
+}
+.dashboard-greeting-wrap{
+    background: #9B1B1B;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+.greeting-dashboard{
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 2em;
+}
+.todo-heading-dashboard{
+    padding: 1em;
+    font-size: 1.5em;
+    background: black;
+    color: lightgray;
+}
+.pattern{
+    min-height: 10em;
+    background-image: repeating-linear-gradient(white 0px, white 24px, darkred 25px);
+    font-family: 'Dancing Script', cursive;
+    font-size: 19px;
+    padding: 25px 1em 0em 1em;
 }

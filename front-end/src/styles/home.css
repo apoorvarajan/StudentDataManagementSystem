@@ -1,21 +1,44 @@
+.home-wrap{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #9B1B1B
+}
 .home-header-wrap{
-    height: 2em;
-    background: black;
-    color: white;
-    font-size: 1.5em;
-    margin-bottom: 3em;
+    height: 2.5em;
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
     text-align: center;
 }
 .home-heading-text{
-    line-height: 2em;
+    line-height: 2.5em;
+}
+.home-title{
+    color: white;
+    font-size: 2em;
+    margin: 1em;
+    margin-top:2em
+}
+.home-desc{
+    background: lightgray;
+    color: black;
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid white;
 }
 .login-button-wrap{
     padding: 3em 1em;
     border: 1px solid black;
     border-radius: 0.3em;
     width: 35%;
-    margin: auto;
+    margin: 5em auto auto auto;
     display: flex;
+    background: white;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 1.1em;
 }
 .login-button{
     margin: 1.5em;
@@ -23,7 +46,6 @@
     background: darkred;
     border-radius: 0.3em;
     color: white;
-    width: 10%;
     text-align: center;
     font-weight: bold;
     font-size: 0.8em;
@@ -42,29 +64,47 @@
     display: flex;
 }
 .login-modal-container{
-    background-color: grey;
-    height: 10em;
-    width: 20em;
+    background-color: lightgray;
     margin: auto;
-    padding: 1em;
+    padding: 2em;
     text-align: center;
     display: flex;
     flex-direction: column;
+    border-radius: 0.3em;
+    font-size: 1.1em;
 }
 .login-modal-input-wrap{
     margin: auto;
 }
 .login-modal-submit-button-wrap{
-    border-radius: 0.3em;
     color: white;
+    margin: 2em auto;
+    font-weight: bold;
+    display: flex;
+}
+.login-modal-button{
     background: darkred;
     width: 10em;
-    margin: auto;
     padding: 0.5em;
-    font-weight: bold;
+    border-radius: 0.3em;
+    margin: 0em 0.5em;
 }
 .login-modal-input{
     padding: 0.5em 0em;
     display: flex;
     justify-content: space-between;
+}
+.login-ins{
+    margin-bottom: 1em;
+}
+.login-input-field{
+    height: 2em;
+    line-height: 2em;
+    margin: 0em 0.5em;
+}
+.t{
+    width: 20em
+}
+.forgot-pwd{
+    text-align: right;
 }

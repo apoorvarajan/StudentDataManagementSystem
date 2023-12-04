@@ -4,9 +4,17 @@ import LoginModal from './LoginModal'
 
 const HomeComponent = (props:any)=>{
     const [option, setOption] = useState(0);
-    return <div>
+    return <div className="home-wrap">
         <div className="home-header-wrap">
-            <div className="home-heading-text">Student Portal</div>
+            <div className="home-heading-text">EduConnectHub</div>
+        </div>
+        <div className="home-title">
+            WELCOME TO THE EduConnectHub: Your Academic Success Center
+        </div>
+        <div className="home-desc">
+            This is your all-in-one platform for academic excellence.
+            Through our user-friendly platform, students gain access to personalized portals, enabling effortless course enrollment and real-time tracking of grades.
+            To access your profile, Login or Sign-up using your official emailid.
         </div>
         <div className="login-button-wrap">
             Login as:
