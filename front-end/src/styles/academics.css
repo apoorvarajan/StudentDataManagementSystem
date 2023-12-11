@@ -1,16 +1,18 @@
 .academics-section-wrap{
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        top: 0;
-        display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    top: 0;
+    display: flex;
+    z-index: 10001;
 }
 .academics-left-section{
     width: 20%;
-    background: lightgray;
+    background: black;
     height: 100%;
-    padding-top: 3em;
+    /* padding-top: 3em; */
     z-index: -1;
+    color: white;
 }
 .academics-right-section{
     width: 70%;
@@ -20,7 +22,7 @@
 }
 .academic-content{
     width: 100%;
-    background: lightblue;
+    background: lightslategray;
     min-height: 3em;
     padding: 1em;
     margin: 1em;
@@ -28,6 +30,7 @@
     border-radius: 0.3em;
     line-height: 3em;
     text-align: left;
+    color: white;
 }
 .academic-label{
     text-align: left;
@@ -37,13 +40,13 @@
 .academic-sec-item{
     height: 3em;
     line-height: 3em;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
     border-collapse: collapse;
     font-weight: bold;
     border-top-right-radius: 0.3em;
     border-bottom-right-radius: 0.3em;
-    border-right: 1px solid black;
+    border-right: 1px solid white;
     text-align: center;
 }
 .myclasses-wrap{

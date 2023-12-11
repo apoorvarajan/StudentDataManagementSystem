@@ -2,7 +2,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    background-color: #9B1B1B
+    /* background-color: #9B1B1B */
+    background: lightslategray;
 }
 .home-header-wrap{
     height: 2.5em;
@@ -33,7 +34,7 @@
     border: 1px solid black;
     border-radius: 0.3em;
     width: 35%;
-    margin: 5em auto auto auto;
+    margin: 3em auto auto auto;
     display: flex;
     background: white;
     flex-direction: column;
