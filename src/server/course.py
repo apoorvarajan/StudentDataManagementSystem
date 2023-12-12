@@ -6,25 +6,26 @@ class InvalidStudentTypeError(Exception):
     ...
 
 class Course:
-    def __init__(self, dept:Department, course_num:str, name:str, n_credits:int,
-            student_types:list):
-        self._dept = dept
-        self._course_num = course_num
-        self._name = name
+    def __init__(self, department:Department=None, course_number:str=None,
+            course_name:str=None, n_credits:int=None, student_types:list=None,
+            **kwargs):
+        self._department = department
+        self._course_number = course_number
+        self._course_name = course_name
         self._n_credits = n_credits
         self._student_types = student_types
         
     @property
-    def dept(self):
-        return self._dept
+    def department(self):
+        return self._department
     
     @property
-    def course_num(self):
-        return self._course_num
+    def course_number(self):
+        return self._course_number
     
     @property
-    def name(self):
-        return self._name
+    def course_name(self):
+        return self._course_name
     
     @property
     def n_credits(self):
@@ -32,7 +33,7 @@ class Course:
     
     @property
     def course_code(self):
-        return f'{self._dept.dept_id} {self._course_num}'
+        return f'{self._department.dept_id} {self._course_number}'
     
     @property
     def student_types(self):
@@ -42,63 +43,31 @@ class Course:
         self._name = name
     
     def copy(self):
-        return Course(self._dept.copy(), self._course_num, self._name,
+        return Course(self._department.copy(), self._course_number, self._name,
             self._n_credits, self._student_types.copy())
-    
-class CourseClass:
-    def __init__(self, course:Course, class_id:int, student_type:str, uww:bool):
-        self._course = course
-        self._class_id = class_id
-        self._student_type = self.validate_student_type(course, student_type)
-        self._uww = uww
-
-    @staticmethod
-    def validate_student_type(course:Course, student_type:str):
-        if student_type not in course.student_types:
-            raise InvalidStudentTypeError(f'Student type `{student_type}` not found in course `{course.course_code}`')
-        return student_type
-        
-    @property
-    def course(self):
-        return self._course.copy()
-    
-    @property
-    def class_id(self):
-        return self._class_id
-    
-    @property
-    def student_type(self):
-        return self._student_type
-    
-    @property
-    def uww(self):
-        return self._uww
-    
-    def set_uww(self, uww:bool):
-        self._uww = uww
 
 class CourseInstance:
-    def __init__(self, course_class:CourseClass, semester:Semester,
-            max_students:int, instructors:list[Faculty]):
-        self._course_class = course_class
+    def __init__(self, course:Course, semester:Semester,
+            instructors:list[Faculty], **kwargs):
+        self._course = course
         self._semester = semester
-        self._max_students = max_students
+        # self._max_students = max_students
         self._instructors = instructors
         self._students = []
         self._teaching_assistants = []
 
     @property
-    def course_class(self):
-        return self._course_class.copy()
-    
+    def course(self):
+        return self._course.copy()
+
     @property
     def semester(self):
-        return self._semester
+        return self._semester.copy()
     
     @property
-    def max_students(self):
-        return self._max_students
-    
+    def total_students(self)->int:
+        return len(self._students)
+
     @property
     def instructors(self):
         return [instructor.copy() for instructor in self._instructors]
@@ -113,10 +82,7 @@ class CourseInstance:
     
     @property
     def course_code(self):
-        return self._course_class.course.course_code
-
-    def set_max_students(self, max_students:int):
-        self._max_students = max_students
+        return self._course.course_code
 
     def set_instructors(self, instructors:list):
         self._instructors = instructors
@@ -130,8 +96,6 @@ class CourseInstance:
     def add_student(self, student:Student):
         """Add a student to the course if the course is not full and the student
         is not already in the course."""
-        if len(self._students) >= self._max_students:
-            raise CourseFullError
         if student in self._students:
             raise UserAlreadyEnrolledError
         if len(student.courses) >= 4:
@@ -163,6 +127,58 @@ class CourseInstance:
     def remove_instructor(self, instructor:Faculty):
         """Remove an instructor from the course."""
         self._instructors.remove(instructor)
+
+class CourseClass:
+    def __init__(self, course_instance:CourseInstance, class_id:int, 
+            max_students:int, student_type:str, uww:bool):
+        self._course_instance = course_instance
+        self._class_id = class_id
+        self._max_students = max_students
+        self._students = []
+        self._student_type = self.validate_student_type(course_instance.course, student_type)
+        self._uww = uww
+
+    @staticmethod
+    def validate_student_type(course:Course, student_type:str):
+        if student_type not in course.student_types:
+            raise InvalidStudentTypeError(f'Student type `{student_type}` not found in course `{course.course_code}`')
+        return student_type
+        
+    @property
+    def course_instance(self):
+        return self._course_instance.copy()
+
+    @property
+    def course(self):
+        return self._course_instance.course
+
+    @property
+    def class_id(self):
+        return self._class_id
+    
+    @property
+    def student_type(self):
+        return self._student_type
+    
+    @property
+    def uww(self):
+        return self._uww
+    
+    def set_uww(self, uww:bool):
+        self._uww = uww
+
+    def add_student(self, student:Student):
+        """Add a student to the course if the course is not full and the student
+        is not already in the course."""
+        if len(self._students) >= self._max_students:
+            raise CourseFullError
+        if student in self._students:
+            raise UserAlreadyEnrolledError
+        if len(student.courses) >= 4:
+            raise MaxCoursesError
+        self._students.append(student)
+        #student.courses.append(self)
+
 
 class CourseFullError(Exception):
     """Exception raised when a student tries to enroll in a course that is full."""
