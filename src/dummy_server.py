@@ -25,6 +25,11 @@ class UserNotFoundError(Exception):
         msg = f'User `{username}` not found'
         super().__init__(msg, *args, **kwargs)
 
+class FieldNotFoundError(Exception):
+    def __init__(self, field:str, *args, **kwargs):
+        msg = f'Field `{field}` not found'
+        super().__init__(msg, *args, **kwargs)     
+
 class UnauthorizedError(Exception):
     pass
 
@@ -326,7 +331,6 @@ def set_grade(grades:dict, course_code: str, payload:dict, auth_token_str:str):
                 raise UserNotFoundError(id)
     return True
 
-
 def set_marks(marks:dict, exam:str, course_code:str, payload:dict, auth_token_str:str):
     """Set marks for an exam
 
@@ -362,14 +366,78 @@ def set_marks(marks:dict, exam:str, course_code:str, payload:dict, auth_token_st
                 raise UserNotFoundError(id)
     return True
 
-def set_course_instance(payload:dict, auth_token_str:str):
-    # for instructors
-    pass
+def set_course_instance(course_info:dict, course_code:str, payload:dict, auth_token_str:str):
+    """For instructors to set course details for the current semester
+
+    Args:
+        course_info (dict): Course details to be updated
+        course_code (str): It must be in the format of "DEPT_CODE COURSE_NUMBER"
+        payload (dict): _description_
+        auth_token_str (str): A valid auth token string
+
+    Returns:
+        _type_: bool
+    """
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('CURR_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0], 
+                            'course_number': course_code.split()[1]}
+        doc = collection.find_one(filter_condition)
+
+        collection.update_one(filter_condition, {'$set': course_info})
+    return True
 
 
-def set_course(payload:dict, auth_token_str:str):
-    # for admins
-    pass
+def set_course(course_info:dict, course_code:str, payload:dict, auth_token_str:str):
+    """For admins to set course details
+
+    Args:
+        course_info (dict): Course details to be updated
+        course_code (str): It must be in the format of "DEPT_CODE COURSE_NUMBER"
+        payload (dict): _description_
+        auth_token_str (str): A valid auth token string
+
+    Returns:
+        _type_: bool
+    """
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('ALL_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0],
+                            'course_number': course_code.split()[1]}
+        doc = collection.find_one(filter_condition)
+
+        collection.update_one(filter_condition, {'$set': course_info})
+    return True
+
+def create_user(user_info:dict, auth_token_str:str):
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('CURR_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0], 
+                            'course_number': course_code.split()[1]}
+        doc = collection.find_one(filter_condition)
+        students = doc['students']
+        for id in marks.keys():
+            if id in students.keys():
+                students[id]['test_scores'][exam] = Decimal128(str(marks[id]))
+                collection.update_one(filter_condition, {'$set': {'students': students}})
+            else:
+                raise UserNotFoundError(id)
+    return True
 
 
 
@@ -420,7 +488,12 @@ def main():
     # get_course("COMPSCI 520", token_stu)
     # set_grade({'bob123': 'A'}, "COMPSCI 520", {'username': 'fcowboy'}, token)
     # set_marks({'bob123': 100}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
+    # set_course_instance({'description': 'Introduces students to the principal activities and state-of-the-art techniques involved in developing high-quality software systems'}, 
+    #                     "COMPSCI 520", {'username': 'fcowboy'}, token)
 
+
+    
+    
 
 
 if __name__ == '__main__':
