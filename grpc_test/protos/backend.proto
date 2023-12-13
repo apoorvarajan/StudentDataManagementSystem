@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+service SDMS_Backend {
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc GetGrade (GradeRequest, OtherInfo) returns (GradeReply) {}
+    rpc SetCourse (CourseInfoRequest) returns (CourseInfoReply) {}
+}
+
+message CourseInfoRequest {
+    string user_id = 1;
+    string course_id = 2;
+    int year = 3;
+    int n_credits = 4;
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+message GradeRequest {
+    string user_id = 1;
+    string course_id = 2;
+    int year = 3;
+}
+
+message OtherInfo {
+    string user_id = 1;
+    string course_id = 2;
+    int year = 3;
+    int n_credits = 4;
+}
+
+message GradeReply {
+    string grade = 1;
+}
