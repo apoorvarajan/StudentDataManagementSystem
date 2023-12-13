@@ -16,7 +16,7 @@ const SignUpForAlerts = (props:any) => {
                     </div>
                     <div className="profile-content">
                         johndoe@umass.edu <br />
-                        jackjill@umass.edu
+                        johnd@gmail.com
                     </div>
                 </div>
                 

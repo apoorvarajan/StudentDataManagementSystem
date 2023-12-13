@@ -1,68 +1,69 @@
 import React from 'react'
 
-const PersonalInformation = () =>{
-    let tableheads=["Class","Description","Units","Grade","Grade Points"]
-    let gradeArray={
-        "Fall 2023":[{
-            "class":"COMPSCI520",
-            "description":"Software Engineering",
-            "units":"3",
-            "letter grade":"",
-            "grade points":""
-        },
-        {
-            "class":"COMPSCI687",
-            "description":"Reinforcement Learning",
-            "units":"3",
-            "letter grade":"",
-            "grade points":""
-        }],
-        "Spring 2024":[{
-            "class":"COMPSCI589",
-            "description":"Machine Learning",
-            "units":"3",
-            "letter grade":"A-",
-            "grade points":"11.1"
-        },
-        {
-            "class":"COMPSCI532",
-            "description":"Systems for Data Science",
-            "units":"3",
-            "letter grade":"A",
-            "grade points":"12"
-        }]
-    }
-    return <div className="course-history-section">
-        <div>
-            {
-               Object.entries(gradeArray).map((elem,index) =>{
-                   return <div>
-                                <div className="grade-term-head">{elem[0]}</div>
-                                <table className="ch-table">
-                                    <thead>
-                                        <tr className="ch-rowhead">
-                                            {tableheads.map((elem, index) => (
-                                                    <td className="ch-row-head-elem">{elem}</td>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {elem[1].map((entry:any,index:any)=>{
-                                            return <tr key={index} className="ch-row">
-                                                <td className="ch-elem">{entry.class}</td>
-                                                <td className="ch-elem">{entry.description}</td>
-                                                <td className="ch-elem">{entry.units}</td>
-                                                <td className="ch-elem">{entry["letter grade"]}</td>
-                                                <td className="ch-elem">{entry["grade points"]}</td>
-                                        </tr>
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-               })
-            }
-        </div>
-    </div>
+const PersonalInformation = (props:any) => {
+    return <div  className="profile-right-section" >
+                <div>
+                    <div className="profile-label">
+                    Name:
+                    </div>
+                    <div className="profile-content">
+                        John Doe
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    Pronouns:
+                    </div>
+                    <div className="profile-content">
+                        he/him
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    Address:
+                    </div>
+                    <div className="profile-content">
+                    Physical Address: 880, South Pleasant Street, Apt. No. 11 <br />
+                    City: Amherst  State: MA  Postal: 01002
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    Emergency Contact:
+                    </div>
+                    <div className="profile-content">
+                        Contact Name: Jack Doe <br />
+                        Relationship: Friend <br />
+                        Telephone: +1413123456
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    Non-UMass Email:
+                    </div>
+                    <div className="profile-content">
+                        johnd@gmail.com
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    Phone:
+                    </div>
+                    <div className="profile-content">
+                    +1413224765
+                    </div>
+                </div>
+                <div>
+                    <div className="profile-label">
+                    UMass Amherst Emergency Alerts:
+                    </div>
+                    <div className="profile-content">
+                        UMass email id: johndoe@umass.edu
+                        Non-UMass email id: johnd@gmail.com
+                        Phone: +1413224765
+                    </div>
+                </div>
+                
+            </div>
 }
-
 export default PersonalInformation
