@@ -16,13 +16,13 @@
     display: flex;
 }
 .dashboard-item{
-    width: 25%;
-    height: 10em;
+    width: 30%;
+    /* height: 10em; */
     font-weight: bold;
     font-size: 1.5em;
     text-align: center;
     border: 5px solid white;
-    background-color: darkred;
+    background-color: rgba(111,45,79);
     color: white;
     margin: 2em;
     display: flex;
@@ -53,4 +53,11 @@
     font-family: 'Dancing Script', cursive;
     font-size: 19px;
     padding: 25px 1em 0em 1em;
+}
+.dashbpoard-wrap{
+    /* display: flex; */
+    height: 100%;
+}
+.dashboard-right-sec{
+    width: 100%;
 }

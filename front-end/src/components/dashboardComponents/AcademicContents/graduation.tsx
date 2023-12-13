@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Graduation = () =>{
-    return <div></div>
+    return <div>
+    </div>
 }
 
 export default Graduation
