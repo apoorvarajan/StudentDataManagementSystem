@@ -1,4 +1,4 @@
-{"username":"bob123", "password":"aaaa", "fullname":"Bob Smith", "email":"bob123@email.com", "roles":["student"]}
+{"username":"bob123", "password":"aaaa", "name": {"first_name":"Bob", "middle_name":"", "last_name":"Smith"}, "address":{"line1":"Brittany Manor Dr", "city":"Amherst", "state":"MA", "zip_code":"01002"}, "email":"bob123@email.com", "roles":["student"]}
 {"username":"jill.jones", "password":"j1ll", "fullname":"Jill Jones", "email":"jill.jones@email.com", "roles":["student", "teaching_assistant"]}
 {"username":"tommy", "password":"t0mmy", "fullname":"Tommy Lee Jones", "email":"tljones@email.com", "roles":["instructor"]}
 {"username":"admin", "password":"admin", "fullname":"Admin", "email":"admin@localhost", "roles":["admin"]}

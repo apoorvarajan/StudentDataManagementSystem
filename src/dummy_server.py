@@ -181,8 +181,7 @@ def get_student(db_name:str, collection_name:str,
         )
 
 
-def get_course_grade(student_id:str,
-        course_code: str, payload:dict, auth_token_str:str):
+def get_course_grade(student_id:str, course_code: str, auth_token_str:str):
     """Get the grade for a student in a course
 
     Args:
