@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 
 import '../../styles/profile.css';
-import infoForAlerts from './ProfileContents/signUpForAlerts';
-import studentPersonalInfo from './ProfileContents/personalInformation';
-import ITAccounts from './ProfileContents/ITAccountsAndPassword';
+import SignUpForAlerts from './ProfileContents/signUpForAlerts';
+import PersonalInformation from './ProfileContents/personalInformation';
+import ITAccountsAndPassword from './ProfileContents/ITAccountsAndPassword';
 
 
 const ProfileMain = (props: any) => {
@@ -21,21 +21,21 @@ const ProfileMain = (props: any) => {
       <div className="home-header-wrap">
         <div className="home-heading-text">{sectionId}</div>
       </div>
-      <div className="academics-section-wrap">
-        <div className="academics-left-section">
+      <div className="profile-section-wrap">
+        <div className="profile-left-section">
           {sections.map((item) => (
             <div
               key={item}
-              className="academic-sec-item"
+              className="profile-sec-item"
               onClick={() => selectSection(item)}
             >
               {item}
             </div>
           ))}
         </div>
-        {sectionId === 'Sign Up For Alerts' && <infoForAlerts />}
-        {sectionId === 'Personal Information' && <studentPersonalInfo />}
-        {sectionId === 'IT Accounts and Password' && <ITAccounts />}
+        {sectionId === 'Sign Up For Alerts' && <SignUpForAlerts />}
+        {sectionId === 'Personal Information' && <PersonalInformation />}
+        {sectionId === 'IT Accounts and Password' && <ITAccountsAndPassword />}
 
       </div>
     </div>
