@@ -7,12 +7,13 @@ import logging
 import jwt
 from dotenv import load_dotenv
 import os
+import json
 
 from server.password_auth import hash_password, check_password, validate_password
 from server.course import CourseInstance, CourseClass, Course
 from server.department import Department
 from server.auth_token import AuthToken
-from server.resources import *
+# from server.resources import *
 from server.semester import Semester, Season
 from server.user import Faculty, Student
 
@@ -128,13 +129,13 @@ def update_course_grade(db_name:str, student_id:str,
     
     # Authorize the user
     token = AuthToken(auth_token_str)
-    resource = StudentGradeResource(student_id, course)
+    # resource = StudentGradeResource(student_id, course)
 
-    if not token.role.can_read(resource):
-        raise UnauthorizedError()
+    # if not token.role.can_read(resource):
+    #     raise UnauthorizedError()
     
-    if not token.role.can_write(resource):
-        raise UnauthorizedError()
+    # if not token.role.can_write(resource):
+    #     raise UnauthorizedError()
     
     with MongoClient(
             os.getenv('MONGO_URI'), 
@@ -152,31 +153,6 @@ def update_course_grade(db_name:str, student_id:str,
 
         print(f'Updated grade for {payload["username"]}')
 
-def view_course_grade(db_name:str, student_id:str,
-        auth_token_str:str, course:CourseInstance, payload:dict):
-    
-    with MongoClient(
-            os.getenv('MONGO_URI'), 
-            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
-        ) as client:
-
-        # Authorize the user
-        token = AuthToken(auth_token_str)
-        resource = StudentGradeResource(student_id, course)
-
-        if not token.role.can_read(resource):
-            raise UnauthorizedError()
-
-        # if not token.role.can_write(resource):
-        #     raise UnauthorizedError()
-
-        # Update the course grade
-        db = client[db_name]
-        collection = db[course.course_code]
-        data = collection.find_one({'username': payload['username']})
-
-        print(f'Grade for {payload["username"]}: {data["grade"]}')
-
 def get_student(db_name:str, collection_name:str,
         username:str, auth_token_str:str):
     
@@ -188,65 +164,185 @@ def get_student(db_name:str, collection_name:str,
         # Authorize the user
         token = AuthToken(auth_token_str)
         data = get_user(db_name, collection_name, username)
-        resource = UserResource(data)
+        # resource = UserResource(data)
 
-        if not token.role.can_read(resource):
-            raise UnauthorizedError()
+        # if not token.role.can_read(resource):
+        #     raise UnauthorizedError()
         
         return Student(
             data['username'],
             **data
         )
 
-def get_course(db_name:str, dept_code:str, course_code:str, auth_token_str:str):
-    with MongoClient(
-            os.getenv('MONGO_URI'), 
-            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
-        ) as client:
 
-        db = client[db_name]
-        course_coll = db['course_details']
-        dept_coll = db['departments']
-        print(dept_code, course_code)
-        course_data = course_coll.find_one(
-            {'department': dept_code, 'course_number': course_code})
-        # cd = course_coll.find_one()
-        # print(cd)
-        dept_data = dept_coll.find_one({'_id': dept_code})
-        resource = CourseResource(dept_data, course_data)
-        token = AuthToken(auth_token_str)
+def get_course_grade(student_id:str,
+        course_code: str, payload:dict, auth_token_str:str):
+    """Get the grade for a student in a course
 
-        if not token.role.can_read(resource):
-            raise UnauthorizedError()
-        
-        return Course(**course_data)
+    Args:
+        student_id (str): Role of the user
+        course_code (str): Must be in the format of "DEPT_CODE COURSE_NUMBER"
+        payload (dict): _description_
+        auth_token_str (str): A valid auth token string
+
+    Raises:
+        UserNotFoundError: If the user is not found in the database
     
-def get_course_instance(db_name:str, dept_code:str, course_code:str, auth_token_str:str):
-    course = get_course(db_name, dept_code, course_code, auth_token_str)
-    season = getattr(Season, os.getenv('CURR_SEASON').upper())
-    semester = Semester(season, os.getenv('CURR_YEAR'))
+    Returns:
+        _type_: str   
+    """
+    
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+        
+        try:
+            db = client[os.getenv('ACADEMICS_DB')]
+            collection = db[os.getenv('CURR_COURSES_COLL')]
+            filter_condition = {'department': course_code.split(" ")[0], 
+                                'course_number': course_code.split()[1]}
+            doc = collection.find_one(filter_condition)
+            stu_grade = doc['students'][payload['username']]['course_grade']
+            print(f'Grade for {payload["username"]}: {stu_grade}') 
+        except:
+            raise UserNotFoundError(payload['username'])
+        
+    return stu_grade
+ 
+def get_course(course_code:str, auth_token_str:str):
+    """Get all the courses in a department
+
+    Args:
+        course_code (str): Must be in the format of "DEPT_CODE COURSE_NUMBER"
+        auth_token_str (str): A valid auth token string
+
+    Returns:
+        _type_: list of dict
+    """
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('ALL_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0]}
+        projection = {"_id": 0} #exclude id
+        dept_courses = list(collection.find(filter_condition, projection))
+
+    return dept_courses
+        
+def get_course_instance(course_code:str, auth_token_str:str):
+    """ Get the course instance details for the current semester
+
+    Args:
+        course_code (str): Must be in the format of "DEPT_CODE COURSE_NUMBER"
+        auth_token_str (str): A valid auth token string
+
+    Returns:
+        _type_: _description_
+    """
+    # course = get_course(db_name, dept_code, course_code, auth_token_str)
+    # season = getattr(Season, os.getenv('CURR_SEASON').upper())
+    # semester = Semester(season, os.getenv('CURR_YEAR'))
 
     with MongoClient(
             os.getenv('MONGO_URI'), 
             server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
         ) as client:
 
-        db = client[db_name]
-        course_inst_coll = db['course_data']
-        course_inst_data = course_inst_coll.find_one(
-            {'department': dept_code, 'course_number': course_code})
-        
-        resource = CourseInstanceResource(course_inst_data)
-        token = AuthToken(auth_token_str)
-        
-        if not token.role.can_read(resource):
-            raise UnauthorizedError()
-        
-        return CourseInstance(course, semester, **course_inst_data)
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('CURR_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0], 
+                            'course_number': course_code.split()[1]}
 
-def get_course_details(client:MongoClient, db_name:str, collection_name:str,
-        course_code:str, student:Student):
-    ...
+        projection = {"_id": 0, "instructors": 1, "exam_details": 1, "department": 1, 
+                      "grade_threshold": 1, "course_number": 1, 
+                      "sections": 1, "teaching_assistants": 1}
+        course_inst = collection.find_one(filter_condition, projection)
+    
+    return course_inst
+        
+def requirement_calc():
+    pass
+
+def set_personal_details(payload:dict, details:dict, auth_token_str:str):
+    """Set the personal details for a user
+
+    Args:
+        payload (dict): _description_
+        details (dict): personal details to be updated
+        auth_token_str (str): A valid auth token string
+    
+    Returns:
+        _type_: bool
+    """
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('USERS_DB')]
+        collection = db[os.getenv('USERS_COLL')]
+        
+    return True
+
+def get_personal_details(payload:dict, auth_token_str:str):
+    pass
+
+def set_grade(grades:dict, course_code: str, payload:dict, auth_token_str:str):
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('CURR_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0], 
+                            'course_number': course_code.split()[1]}
+        doc = collection.find_one(filter_condition)
+        students = doc['students']
+        for id in grades.keys():
+            if id in students.keys():
+                students[id]['course_grade'] = grades[id]
+                collection.update_one(filter_condition, {'$set': {'students': students}})
+            else:
+                raise UserNotFoundError(id)
+    return True
+
+
+def set_marks(marks:dict, exam:str, course_code:str, payload:dict, auth_token_str:str):
+    # set the marks for a student
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[os.getenv('ACADEMICS_DB')]
+        collection = db[os.getenv('CURR_COURSES_COLL')]
+        filter_condition = {'department': course_code.split(" ")[0], 
+                            'course_number': course_code.split()[1]}
+        doc = collection.find_one(filter_condition)
+        students = doc['students']
+        for id in marks.keys():
+            if id in students.keys():
+                students[id]['test_scores'][exam] = marks[id]
+                collection.update_one(filter_condition, {'$set': {'students': students}})
+            else:
+                raise UserNotFoundError(id)
+    return True
+
+def set_course_instance(payload:dict, auth_token_str:str):
+    # for instructors
+    pass
+
+
+def set_course(payload:dict, auth_token_str:str):
+    # for admins
+    pass
+
+
 
 
 def main():
@@ -283,14 +379,20 @@ def main():
     # course_class = CourseClass(course, '20145', 'GRAD', False)
     # course_instance = CourseInstance(course_class, semester, 50, [instructor])
     # student = Student('bob123', 'Bob', None, 'Smith', None, None, 'UGRAD', 2019, 2023, 'BS', 'CS', None, None, dept, None)
-    course_instance = get_course_instance('academics', 'COMPSCI', '520', token)
+    # course_instance = get_course_instance('academics', 'COMPSCI', '520', token)
 
 
     # update_course_grade('sdms', stu_from_inst, token, course_instance, {'username': 'bob123', 'grade': 3.0})
-    # view_course_grade('sdms', student, token_stu, course_instance, {'username': 'bob123'})
-
     # refresh_collection('sdms', 'users', 'dummy_users.jsonl')
     # reset_password(client, 'sdms', 'users', 'tommy', '2t0mmy') 
+    # ------
+    # get_course_grade(student, "COMPSCI 520", {'username': 'bob123'}, token_stu)
+    # get_course_instance('COMPSCI 520', token_stu)
+    # get_course("COMPSCI 520", token_stu)
+    # set_grade({'bob123': 'A'}, "COMPSCI 520", {'username': 'fcowboy'}, token)
+    set_marks({'bob123': 100.0}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
+
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

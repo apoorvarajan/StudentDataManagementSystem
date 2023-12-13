@@ -1,4 +1,4 @@
-from server.resources import BaseResource
+# from server.resources import BaseResource
 
 class Role:
     def __init__(self, role_type, identifier):
@@ -13,8 +13,8 @@ class Role:
     def identifier(self):
         return self._identifier
 
-    def can_read(self, resource:BaseResource)->bool:
-        return resource.associated_with(self)
+    # def can_read(self, resource:BaseResource)->bool:
+    #     return resource.associated_with(self)
 
-    def can_write(self, resource:BaseResource)->bool:
-        return resource.owner(self)
+    # def can_write(self, resource:BaseResource)->bool:
+    #     return resource.owner(self)
