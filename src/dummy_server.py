@@ -242,7 +242,7 @@ def get_course_instance(course_code:str, auth_token_str:str):
         auth_token_str (str): A valid auth token string
 
     Returns:
-        _type_: _description_
+        _type_: dict
     """
     # course = get_course(db_name, dept_code, course_code, auth_token_str)
     # season = getattr(Season, os.getenv('CURR_SEASON').upper())
@@ -293,6 +293,20 @@ def get_personal_details(payload:dict, auth_token_str:str):
     pass
 
 def set_grade(grades:dict, course_code: str, payload:dict, auth_token_str:str):
+    """Set grades for all students in a course
+
+    Args:
+        grades (dict): Grades for all students in the course
+        course_code (str): It must be in the format of "DEPT_CODE COURSE_NUMBER"
+        payload (dict): _description_
+        auth_token_str (str): A valid auth token string
+
+    Raises:
+        UserNotFoundError: If the user is not found in the database
+
+    Returns:
+        _type_: bool
+    """
     with MongoClient(
             os.getenv('MONGO_URI'), 
             server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
@@ -314,7 +328,21 @@ def set_grade(grades:dict, course_code: str, payload:dict, auth_token_str:str):
 
 
 def set_marks(marks:dict, exam:str, course_code:str, payload:dict, auth_token_str:str):
-    # set the marks for a student
+    """Set marks for an exam
+
+    Args:
+        marks (dict): Marks for all students in the course
+        exam (str): Exam name
+        course_code (str): It must be in the format of "DEPT_CODE COURSE_NUMBER"
+        payload (dict): _description_
+        auth_token_str (str): A valid auth token string
+
+    Raises:
+        UserNotFoundError: If the user is not found in the database
+
+    Returns:
+        _type_: bool
+    """
     with MongoClient(
             os.getenv('MONGO_URI'), 
             server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
@@ -391,7 +419,7 @@ def main():
     # get_course_instance('COMPSCI 520', token_stu)
     # get_course("COMPSCI 520", token_stu)
     # set_grade({'bob123': 'A'}, "COMPSCI 520", {'username': 'fcowboy'}, token)
-    set_marks({'bob123': 100}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
+    # set_marks({'bob123': 100}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
 
 
 
