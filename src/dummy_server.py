@@ -8,6 +8,7 @@ import jwt
 from dotenv import load_dotenv
 import os
 import json
+from bson import Decimal128
 
 from server.password_auth import hash_password, check_password, validate_password
 from server.course import CourseInstance, CourseClass, Course
@@ -327,7 +328,7 @@ def set_marks(marks:dict, exam:str, course_code:str, payload:dict, auth_token_st
         students = doc['students']
         for id in marks.keys():
             if id in students.keys():
-                students[id]['test_scores'][exam] = marks[id]
+                students[id]['test_scores'][exam] = Decimal128(str(marks[id]))
                 collection.update_one(filter_condition, {'$set': {'students': students}})
             else:
                 raise UserNotFoundError(id)
@@ -390,7 +391,7 @@ def main():
     # get_course_instance('COMPSCI 520', token_stu)
     # get_course("COMPSCI 520", token_stu)
     # set_grade({'bob123': 'A'}, "COMPSCI 520", {'username': 'fcowboy'}, token)
-    set_marks({'bob123': 100.0}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
+    set_marks({'bob123': 100}, 'exam1', "COMPSCI 520", {'username': 'fcowboy'}, token)
 
 
 
