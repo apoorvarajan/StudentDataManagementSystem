@@ -15,17 +15,18 @@ dependencies = [
     "ortools"]
 requires-python = ">=3.8"
 authors = [
-  {name = "Lakshita Bhargava", email = "email@example.com"},
-  {name = "Kartik Choudhary", email = "kartikchoudh@umass.edu"},
-  {name = "Shreeya Patil", email = "email@example.com"},
-  {name = "Apoorva Rajan", email = "email@example.com"}]
+    {name = "Quad-Coders"},
+    {name = "Lakshita Bhargava", email = "email@example.com"},
+    {name = "Kartik Choudhary", email = "kartikchoudh@umass.edu"},
+    {name = "Shreeya Patil", email = "email@example.com"},
+    {name = "Apoorva Rajan", email = "email@example.com"}]
 description = "Backend server for the Student Data Management System"
 readme = "README.rst"
 license = {file = "LICENSE.txt"}
 keywords = ["Student Management", "Academics", "COMPSCI 520"]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python"
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python"
 ]
 
 [project.urls]
