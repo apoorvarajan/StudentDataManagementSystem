@@ -38,6 +38,7 @@ const callStudentCourses = (data:any) => {
 const userAuth = async (data:any) => {
     let res:any = await callLogin(data)
     sessionStorage.setItem("token",res.array[1])
+    sessionStorage.setItem("uId",data.userId)
     window.location.href=`/dashboard?id=${data.userId}`
 
 }

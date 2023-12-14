@@ -28,24 +28,27 @@ class Dashboard extends React.Component<any,any>{
              ((hours <= 18 && hours >= 12 ) ? "Good Afternoon " : "Good Evening ");
     const datestring=today_date.toDateString()
     let sname = sdetails && sdetails.name && sdetails.name.firstName
+    let studentId=window.location.search
+    let url_param = new URLSearchParams(studentId)
+    let uId=url_param.get("id")
     let dashBoardSections = ["Profile","Academics","Course Planning Assistant"]
     let dashboardList=[
         [{
-            'Sign Up For Alerts':"/profile#alert",
-            'Personal Information':"/profile#pInfo",
-            'IT Accounts and Password':"/profile#itacc"
+            'Sign Up For Alerts':"/profile?"+uId+"#alert",
+            'Personal Information':"/profile?"+uId+"#pInfo",
+            // 'IT Accounts and Password':"/profile#itacc"
         }],
         [{
-            "Academic Summary":"/academics#summary",
-            "Grades":"/academics#grades",
-            "Course History":"/academics#chist",
-            "Transcript Request":"/academics#treq",
-            "Graduation":"/academics#grad"
+            "Academic Summary":"/academics?"+uId+"#summary",
+            "Grades":"/academics?"+uId+"#grades",
+            "Course History":"/academics?"+uId+"#chist",
+            "Transcript Request":"/academics?"+uId+"#treq",
+            "Graduation":"/academics?"+uId+"#grad"
         }],
         [{
-            "Current Courses":"/cpa#ccourses",
-            "Check Requirement":"/cpa#req",
-            "Browse all courses":"/cpa#browse"
+            "Current Courses":"/cpa?"+uId+"#ccourses",
+            "Check Requirement":"/cpa?"+uId+"#req",
+            "Browse all courses":"/cpa?"+uId+"#browse"
         }]
     ]
     return <div className="dashboard-page">

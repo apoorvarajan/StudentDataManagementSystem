@@ -52,10 +52,10 @@ class AcademicMain extends React.Component<any,any>{
             </div>
             </div>
             <div>
-            {hash === "#grades" && sdetails ? <AcademicGrades />:
+            {hash === "#grades" && sdetails ? <AcademicGrades scourses={scourses}/>:
                     hash === "#chist" && sdetails ? <CourseHistory scourses={scourses}/> : 
                     hash === "#treq" && sdetails ? <TranscriptRequest/>:
-                    hash === "#grad" && sdetails ? <Graduation/>:
+                    hash === "#grad" && sdetails ? <Graduation  sdetails={sdetails}/>:
                     sdetails && <AcademicSummary sdetails={sdetails}/>}
             </div>
         </div>
