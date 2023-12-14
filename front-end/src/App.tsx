@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard'
 import AcademicMain from './components/dashboardComponents/AcademicMain'
 import ManageClasses from './components/dashboardComponents/ManageClasses'
 import CoursePlanningAssistant from './components/dashboardComponents/CoursePlanningAssistant'
+import ProfileMain from './components/dashboardComponents/ProfileMain';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/academics" element={<AcademicMain />}/>
             <Route path="/manageclass" element={<ManageClasses />}/>
             <Route path="/cpa" element={<CoursePlanningAssistant />}/>
+            <Route path="/profile" element={<ProfileMain />}/>
           </Routes>
           </BrowserRouter>
     </div>

@@ -1,26 +1,30 @@
-.academics-section-wrap{
+/* profile.css */
+
+.profile-section-wrap {
     position: absolute;
     bottom: 0;
     width: 100%;
     top: 0;
     display: flex;
     z-index: 10001;
-}
-.academics-left-section{
+  }
+  
+  .profile-left-section {
     width: 20%;
     background: black;
     height: 100%;
-    /* padding-top: 3em; */
     z-index: -1;
     color: white;
-}
-.academics-right-section{
+  }
+  
+  .profile-right-section {
     width: 70%;
     height: 100%;
     padding-top: 3em;
     text-align: center;
-}
-.academic-content{
+  }
+  
+  .profile-content {
     width: 100%;
     background: lightslategray;
     min-height: 3em;
@@ -31,13 +35,15 @@
     line-height: 3em;
     text-align: left;
     color: white;
-}
-.academic-label{
+  }
+  
+  .profile-label {
     text-align: left;
     margin: 1em;
     font-weight: bold;
-}
-.academic-sec-item{
+  }
+  
+  .profile-sec-item {
     height: 3em;
     line-height: 3em;
     border-top: 1px solid white;
@@ -48,84 +54,101 @@
     border-bottom-right-radius: 0.3em;
     border-right: 1px solid white;
     text-align: center;
-}
-.myclasses-wrap{
+  }
+  
+  .myclasses-wrap {
     margin: 3em;
     border: 1px solid lightblue;
     border-radius: 0.3em;
     padding: 1em;
-}
-.myclass-classtitle{
+  }
+  
+  .myclass-classtitle {
     background-color: lightblue;
     height: 2.5em;
     line-height: 2.5em;
     border-radius: 0.3em;
     margin-bottom: 2em;
-}
-.myclass-class-details{
+  }
+  
+  .myclass-class-details {
     border: 1px solid lightgray;
     border-radius: 0.3em;
     padding: 2em;
     text-align: left;
-}
-.myclass-details-elem{
+  }
+  
+  .myclass-details-elem {
     line-height: 2em;
-}
-.req-icon{
+  }
+  
+  .req-icon {
     width: 1em;
     margin-left: 1em;
-}
-.core-req-heading{
+  }
+  
+  .core-req-heading {
     height: 2em;
     font-size: 2em;
     margin: 1em 0em;
-}
-.core-req-wrap{
+  }
+  
+  .core-req-wrap {
     text-align: left;
     margin: 3em;
-}
-.core-req-item{
+  }
+  
+  .core-req-item {
     padding: 0.5em 1em;
-    background:lightblue;
+    background: lightblue;
     margin: 1em;
     border-radius: 0.3em;
-}
-.req-eligible-course{
+  }
+  
+  .req-eligible-course {
     background-color: darkred;
     color: white;
     text-align: center;
     padding: 0.2em 1em;
     border-radius: 0.3em;
-}
-.course-history-section{
+  }
+  
+  .course-history-section {
     margin: 10em;
     background-color: lightgray;
     border: 1px solid black;
-}
-.ch-table{
+  }
+  
+  .ch-table {
     border: 1px solid white;
     border-collapse: collapse;
     width: 100%;
-}
-.ch-rowhead{
+  }
+  
+  .ch-rowhead {
     height: 2em;
     font-weight: bold;
-}
-.ch-row-head-elem{
+  }
+  
+  .ch-row-head-elem {
     padding: 1em;
     border: 2px solid white;
     border-collapse: collapse;
-}
-.ch-row{
+  }
+  
+  .ch-row {
     height: 2em;
-}
-.ch-elem{
+  }
+  
+  .ch-elem {
     padding: 1em;
     border: 2px solid white;
     border-collapse: collapse;
-}
-.grade-term-head{
+  }
+  
+  .grade-term-head {
     font-weight: bold;
     padding: 1em;
     border-bottom: 2px solid darkred;
-}
+  }
+  
