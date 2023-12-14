@@ -116,9 +116,9 @@ def reset_password(db_name:str, collection_name:str,
         else:
             print('Password not updated')
 
-@permissions_required(
-    student=(is_self, is_enrolled_in_course),
-    instructor=(is_ta_or_instructor_of_course,))
+# @permissions_required(
+#     student=(is_self, is_enrolled_in_course),
+#     instructor=(is_ta_or_instructor_of_course))
 def get_course_grade(auth_token_str:str, /, *, user_id:str, course_code: str):
     """Get the grade for a student in a course
 
