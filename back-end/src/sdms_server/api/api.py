@@ -2,8 +2,9 @@ from sdms_server.database.db import get_one_document, get_multi_documents
 from sdms_server.exceptions.exceptions import *
 from sdms_server.authorization.permission import *
 from sdms_server.authorization.decorator import permissions_required
+from sdms_server.authentication.authentication import check_password
+import jwt
 import os
-from dotenv import load_dotenv
 
 @permissions_required(
     student=(is_self, is_enrolled_in_course),
@@ -19,4 +20,49 @@ def get_course_grade(auth_token_str:str, /, *, user_id:str, course_id: str)->str
         
     return result[user_id]['course_grade']
 
+def get_user(auth_token_str:str, /, *, user_id:str)->dict:
+    result = get_one_document(os.getenv('USERS_DB'), os.getenv('USERS_COLL'), {'username': user_id}, 
+                              {'_id': 0, 'name': 1, 'email': 1, 'address': 1, 'phone': 1})
 
+    if result is None:
+        raise UserNotFoundError(user_id)
+    
+    return result
+
+def get_student(auth_token_str:str, /, *, user_id:str)->dict:
+    result = get_one_document(os.getenv('USERS_DB'), os.getenv('STUDENTS_COLL'), {'username': user_id}, 
+                              {'_id': 0, 'advisor': 1, 'department': 1, 'degree': 1, 'gpa': 1, 'grad_sem': 1, 'grad_year': 1})
+    
+    if result is None:
+        raise UserNotFoundError(user_id)
+    
+    return result
+
+
+def get_student_details(auth_token_str:str, /, *, user_id:str)->dict:
+    user_details = get_user(auth_token_str, user_id=user_id)
+    student_details = get_student(auth_token_str, user_id=user_id)
+     
+    return {**user_details, **student_details}
+
+# def get_all_courses(auth_token_str:str, /, *, degree:str, department_id:str)->list:
+#     result = get_multi_documents(os.getenv('ACADEMICS_DB'), os.getenv('ALL_COURSES_COLL'), 
+
+def authenticate(user_id:str, password:str, role:str)->str:
+    try:
+        user_data = get_user("", user_id=user_id)
+        saved_pwd = user_data['password']
+        authenticated = check_password(password, saved_pwd)
+
+        if not authenticated:
+            raise InvalidPasswordError()
+
+        if role not in user_data['roles']:
+            raise UnauthorizedError()
+
+        print(f'Authenticated. First Name: {user_data["name"]["first_name"]}')
+        return jwt.encode({'username': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
+
+    except (InvalidPasswordError, UnauthorizedError) as e:
+        return False
+    
