@@ -23,8 +23,9 @@ const SideBar = () =>{
     ]
     return <div className="sidebar-section">
                 {dashBoardSections.map((item,key)=>{
+                    const mainurl =  Object.values(dashboardList[key][0])[0] as string
                     return <div>
-                                <div className="academic-sec-item">{item}</div>
+                                <div className="academic-sec-item" onClick={()=> window.location.href=mainurl}>{item}</div>
                                 {dashboardList[key].map((subitem:any)=>{
                                     return Object.entries(subitem).map(([key,value])=>{
                                         const url = value as string

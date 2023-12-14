@@ -27,9 +27,6 @@ const AcademicSummary = (props:any) => {
                             Credits earned: 18
                         </div>
                         <div>
-                            Transferred credits:0
-                        </div>
-                        <div>
                             CGPA:4.0
                         </div>
                     </div>
