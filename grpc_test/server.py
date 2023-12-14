@@ -7,7 +7,6 @@ import backend_pb2_grpc
 import re
 
 import requests
-from dummy_server import get_course_grade
 
 def get_public_ip():
     try:
@@ -26,8 +25,6 @@ def get_public_ip():
         print(f"Error: {e}")
         return None
 
-def validate_course_code(course_code):
-    pattern = re.compile(r'^[A-Z]+\s\d+$')
 
 
 
@@ -47,13 +44,8 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     #     #     return backend_pb2.HelloReply(message="Error")
         
     def GetGrade(self, request, context):
-        try:
-            assert validate_course_code(request.course_code)
-            value = get_course_grade(request.token, student_id=request.user_id, course_code=request.course_code)
-            return backend_pb2.GradeReply(message=value)
-        except AssertionError:
-            return backend_pb2.GradeReply(message="Invalid course code")
-
+            #value = get_course_grade(request.token, student_id=request.user_id, course_code=request.course_code)
+        return backend_pb2.GradeReply(grade="A")
 
 def serve():
     port = "50051"

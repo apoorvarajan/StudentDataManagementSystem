@@ -11,12 +11,13 @@ import json
 from bson import Decimal128
 
 from server.password_auth import hash_password, check_password, validate_password
-from server.course import CourseInstance, CourseClass, Course
-from server.department import Department
-from server.auth_token import AuthToken
-# from server.resources import *
-from server.semester import Semester, Season
-from server.user import Faculty, Student
+# from server.course import CourseInstance, CourseClass, Course
+# from server.department import Department
+# from server.auth_token import AuthToken
+# # from server.resources import *
+# from server.semester import Semester, Season
+# from server.user import Faculty, Student
+# from authorize import permissions_required, is_self, is_ta_or_instructor_of_course, is_instructor_of_course, is_ta_of_course, is_enrolled_in_course
 
 DATA_ROOT = Path('/workspaces/StudentDataManagementSystem/data/')
 
@@ -37,6 +38,20 @@ class InvalidPasswordError(Exception):
     pass
 
 def get_user(db_name:str, collection_name:str, username:str):
+    """FOR INTERNAL USE ONLY.
+    TO BE REMOVED
+
+    Args:
+        db_name (str): _description_
+        collection_name (str): _description_
+        username (str): _description_
+
+    Raises:
+        UserNotFoundError: _description_
+
+    Returns:
+        _type_: _description_
+    """
     with MongoClient(
             os.getenv('MONGO_URI'), 
             server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
@@ -63,7 +78,7 @@ def refresh_collection(db_name:str, collection_name:str, df_filename:str|Path):
 
         df : pd.DataFrame = pd.read_json(DATA_ROOT.joinpath(df_filename), lines=True)
         # df : pd.DataFrame = pd.read_csv(DATA_ROOT.joinpath(df_filename))
-        df.password = df.password.apply(hash_password)
+        #df.password = df.password.apply(hash_password)
         df = df.to_dict('records')
 
         # create a new collection and set username as unique
@@ -130,65 +145,16 @@ def reset_password(db_name:str, collection_name:str,
         else:
             print('Password not updated')
 
-def update_course_grade(db_name:str, student_id:str,
-        auth_token_str:str, course:CourseInstance, payload:dict):
-    
-    # Authorize the user
-    token = AuthToken(auth_token_str)
-    # resource = StudentGradeResource(student_id, course)
-
-    # if not token.role.can_read(resource):
-    #     raise UnauthorizedError()
-    
-    # if not token.role.can_write(resource):
-    #     raise UnauthorizedError()
-    
-    with MongoClient(
-            os.getenv('MONGO_URI'), 
-            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
-        ) as client:
-
-        # Update the course grade
-        db = client[db_name]
-        collection = db[course.course_code]
-        collection.update_one(
-            {'username': payload['username']}, 
-            {'$set': {'grade': payload['grade']}},
-            upsert=True
-        )
-
-        print(f'Updated grade for {payload["username"]}')
-
-def get_student(db_name:str, collection_name:str,
-        username:str, auth_token_str:str):
-    
-    with MongoClient(
-            os.getenv('MONGO_URI'), 
-            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
-        ) as client:
-    
-        # Authorize the user
-        token = AuthToken(auth_token_str)
-        data = get_user(db_name, collection_name, username)
-        # resource = UserResource(data)
-
-        # if not token.role.can_read(resource):
-        #     raise UnauthorizedError()
-        
-        return Student(
-            data['username'],
-            **data
-        )
-
-
-def get_course_grade(student_id:str, course_code: str, auth_token_str:str):
+# @permissions_required(
+#     student=(is_self, is_enrolled_in_course),
+#     instructor=(is_ta_or_instructor_of_course))
+def get_course_grade(auth_token_str:str, /, *, user_id:str, course_code: str):
     """Get the grade for a student in a course
 
     Args:
-        student_id (str): Role of the user
-        course_code (str): Must be in the format of "DEPT_CODE COURSE_NUMBER"
-        payload (dict): _description_
         auth_token_str (str): A valid auth token string
+        user_id (str): Role of the user
+        course_code (str): Must be in the format of "DEPT_CODE COURSE_NUMBER"
 
     Raises:
         UserNotFoundError: If the user is not found in the database
@@ -208,8 +174,8 @@ def get_course_grade(student_id:str, course_code: str, auth_token_str:str):
             filter_condition = {'department': course_code.split(" ")[0], 
                                 'course_number': course_code.split()[1]}
             doc = collection.find_one(filter_condition)
-            stu_grade = doc['students'][payload['username']]['course_grade']
-            print(f'Grade for {payload["username"]}: {stu_grade}') 
+            stu_grade = doc['students'][user_id]['course_grade']
+            print(f'Grade for {user_id}: {stu_grade}') 
         except:
             raise UserNotFoundError(payload['username'])
         
@@ -462,9 +428,9 @@ def main():
     except Exception as e:
         print(e)
 
-    token = authenticate('sdms', 'users', 'fcowboy', 'passw0rd', 'instructor')
-    token_stu = authenticate('sdms', 'users', 'bob123', 'aaaa', 'student')
-    student = get_student('sdms', 'users', 'bob123', token_stu)
+    # token = authenticate('sdms', 'users', 'fcowboy', 'passw0rd', 'instructor')
+    # token_stu = authenticate('sdms', 'users', 'bob123', 'aaaa', 'student')
+    # student = get_student('sdms', 'users', 'bob123', token_stu)
     # stu_from_inst = get_student('sdms', 'users', 'bob123', token)
     # dept = Department('COMPSCI', 'Computer Science', None)
     # course = Course(dept, '520', 'Software Engineering', 3, ['UGRAD', 'GRAD'])
@@ -479,6 +445,7 @@ def main():
 
 
     # update_course_grade('sdms', stu_from_inst, token, course_instance, {'username': 'bob123', 'grade': 3.0})
+    refresh_collection('sdms', 'students', 'dummy_students.jsonl')
     # refresh_collection('sdms', 'users', 'dummy_users.jsonl')
     # reset_password(client, 'sdms', 'users', 'tommy', '2t0mmy') 
     # ------
