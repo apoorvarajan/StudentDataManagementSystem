@@ -1,0 +1,66 @@
+{"userdata" : {
+    "users" : {
+        "user1" : {
+            "username" : "user1",
+            "email" : "user1@email.com",
+            "phone_number" : "1234567890"},
+        "user2" : {
+            "username" : "user2",
+            "email" : "user2@email.com",
+            "phone_number" : "1234567891"},
+        "user3" : {
+            "username" : "user3",
+            "email" : "user3@email.com",
+            "phone_number" : "1234567892"},
+        "user4" : {
+            "username" : "user4",
+            "email" : "user4@email.com",
+            "phone_number" : "1234567893"},
+        "user5" : {
+            "username" : "user5",
+            "email" : "user5@email.com",
+            "phone_number" : "1234567894"},
+        "user6" : {
+            "username" : "user6",
+            "email" : "user6@email.com",
+            "phone_number" : "1234567895"}},
+    "students" : {
+        "user1" : {
+            "dept" : "CSE",
+            "year_of_admission" : 2019,
+            "courses" : ["CSE101", "CSE102"],
+            "student_type" : "UGRAD"},
+        "user2" : {
+            "dept" : "CSE",
+            "year_of_admission" : 2022,
+            "courses" : ["CSE101"],
+            "student_type" : "GRAD"}},
+    "instructors" : {
+        "user3" : {
+            "dept" : "CSE",
+            "courses" : ["CSE101", "CSE102"]},
+        "user4" : {
+            "dept" : "CSE",
+            "courses" : ["CSE101"]}},
+    "tas" : {
+        "user5" : {
+            "dept" : "CSE",
+            "courses" : ["CSE101"]}},
+    "admins" : {
+        "user6" : {
+            "auth_level" : "superuser"}}},
+"academics" : {
+    "courses" : {
+        "CSE101" : {
+            "course_name" : "Introduction to Computer Science",
+            "course_code" : "CSE101",
+            "course_description" : "An introduction to computer science",
+            "grades" : {
+                "user1" : 90,
+                "user2" : 80}},
+        "CSE102" : {
+            "course_name" : "Introduction to Programming",
+            "course_code" : "CSE102",
+            "course_description" : "An introduction to programming",
+            "grades" : {
+                "user1" : 95}}}}}
