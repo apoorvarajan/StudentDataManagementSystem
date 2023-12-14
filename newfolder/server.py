@@ -2,11 +2,19 @@ from concurrent import futures
 import logging
 
 import grpc
-import backend_pb2
+import backend_pb2 
 import backend_pb2_grpc
 import re
 
 import requests
+
+# Helper method to convert a dictionary to a Name message
+def dict_to_name(name_dict):
+    return backend_pb2.Name(**name_dict)
+
+# Helper method to convert a dictionary to an Address message
+def dict_to_address(address_dict):
+    return backend_pb2.Address(**address_dict)
 
 def get_public_ip():
     try:
@@ -43,9 +51,23 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     #     # except AssertionError:
     #     #     return backend_pb2.HelloReply(message="Error")
         
-    def GetGrade(self, request, context):
-            #value = get_course_grade(request.token, student_id=request.user_id, course_code=request.course_code)
-        return backend_pb2.GradeReply(grade="A")
+    # def GetGrade(self, request, context):
+    #         #value = get_course_grade(request.token, student_id=request.user_id, course_code=request.course_code)
+    #     return backend_pb2.GradeReply(grade="A")
+    
+    # def Login(self, request, context):
+    #     return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
+    
+    def GetStudentDetails(self, request, context):
+        name_dict = {"first_name": "Bob", "middle_name": "", "last_name": "Smith"}
+        address_dict = {"line1": "123 Main St", "city": "Anytown", "state": "CA", "zip": "12345"}
+        
+        return backend_pb2.StudentDetailsReply(name="Bob", email_id = "bob123@email.com", phone = "413 489 6576", 
+                                               advisor="Pelizabeth Earolski", dept = "COMPSCI", degree = "MS",
+                                               gpa = "3.88", grad_sem = "Spring", grad_year = "2024")
+
+
+        
 
 def serve():
     port = "50051"

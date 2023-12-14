@@ -16,7 +16,7 @@ dependencies = [
 requires-python = ">=3.8"
 authors = [
     {name = "Quad-Coders"},
-    {name = "Lakshita Bhargava", email = "email@example.com"},
+    {name = "Lakshita Bhargava", email = "lbhargava@umass.edu"},
     {name = "Kartik Choudhary", email = "kartikchoudh@umass.edu"},
     {name = "Shreeya Patil", email = "email@example.com"},
     {name = "Apoorva Rajan", email = "email@example.com"}]

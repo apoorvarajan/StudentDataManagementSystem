@@ -1,7 +1,7 @@
 import os
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-from server.auth import AuthToken
+# from server.auth_token import AuthToken
 from server.errors import UnauthorizedError
 
 from abc import ABC, abstractmethod

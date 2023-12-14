@@ -3,3 +3,5 @@ pandas
 bcrypt
 pyjwt
 python-dotenv
+grpcio-tools
+ortools
