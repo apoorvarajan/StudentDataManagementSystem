@@ -4,21 +4,25 @@ import '../styles/home.css'
 import DashboardSummary from './dashboardComponents/dashboardSummary'
 import {GradeRequest, GradeReply} from '../proto/frontend_pb'
 import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
-
-const sdmsClient = new SDMS_BackendClient("http://" + "0.0.0.0" + ":8080");
+const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
 function getUsers() {
     return new Promise<GradeReply>((resolve, reject) => {
         const request = new GradeRequest();
         request.setUserId('bob123')
         request.setCourseCode("COMPSCI 520")
+        request.setToken('abc')
         sdmsClient
           .getGrade(request, null)
-          .then((message) => resolve(message))
+          .then((message) => {console.log(message.getGrade())})
           .catch((error) => reject(error));
       });
   }
+// function getUsers() {
+//     const res = fetch("http://localhost:5000/api/info")
+//     console.log(res)
+// }
 const Dashboard = (props:any)=>{
-    console.log(getUsers())
+    getUsers()
 
     const today_date = new Date()
     let hours = today_date.getHours();
