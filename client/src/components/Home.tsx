@@ -7,7 +7,7 @@ const login = () => {
     auth()
 }
 const HomeComponent = (props:any)=>{
-    login()
+    //login()
     const [option, setOption] = useState(0);
     return <div className="home-wrap">
         <div className="home-header-wrap">
