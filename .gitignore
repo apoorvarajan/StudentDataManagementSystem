@@ -1,0 +1,4 @@
+credentials.yml
+.env
+__pycache__/
+*.py[cod]
