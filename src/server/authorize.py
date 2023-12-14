@@ -10,7 +10,12 @@ class UnauthorizedError(Exception):
     """
 
 def decode_token(token:str, /)->dict:
-    return jwt.decode(token, os.getenv('JWT_SECRET'), algorithms=[os.getenv('JWT_ALGORITHM')])
+    decoded = jwt.decode(
+        token, os.getenv('JWT_SECRET'),
+        algorithms=[os.getenv('JWT_ALGORITHM')])
+    assert 'role' in decoded
+    assert 'user_id' in decoded
+    return decoded
 
 def is_enrolled_in_course(_user_id:str, /, *, course_id:str, **_kwargs)->bool:
     try:
@@ -49,23 +54,26 @@ def permissions_required(**permissions):
     """
     def decorator(func):
         def wrapper(_token, **kwargs):
-            print(f'Checking permissions for user `{_token["user_id"]}` with role `{_token["role"]}`...')
-            if _token['role'] not in permissions:
+            try:
+                decoded_token = decode_token(_token)
+            except (jwt.exceptions.PyJWTError, AssertionError) as e:
+                raise UnauthorizedError('Invalid token') from e
+            print(f'Checking permissions for user `{decoded_token["user_id"]}` with role `{decoded_token["role"]}`...')
+            if decoded_token['role'] not in permissions:
                 raise UnauthorizedError('Role not found')
             
-            for check in permissions[_token['role']]:
-                if not check(_token['user_id'], **kwargs):
+            for check in permissions[decoded_token['role']]:
+                if not check(decoded_token['user_id'], **kwargs):
                     raise UnauthorizedError('User not allowed')
 
-            print(f'User `{_token["user_id"]}` has permissions')
-            return func(_token, **kwargs)
+            print(f'User `{decoded_token["user_id"]}` has permissions')
+            return func(decoded_token, **kwargs)
         return wrapper
     return decorator
 
 @permissions_required(
     student = (is_self, is_enrolled_in_course),
-    instructor = (is_instructor_of_course,),
-    admin = ())
+    instructor = (is_instructor_of_course,))
 def view_grade(_token, /, *, user_id, course_id):
     """A function that requires permissions to run."""
     print(f'Viewing grade for user `{user_id}` in course `{course_id}`...')
@@ -80,7 +88,7 @@ def try_my_function(token, user_id, course_id):
     try:
         view_grade(token, user_id=user_id, course_id=course_id)
     except UnauthorizedError as e:
-        print(f'User `{token["user_id"]}` with role `{token["role"]}` is not authorized to run my_function: {e}')
+        print(f'User with token `{token[:10]}...` is not authorized to run my_function: {e}')
     print()
 
 def main():
