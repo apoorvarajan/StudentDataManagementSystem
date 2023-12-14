@@ -5,7 +5,7 @@ import './App.css';
 import HomeComponent from './components/Home'
 import Dashboard from './components/Dashboard'
 import AcademicMain from './components/dashboardComponents/AcademicMain'
-import ManageClasses from './components/dashboardComponents/ManageClasses'
+import ProfileMain from './components/dashboardComponents/ProfileMain'
 import CoursePlanningAssistant from './components/dashboardComponents/CoursePlanningAssistant'
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<HomeComponent />} />
             <Route path="/dashboard" element={<Dashboard />}/>
             <Route path="/academics" element={<AcademicMain />}/>
-            <Route path="/manageclass" element={<ManageClasses />}/>
+            <Route path="/profile" element={<ProfileMain />}/>
             <Route path="/cpa" element={<CoursePlanningAssistant />}/>
           </Routes>
           </BrowserRouter>
