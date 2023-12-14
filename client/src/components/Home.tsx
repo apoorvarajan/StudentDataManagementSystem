@@ -1,8 +1,13 @@
 import React, {useState} from 'react'
 import '../styles/home.css'
 import LoginModal from './LoginModal'
+import auth from '../controller/apiCalls'
 
+const login = () => {
+    auth()
+}
 const HomeComponent = (props:any)=>{
+    login()
     const [option, setOption] = useState(0);
     return <div className="home-wrap">
         <div className="home-header-wrap">

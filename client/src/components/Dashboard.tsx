@@ -17,10 +17,6 @@ function getUsers() {
           .catch((error) => reject(error));
       });
   }
-// function getUsers() {
-//     const res = fetch("http://localhost:5000/api/info")
-//     console.log(res)
-// }
 const Dashboard = (props:any)=>{
     getUsers()
 
