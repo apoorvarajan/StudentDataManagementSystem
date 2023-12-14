@@ -11,13 +11,13 @@ import json
 from bson import Decimal128
 
 from server.password_auth import hash_password, check_password, validate_password
-from server.course import CourseInstance, CourseClass, Course
-from server.department import Department
-from server.auth_token import AuthToken
-# from server.resources import *
-from server.semester import Semester, Season
-from server.user import Faculty, Student
-from authorize import permissions_required, is_self, is_ta_or_instructor_of_course, is_instructor_of_course, is_ta_of_course, is_enrolled_in_course
+# from server.course import CourseInstance, CourseClass, Course
+# from server.department import Department
+# from server.auth_token import AuthToken
+# # from server.resources import *
+# from server.semester import Semester, Season
+# from server.user import Faculty, Student
+# from authorize import permissions_required, is_self, is_ta_or_instructor_of_course, is_instructor_of_course, is_ta_of_course, is_enrolled_in_course
 
 DATA_ROOT = Path('/workspaces/StudentDataManagementSystem/data/')
 
@@ -36,6 +36,35 @@ class UnauthorizedError(Exception):
 
 class InvalidPasswordError(Exception):
     pass
+
+def get_user(db_name:str, collection_name:str, username:str):
+    """FOR INTERNAL USE ONLY.
+    TO BE REMOVED
+
+    Args:
+        db_name (str): _description_
+        collection_name (str): _description_
+        username (str): _description_
+
+    Raises:
+        UserNotFoundError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    with MongoClient(
+            os.getenv('MONGO_URI'), 
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+        ) as client:
+
+        db = client[db_name]
+        collection = db[collection_name]
+
+        # find the user with the given username in the collection
+        data = collection.find_one({'username': username})
+        if data is None:
+            raise UserNotFoundError(username)
+        return data
 
 def refresh_collection(db_name:str, collection_name:str, df_filename:str|Path):
     with MongoClient(
@@ -399,9 +428,9 @@ def main():
     except Exception as e:
         print(e)
 
-    token = authenticate('sdms', 'users', 'fcowboy', 'passw0rd', 'instructor')
-    token_stu = authenticate('sdms', 'users', 'bob123', 'aaaa', 'student')
-    student = get_student('sdms', 'users', 'bob123', token_stu)
+    # token = authenticate('sdms', 'users', 'fcowboy', 'passw0rd', 'instructor')
+    # token_stu = authenticate('sdms', 'users', 'bob123', 'aaaa', 'student')
+    # student = get_student('sdms', 'users', 'bob123', token_stu)
     # stu_from_inst = get_student('sdms', 'users', 'bob123', token)
     # dept = Department('COMPSCI', 'Computer Science', None)
     # course = Course(dept, '520', 'Software Engineering', 3, ['UGRAD', 'GRAD'])
@@ -416,7 +445,7 @@ def main():
 
 
     # update_course_grade('sdms', stu_from_inst, token, course_instance, {'username': 'bob123', 'grade': 3.0})
-    # refresh_collection('sdms', 'users', 'dummy_users.jsonl')
+    refresh_collection('sdms', 'users', 'dummy_users.jsonl')
     # reset_password(client, 'sdms', 'users', 'tommy', '2t0mmy') 
     # ------
     # get_course_grade(student, "COMPSCI 520", {'username': 'bob123'}, token_stu)
