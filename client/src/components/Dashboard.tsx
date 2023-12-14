@@ -2,23 +2,19 @@ import React,{useState} from 'react'
 import '../styles/dashboard.css'
 import '../styles/home.css'
 import DashboardSummary from './dashboardComponents/dashboardSummary'
-import {GradeRequest, GradeReply} from '../proto/frontend_pb'
-import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
-const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
-function getUsers() {
-    return new Promise<GradeReply>((resolve, reject) => {
-        const request = new GradeRequest();
-        request.setUserId('bob123')
-        request.setCourseCode("COMPSCI 520")
-        request.setToken('abc')
-        sdmsClient
-          .getGrade(request, null)
-          .then((message) => {console.log(message.getGrade())})
-          .catch((error) => reject(error));
-      });
-  }
+import api from '../controller/apiCalls'
 const Dashboard = (props:any)=>{
-    getUsers()
+    api.getUsers()
+    let studentId=window.location.search
+    let url_param = new URLSearchParams(studentId)
+    const data={
+        "id":url_param.get("id"),
+        "token":sessionStorage.getItem("token")
+    }
+    window.onload=()=>{
+        api.studentProfile(data)
+    }
+    
 
     const today_date = new Date()
     let hours = today_date.getHours();
