@@ -10,9 +10,9 @@ const SignUpForAlerts = (props:any) => {
                     </div>
                     <div className="profile-content">
                         <span>
-                            <input defaultValue="4138476204" className="alert-phone" disabled={enableEditPhone}/>
+                            <input defaultValue={props.sdetails && props.sdetails.phone} className="alert-phone" disabled={true}/>
                         </span>
-                        {!enableEditPhone && <span className="edit" onClick={()=>toggleEditPhone(true)}>Edit</span>}
+                        {/* {!enableEditPhone && <span className="edit" onClick={()=>toggleEditPhone(true)}>Edit</span>} */}
                     </div>
                 </div>
                 <div className="alert-sec">
@@ -20,8 +20,8 @@ const SignUpForAlerts = (props:any) => {
                         Email Addresses to Receive Emergency Email:
                     </div>
                     <div className="profile-content">
-                        <input defaultValue="apoorvarajan@umass.edu" className="alert-phone" disabled={enableEditEmail}/>
-                        {!enableEditEmail && <span className="edit"  onClick={()=>toggleEditEmail(true)}>Edit</span>}
+                        <input defaultValue={props.sdetails && props.sdetails.email_id} className="alert-phone" disabled={true}/>
+                        {/* {!enableEditEmail && <span className="edit"  onClick={()=>toggleEditEmail(true)}>Edit</span>} */}
                     </div>
                 </div>
                 

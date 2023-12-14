@@ -7,15 +7,7 @@ const PersonalInformation = (props:any) => {
                         Name:
                     </div>
                     <div className="profile-content">
-                        John Doe
-                    </div>
-                </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label">
-                        Pronouns:
-                    </div>
-                    <div className="profile-content">
-                        he/him
+                        {props.sdetails.name.fname + " " + props.sdetails.name.mname && (props.sdetails.mname + " ") + props.sdetails.name.lname}
                     </div>
                 </div>
                 <div className="pInfo-sec">
@@ -23,26 +15,10 @@ const PersonalInformation = (props:any) => {
                         Address:
                     </div>
                     <div className="profile-content">
-                        880, South Pleasant Street, Apt. No. 11 <br/>
-                        Amherst, MA, 01002
-                    </div>
-                </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label">
-                        Emergency Contact:
-                    </div>
-                    <div className="profile-content">
-                        Contact Name: Jack Doe <br />
-                        Relationship: Friend <br />
-                        Telephone: +1413123456
-                    </div>
-                </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label ">
-                        Non-UMass Email:
-                    </div>
-                    <div className="profile-content">
-                        johnd@gmail.com
+                        {props.sdetails.address.line1} <br/>
+                        {props.sdetails.city}<br/>
+                        {props.sdetails.state}<br/>
+                        {props.sdetails.zip}
                     </div>
                 </div>
                 <div>
@@ -50,7 +26,7 @@ const PersonalInformation = (props:any) => {
                         Phone:
                     </div>
                     <div className="profile-content">
-                        +1413224765
+                        {props.sdetails.phone}
                     </div>
                 </div>
             </div>

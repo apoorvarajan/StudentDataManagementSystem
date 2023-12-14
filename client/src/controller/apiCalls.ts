@@ -16,36 +16,31 @@ const getUsers =() => {
 const userAuth = (data:any) => {
     console.log(data)
     sessionStorage.setItem("token","random_token")
-    window.location.href="/dashboard?id=123"
+    window.location.href=`/dashboard?id=${data.userId}`
 
 }
 const studentProfile = (data:any) => {
     console.log(data)
     let response = {
-            "name":{
-                "fname":"bob123", 
-                "mname":"blah",
-                "lname":"boo"
+            name:{
+                fname:"bob123", 
+                mname:"blah",
+                lname:"boo"
             },
-            "email_id":"bob@umass.edu",
-            "address":{
-                "line1" : "address line 1",
-                "city" : "amherst",
-                "state" : "MA",
-                "zip" : "01002",
+            email_id:"bob@umass.edu",
+            address:{
+                line1 : "address line 1",
+                city : "amherst",
+                state : "MA",
+                zip : "01002",
             },
-            "dept":"COMPSCI", 
-            "degree": "MS",
-            "phone":"+14138476204",
-            "advisor": "Pelizabeth Earolski", 
-            "gpa": 3.88, 
-            "grad_sem":"Fall",
-            "grad_year":2023
-            // "current_courses": ["COMPSCI 520", "COMPSCI 589", "COMPSCI 677"], 
-            // "completed_courses": [
-            //     {"course_id": "COMPSCI 532", "semester": "Fall", "year": 2022}, 
-            //     {"course_id": "COMPSCI 574", "semester": "Fall", "year": 2022}
-            // ]}
+            dept:"COMPSCI", 
+            degree: "MS",
+            phone:"+14138476204",
+            advisor: "Pelizabeth Earolski", 
+            gpa: 3.88, 
+            grad_sem:"Fall",
+            grad_year:2023
     }
     return response
 
@@ -54,7 +49,7 @@ const studentProfile = (data:any) => {
 const studentCourse = (data:any) => {
     console.log(data)
     let response = {
-        "current_courses": [{
+        current_courses: [{
             "course_number":"COMPSCI 520",
             "dept":"Computer Science",
             "n_credits":3,

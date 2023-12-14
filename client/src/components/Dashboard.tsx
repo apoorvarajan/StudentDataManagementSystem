@@ -3,25 +3,32 @@ import '../styles/dashboard.css'
 import '../styles/home.css'
 import DashboardSummary from './dashboardComponents/dashboardSummary'
 import api from '../controller/apiCalls'
-const Dashboard = (props:any)=>{
+class Dashboard extends React.Component<any,any>{
+    constructor(props:any){
+        super(props)
+        this.state={
+            profiledata:null,
+            studentCourses:null,
+        }
+    }
+    componentDidMount=()=>{
+        let token = sessionStorage.getItem("token")
+        let studentId=window.location.search
+        let url_param = new URLSearchParams(studentId)
+        let studentProfile = api.studentProfile({"token":token,"userId":url_param.get("id")})
+        this.setState({
+            profiledata:studentProfile
+        })
+    }
+    render(){
+    let sdetails = this.state.profiledata
     api.getUsers()
-    let studentId=window.location.search
-    let url_param = new URLSearchParams(studentId)
-    const data={
-        "id":url_param.get("id"),
-        "token":sessionStorage.getItem("token")
-    }
-    window.onload=()=>{
-        api.studentProfile(data)
-    }
-    
-
     const today_date = new Date()
     let hours = today_date.getHours();
     let greeting = (hours < 12)? "Good Morning " :
              ((hours <= 18 && hours >= 12 ) ? "Good Afternoon " : "Good Evening ");
     const datestring=today_date.toDateString()
-    let sname = "[Student Name]"
+    let sname = sdetails && sdetails.name.fname
     let dashBoardSections = ["Profile","Academics","Course Planning Assistant"]
     let dashboardList=[
         [{
@@ -78,5 +85,5 @@ const Dashboard = (props:any)=>{
                 </div>
         </div>
     </div>
-}
+}}
 export default Dashboard
