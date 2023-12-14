@@ -39,90 +39,219 @@ export class SDMS_BackendClient {
     this.options_ = options;
   }
 
-  methodDescriptorSayHello = new grpcWeb.MethodDescriptor(
-    '/SDMS_Backend/SayHello',
+  methodDescriptorLogin = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/Login',
     grpcWeb.MethodType.UNARY,
-    frontend_pb.HelloRequest,
-    frontend_pb.HelloReply,
-    (request: frontend_pb.HelloRequest) => {
+    frontend_pb.LoginRequest,
+    frontend_pb.LoginReply,
+    (request: frontend_pb.LoginRequest) => {
       return request.serializeBinary();
     },
-    frontend_pb.HelloReply.deserializeBinary
+    frontend_pb.LoginReply.deserializeBinary
   );
 
-  sayHello(
-    request: frontend_pb.HelloRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.HelloReply>;
+  login(
+    request: frontend_pb.LoginRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.LoginReply>;
 
-  sayHello(
-    request: frontend_pb.HelloRequest,
+  login(
+    request: frontend_pb.LoginRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: frontend_pb.HelloReply) => void): grpcWeb.ClientReadableStream<frontend_pb.HelloReply>;
+               response: frontend_pb.LoginReply) => void): grpcWeb.ClientReadableStream<frontend_pb.LoginReply>;
 
-  sayHello(
-    request: frontend_pb.HelloRequest,
+  login(
+    request: frontend_pb.LoginRequest,
     metadata?: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: frontend_pb.HelloReply) => void) {
+               response: frontend_pb.LoginReply) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/SDMS_Backend/SayHello',
+          '/SDMS_Backend/Login',
         request,
         metadata || {},
-        this.methodDescriptorSayHello,
+        this.methodDescriptorLogin,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/SDMS_Backend/SayHello',
+      '/SDMS_Backend/Login',
     request,
     metadata || {},
-    this.methodDescriptorSayHello);
+    this.methodDescriptorLogin);
   }
 
-  methodDescriptorGetGrade = new grpcWeb.MethodDescriptor(
-    '/SDMS_Backend/GetGrade',
+  methodDescriptorGetStudentDetails = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/GetStudentDetails',
     grpcWeb.MethodType.UNARY,
-    frontend_pb.GradeRequest,
-    frontend_pb.GradeReply,
-    (request: frontend_pb.GradeRequest) => {
+    frontend_pb.IDRequest,
+    frontend_pb.StudentDetailsReply,
+    (request: frontend_pb.IDRequest) => {
       return request.serializeBinary();
     },
-    frontend_pb.GradeReply.deserializeBinary
+    frontend_pb.StudentDetailsReply.deserializeBinary
   );
 
-  getGrade(
-    request: frontend_pb.GradeRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.GradeReply>;
+  getStudentDetails(
+    request: frontend_pb.IDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.StudentDetailsReply>;
 
-  getGrade(
-    request: frontend_pb.GradeRequest,
+  getStudentDetails(
+    request: frontend_pb.IDRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: frontend_pb.GradeReply) => void): grpcWeb.ClientReadableStream<frontend_pb.GradeReply>;
+               response: frontend_pb.StudentDetailsReply) => void): grpcWeb.ClientReadableStream<frontend_pb.StudentDetailsReply>;
 
-  getGrade(
-    request: frontend_pb.GradeRequest,
+  getStudentDetails(
+    request: frontend_pb.IDRequest,
     metadata?: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: frontend_pb.GradeReply) => void) {
+               response: frontend_pb.StudentDetailsReply) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/SDMS_Backend/GetGrade',
+          '/SDMS_Backend/GetStudentDetails',
         request,
         metadata || {},
-        this.methodDescriptorGetGrade,
+        this.methodDescriptorGetStudentDetails,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/SDMS_Backend/GetGrade',
+      '/SDMS_Backend/GetStudentDetails',
     request,
     metadata || {},
-    this.methodDescriptorGetGrade);
+    this.methodDescriptorGetStudentDetails);
+  }
+
+  methodDescriptorGetStudentCourses = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/GetStudentCourses',
+    grpcWeb.MethodType.UNARY,
+    frontend_pb.IDRequest,
+    frontend_pb.CurrentCoursesReply,
+    (request: frontend_pb.IDRequest) => {
+      return request.serializeBinary();
+    },
+    frontend_pb.CurrentCoursesReply.deserializeBinary
+  );
+
+  getStudentCourses(
+    request: frontend_pb.IDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.CurrentCoursesReply>;
+
+  getStudentCourses(
+    request: frontend_pb.IDRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: frontend_pb.CurrentCoursesReply) => void): grpcWeb.ClientReadableStream<frontend_pb.CurrentCoursesReply>;
+
+  getStudentCourses(
+    request: frontend_pb.IDRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: frontend_pb.CurrentCoursesReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/SDMS_Backend/GetStudentCourses',
+        request,
+        metadata || {},
+        this.methodDescriptorGetStudentCourses,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/SDMS_Backend/GetStudentCourses',
+    request,
+    metadata || {},
+    this.methodDescriptorGetStudentCourses);
+  }
+
+  methodDescriptorGetCourseRequirements = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/GetCourseRequirements',
+    grpcWeb.MethodType.UNARY,
+    frontend_pb.RequirementRequest,
+    frontend_pb.RequirementReply,
+    (request: frontend_pb.RequirementRequest) => {
+      return request.serializeBinary();
+    },
+    frontend_pb.RequirementReply.deserializeBinary
+  );
+
+  getCourseRequirements(
+    request: frontend_pb.RequirementRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.RequirementReply>;
+
+  getCourseRequirements(
+    request: frontend_pb.RequirementRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: frontend_pb.RequirementReply) => void): grpcWeb.ClientReadableStream<frontend_pb.RequirementReply>;
+
+  getCourseRequirements(
+    request: frontend_pb.RequirementRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: frontend_pb.RequirementReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/SDMS_Backend/GetCourseRequirements',
+        request,
+        metadata || {},
+        this.methodDescriptorGetCourseRequirements,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/SDMS_Backend/GetCourseRequirements',
+    request,
+    metadata || {},
+    this.methodDescriptorGetCourseRequirements);
+  }
+
+  methodDescriptorGetCourses = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/GetCourses',
+    grpcWeb.MethodType.UNARY,
+    frontend_pb.BrowseRequest,
+    frontend_pb.BrowseReply,
+    (request: frontend_pb.BrowseRequest) => {
+      return request.serializeBinary();
+    },
+    frontend_pb.BrowseReply.deserializeBinary
+  );
+
+  getCourses(
+    request: frontend_pb.BrowseRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.BrowseReply>;
+
+  getCourses(
+    request: frontend_pb.BrowseRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: frontend_pb.BrowseReply) => void): grpcWeb.ClientReadableStream<frontend_pb.BrowseReply>;
+
+  getCourses(
+    request: frontend_pb.BrowseRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: frontend_pb.BrowseReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/SDMS_Backend/GetCourses',
+        request,
+        metadata || {},
+        this.methodDescriptorGetCourses,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/SDMS_Backend/GetCourses',
+    request,
+    metadata || {},
+    this.methodDescriptorGetCourses);
   }
 
 }

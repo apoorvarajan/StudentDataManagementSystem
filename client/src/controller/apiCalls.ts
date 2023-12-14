@@ -1,97 +1,55 @@
-import {GradeRequest, GradeReply} from '../proto/frontend_pb'
+import {LoginRequest,LoginReply,StudentDetailsReply,IDRequest,CurrentCoursesReply} from '../proto/frontend_pb'
 import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
 const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
-const getUsers =() => {
-    return new Promise<GradeReply>((resolve, reject) => {
-        const request = new GradeRequest();
-        request.setUserId('bob123')
-        request.setCourseCode("COMPSCI 520")
-        request.setToken('abc')
+const callLogin = (data:any) => {
+    return new Promise<LoginReply>((resolve, reject) => {
+        const request = new LoginRequest();
+        request.setUserId(data.userId)
+        request.setPassword(data.pwd)
+        request.setRole(data.role)
         sdmsClient
-          .getGrade(request, null)
-          .then((message) => {console.log(message.getGrade())})
+          .login(request, null)
+          .then((message) => resolve(message))
           .catch((error) => reject(error));
       });
 }
-const userAuth = (data:any) => {
-    console.log(data)
-    sessionStorage.setItem("token","random_token")
+const callStudentProfile = (data:any) => {
+    return new Promise<StudentDetailsReply>((resolve, reject) => {
+        const request = new IDRequest();
+        request.setUserId(data.userId)
+        request.setToken(data.token)
+        sdmsClient
+          .getStudentDetails(request, null)
+          .then((message) => resolve(message))
+          .catch((error) => reject(error));
+      });
+}
+const callStudentCourses = (data:any) => {
+    return new Promise<CurrentCoursesReply>((resolve, reject) => {
+        const request = new IDRequest();
+        request.setUserId(data.userId)
+        request.setToken(data.token)
+        sdmsClient
+          .getStudentCourses(request, null)
+          .then((message) => resolve(message))
+          .catch((error) => reject(error));
+      });
+}
+const userAuth = async (data:any) => {
+    let res:any = await callLogin(data)
+    sessionStorage.setItem("token",res.array[1])
     window.location.href=`/dashboard?id=${data.userId}`
 
 }
-const studentProfile = (data:any) => {
-    console.log(data)
-    let response = {
-            name:{
-                fname:"bob123", 
-                mname:"blah",
-                lname:"boo"
-            },
-            email_id:"bob@umass.edu",
-            address:{
-                line1 : "address line 1",
-                city : "amherst",
-                state : "MA",
-                zip : "01002",
-            },
-            dept:"COMPSCI", 
-            degree: "MS",
-            phone:"+14138476204",
-            advisor: "Pelizabeth Earolski", 
-            gpa: 3.88, 
-            grad_sem:"Fall",
-            grad_year:2023
-    }
-    return response
-
+const studentProfile = async (data:any) => {
+    let res:any = await (await callStudentProfile(data)).toObject()
+    return res
 }
 
-const studentCourse = (data:any) => {
-    console.log(data)
-    let response = {
-        current_courses: [{
-            "course_number":"COMPSCI 520",
-            "dept":"Computer Science",
-            "n_credits":3,
-            "course_name":"Software Engineering",
-            "instructors":["A","B","C"]
-        }, {
-            "course_number":"COMPSCI 589",
-            "dept":"Computer Science",
-            "n_credits":3,
-            "course_name":"Machine learning",
-            "instructors":["A","B","C"]
-        },{
-            "course_number":"COMPSCI 677",
-            "dept":"Computer Science",
-            "n_credits":3,
-            "course_name":"Distributed Operating System",
-            "instructors":["A","B","C"]
-        }],
-        "completed_courses": [
-                {
-                    "course_number": "COMPSCI 532",
-                    "dept":"Computer Science",
-                    "semester": "Fall", 
-                    "year": 2022,
-                    "n_credits":3,
-                    "course_name":"Systems for Data Science",
-                    "instructors":["A","B","C"],
-                    "grade":"A-"
-                }, 
-                {
-                    "course_number": "COMPSCI 574",
-                    "dept":"Computer Science",
-                    "semester": "Fall", 
-                    "year": 2022,
-                    "n_credits":3,
-                    "course_name":"I don't know course name",
-                    "instructors":["A","B","C"],
-                    "grade":"B+"
-                }
-            ]
-    }
-    return response
+const studentCourse = async (data:any) => {
+    let res:any = await (await callStudentCourses(data)).toObject()
+    return res
+    
 }
 
 const courseReq = (data:any) => {
@@ -140,4 +98,4 @@ const browseCourse = (data:any) => {
     return response
 }
 
-export default {getUsers,userAuth,studentProfile,studentCourse,browseCourse}
+export default {userAuth,studentProfile,studentCourse,browseCourse}

@@ -8,10 +8,20 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 };
 
 export interface ProtoGrpcType {
-  GradeReply: MessageTypeDefinition
-  GradeRequest: MessageTypeDefinition
-  HelloReply: MessageTypeDefinition
-  HelloRequest: MessageTypeDefinition
+  Address: MessageTypeDefinition
+  BrowseReply: MessageTypeDefinition
+  BrowseRequest: MessageTypeDefinition
+  Course: MessageTypeDefinition
+  CurrentCourse: MessageTypeDefinition
+  CurrentCoursesReply: MessageTypeDefinition
+  IDRequest: MessageTypeDefinition
+  LoginReply: MessageTypeDefinition
+  LoginRequest: MessageTypeDefinition
+  Name: MessageTypeDefinition
+  PreviousCourse: MessageTypeDefinition
+  RequirementReply: MessageTypeDefinition
+  RequirementRequest: MessageTypeDefinition
   SDMS_Backend: SubtypeConstructor<typeof grpc.Client, _SDMS_BackendClient> & { service: _SDMS_BackendDefinition }
+  StudentDetailsReply: MessageTypeDefinition
 }
 

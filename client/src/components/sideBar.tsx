@@ -6,7 +6,7 @@ const SideBar = () =>{
         [{
             'Sign Up For Alerts':"/profile#alert",
             'Personal Information':"/profile#pInfo",
-            'IT Accounts and Password':"/profile#itacc"
+            // 'IT Accounts and Password':"/profile#itacc"
         }],
         [{
             "Academic Summary":"/academics#summary",

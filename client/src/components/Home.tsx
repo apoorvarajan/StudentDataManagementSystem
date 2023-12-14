@@ -34,7 +34,7 @@ const HomeComponent = (props:any)=>{
             </div>
         </div>
         {option!=0 && <div className="login-modal-wrap">
-            <LoginModal login={login} role={option==1? "student" : option==2?"faculty":"admin"}/>
+            <LoginModal login={login} role={option==1? "student" : option==2?"instructor":"admin"}/>
             </div>}
     </div>
 }

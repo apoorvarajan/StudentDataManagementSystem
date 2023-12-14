@@ -7,7 +7,7 @@ const PersonalInformation = (props:any) => {
                         Name:
                     </div>
                     <div className="profile-content">
-                        {props.sdetails.name.fname + " " + props.sdetails.name.mname && (props.sdetails.mname + " ") + props.sdetails.name.lname}
+                        {props.sdetails.name.firstName + " " + (props.sdetails.name.middleName ? (props.sdetails.middleName + " ") : "") + props.sdetails.name.lastName}
                     </div>
                 </div>
                 <div className="pInfo-sec">
@@ -15,10 +15,8 @@ const PersonalInformation = (props:any) => {
                         Address:
                     </div>
                     <div className="profile-content">
-                        {props.sdetails.address.line1} <br/>
-                        {props.sdetails.city}<br/>
-                        {props.sdetails.state}<br/>
-                        {props.sdetails.zip}
+                        {props.sdetails.address.line1} , {props.sdetails.address.city} , {props.sdetails.address.state}<br/>
+                        zipcode: {props.sdetails.address.zip}
                     </div>
                 </div>
                 <div>

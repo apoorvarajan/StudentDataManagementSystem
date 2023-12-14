@@ -4,7 +4,7 @@ const SignUpForAlerts = (props:any) => {
     const [enableEditPhone,toggleEditPhone]=useState(false)
     const [enableEditEmail,toggleEditEmail]=useState(false)
     return <div className="signup-alert-wrap">
-                <div className="alert-sec">
+                <div>
                     <div className="profile-label">
                         Cell Phone Number to Receive Text Messages:
                     </div>
@@ -15,12 +15,12 @@ const SignUpForAlerts = (props:any) => {
                         {/* {!enableEditPhone && <span className="edit" onClick={()=>toggleEditPhone(true)}>Edit</span>} */}
                     </div>
                 </div>
-                <div className="alert-sec">
+                <div>
                     <div className="profile-label">
                         Email Addresses to Receive Emergency Email:
                     </div>
                     <div className="profile-content">
-                        <input defaultValue={props.sdetails && props.sdetails.email_id} className="alert-phone" disabled={true}/>
+                        <input defaultValue={props.sdetails && props.sdetails.emailId} className="alert-phone" disabled={true}/>
                         {/* {!enableEditEmail && <span className="edit"  onClick={()=>toggleEditEmail(true)}>Edit</span>} */}
                     </div>
                 </div>

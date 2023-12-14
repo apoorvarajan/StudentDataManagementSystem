@@ -19,12 +19,12 @@ class ProfileMain extends React.Component<any,any>{
         hash:"#pInfo"
     }
 }
-  componentDidMount=()=>{
+  componentDidMount=async()=>{
     let token = sessionStorage.getItem("token")
     let studentId=window.location.search
     let url_param = new URLSearchParams(studentId)
-    let studentProfile = api.studentProfile({"token":token,"userId":url_param.get("id")})
-    let studentCourses = api.studentCourse({"token":token,"userId":url_param.get("id")})
+    let studentProfile = await api.studentProfile({"token":token,"userId":url_param.get("id")})
+    let studentCourses = await api.studentCourse({"token":token,"userId":url_param.get("id")})
     this.setState({
         profiledata:studentProfile,
         studentCourses:studentCourses
@@ -51,7 +51,7 @@ class ProfileMain extends React.Component<any,any>{
         </div>
         <div>
           {sdetails && hash === "#alert" ? <SignUpForAlerts sdetails={sdetails}/>:
-          sdetails && hash === "#itacc" ? <ITAccountsAndPassword sdetails={sdetails}/> : 
+          // sdetails && hash === "#itacc" ? <ITAccountsAndPassword sdetails={sdetails}/> : 
           sdetails ? <PersonalInformation sdetails={sdetails}/>:null}
         </div>
       </div>

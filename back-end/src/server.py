@@ -65,6 +65,7 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     #     return backend_pb2.GradeReply(grade="A")
     
     def Login(self, request, context):
+        print(request)
         return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
     
     def GetStudentDetails(self, request, context):
