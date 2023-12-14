@@ -5,6 +5,7 @@ from sdms_server.authorization.decorator import permissions_required
 from sdms_server.authentication.authentication import check_password
 import jwt
 import os
+from typing import Tuple
 
 @permissions_required(
     student=(is_self, is_enrolled_in_course),
@@ -23,6 +24,15 @@ def get_course_grade(auth_token_str:str, /, *, user_id:str, course_id: str)->str
 def get_user(auth_token_str:str, /, *, user_id:str)->dict:
     result = get_one_document(os.getenv('USERS_DB'), os.getenv('USERS_COLL'), {'username': user_id}, 
                               {'_id': 0, 'name': 1, 'email': 1, 'address': 1, 'phone': 1})
+
+    if result is None:
+        raise UserNotFoundError(user_id)
+    
+    return result
+
+def get_user_cred(auth_token_str:str, /, *, user_id:str)->dict:
+    result = get_one_document(os.getenv('USERS_DB'), os.getenv('USERS_COLL'), {'username': user_id}, 
+                              {'_id': 0, 'password': 1, 'name': 1, 'roles': 1})
 
     if result is None:
         raise UserNotFoundError(user_id)
@@ -48,9 +58,9 @@ def get_student_details(auth_token_str:str, /, *, user_id:str)->dict:
 # def get_all_courses(auth_token_str:str, /, *, degree:str, department_id:str)->list:
 #     result = get_multi_documents(os.getenv('ACADEMICS_DB'), os.getenv('ALL_COURSES_COLL'), 
 
-def authenticate(user_id:str, password:str, role:str)->str:
+def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
     try:
-        user_data = get_user("", user_id=user_id)
+        user_data = get_user_cred(user_id=user_id)
         saved_pwd = user_data['password']
         authenticated = check_password(password, saved_pwd)
 
@@ -61,8 +71,8 @@ def authenticate(user_id:str, password:str, role:str)->str:
             raise UnauthorizedError()
 
         print(f'Authenticated. First Name: {user_data["name"]["first_name"]}')
-        return jwt.encode({'username': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
+        return True, jwt.encode({'username': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
 
     except (InvalidPasswordError, UnauthorizedError) as e:
-        return False
+        return False, str(e)
     

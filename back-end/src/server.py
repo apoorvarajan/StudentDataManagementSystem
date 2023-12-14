@@ -6,6 +6,8 @@ import backend_pb2_grpc
 import re
 import requests
 from sdms_server.api.api import *
+from sdms_server.validation.validation import *
+from dotenv import load_dotenv
 
 # Helper method to convert a dictionary to a Name message
 def dict_to_name(name_dict):
@@ -64,7 +66,12 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     #     return backend_pb2.GradeReply(grade="A")
     
     def Login(self, request, context):
-        return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
+        status, token = authenticate(request.user_id, request.password, request.role)
+        if(status == False):
+            return backend_pb2.LoginReply(status=token, token="")
+        else:
+            return backend_pb2.LoginReply(status="Success", token=token)
+        #return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
     
     def GetStudentDetails(self, request, context):
         name_dict = {"first_name": "Bob", "middle_name": "", "last_name": "Smith"}
@@ -100,4 +107,5 @@ def serve():
 
 if __name__ == "__main__":
     logging.basicConfig()
+    load_dotenv()
     serve()

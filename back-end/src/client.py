@@ -29,9 +29,11 @@ def run():
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = backend_pb2_grpc.SDMS_BackendStub(channel)
 
+        #response_login = stub.Login(backend_pb2.LoginRequest(user_id='bob123', password='aaaa', role='student'))
         response_login = stub.Login(backend_pb2.LoginRequest(user_id='bob123', password='aaaa', role='student'))
         print(response_login)
 
+        #response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
         response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
         print(response_student)
 
