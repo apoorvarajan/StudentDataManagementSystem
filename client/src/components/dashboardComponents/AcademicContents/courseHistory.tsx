@@ -1,25 +1,9 @@
 import React from 'react'
 
-const CourseHistory = () =>{
-    let tableheads=["Class","Description","Term","Grade","Units","Status"]
-    let courseArray=[
-        {
-            "class":"COMPSCI520",
-            "description":"Software Engineering",
-            "term":"Fall2023",
-            "grade":"A",
-            "units":"3",
-            "status":"Completed"
-        },
-        {
-            "class":"COMPSCI687",
-            "description":"Reinforcement Learning",
-            "term":"Fall2023",
-            "grade":"A",
-            "units":"3",
-            "status":"Completed"
-        }
-    ]
+const CourseHistory = (props:any) =>{
+    let tableheads=["Class","Course Name","Department","Grade","Units","Status","Term"]
+    let prevCourseArray=props.scourses.prevCourseList
+    let curCourseArray = props.scourses.courseList
     return <div className="course-history-section">
         <div>
             <table className="ch-table">
@@ -31,14 +15,26 @@ const CourseHistory = () =>{
                     </tr>
                 </thead>
                 <tbody>
-                {courseArray.map((course, index) => (
+                {curCourseArray.map((course:any, index:any) => (
                     <tr key={index} className="ch-row">
-                        <td className="ch-elem">{course.class}</td>
-                        <td className="ch-elem">{course.description}</td>
-                        <td className="ch-elem">{course.term}</td>
+                        <td className="ch-elem">{course.courseNumber}</td>
+                        <td className="ch-elem">{course.courseName}</td>
+                        <td className="ch-elem">{course.dept}</td>
+                        <td className="ch-elem">{" "}</td>
+                        <td className="ch-elem">{course.nCredits}</td>
+                        <td className="ch-elem">{"In Progress"}</td>
+                        <td className="ch-elem">{"Current Semester"}</td>
+                    </tr>
+                    ))}
+                {prevCourseArray.map((course:any, index:any) => (
+                    <tr key={index} className="ch-row">
+                        <td className="ch-elem">{course.courseNumber}</td>
+                        <td className="ch-elem">{course.courseName}</td>
+                        <td className="ch-elem">{course.dept}</td>
                         <td className="ch-elem">{course.grade}</td>
-                        <td className="ch-elem">{course.units}</td>
-                        <td className="ch-elem">{course.status}</td>
+                        <td className="ch-elem">{course.nCredits}</td>
+                        <td className="ch-elem">{"Completed"}</td>
+                        <td className="ch-elem">{course.semester + " " + course.year}</td>
                     </tr>
                     ))}
                 </tbody>

@@ -15,7 +15,6 @@ class ProfileMain extends React.Component<any,any>{
     super(props)
     this.state={
         profiledata:null,
-        studentCourses:null,
         hash:"#pInfo"
     }
 }
@@ -24,15 +23,12 @@ class ProfileMain extends React.Component<any,any>{
     let studentId=window.location.search
     let url_param = new URLSearchParams(studentId)
     let studentProfile = await api.studentProfile({"token":token,"userId":url_param.get("id")})
-    let studentCourses = await api.studentCourse({"token":token,"userId":url_param.get("id")})
     this.setState({
-        profiledata:studentProfile,
-        studentCourses:studentCourses
+        profiledata:studentProfile
     })
 }
   render(){
     let sdetails = this.state.profiledata
-    let scourses = this.state.studentCourses
     let hash = this.state.hash
     window.onhashchange = () =>{
       this.setState({
