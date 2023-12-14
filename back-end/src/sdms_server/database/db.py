@@ -1,6 +1,7 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from sdms_server.exceptions.exceptions import *
+import os
 
 def get_one_document(db_name: str, collection: str, filter: dict, projection: dict = None) -> dict:
     with MongoClient(
