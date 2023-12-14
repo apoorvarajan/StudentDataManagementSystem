@@ -1,2 +1,2 @@
-{"username":"bob123", "department":"COMPSCI", "degree": "MS", "advisor": "Pelizabeth Earolski", "gpa": "3.88"}
-{"username":"jill.jones", "department":"COMPSCI", "degree": "MS", "advisor": "Pelizabeth Earolski", "gpa": "3.9"}
+{"username":"bob123", "department":"COMPSCI", "degree": "MS", "advisor": "Pelizabeth Earolski", "gpa": "3.88", "current_courses": ["COMPSCI 520", "COMPSCI 589", "COMPSCI 677"], "completed_courses": [{"course_id": "COMPSCI 532", "semester": "Fall", "year": 2022}, {"course_id": "COMPSCI 574", "semester": "Fall", "year": 2022}]}
+{"username":"jill.jones", "department":"COMPSCI", "degree": "MS", "advisor": "Pelizabeth Earolski", "gpa": "3.9", "current_courses": ["COMPSCI 520", "COMPSCI 574", "COMPSCI 532"], "completed_courses": [{"course_id": "COMPSCI 677", "semester": "Spring", "year": 2023}]}
