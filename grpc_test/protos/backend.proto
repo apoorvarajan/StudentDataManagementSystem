@@ -5,12 +5,6 @@ service SDMS_Backend {
     rpc GetGrade (GradeRequest) returns (GradeReply) {}
 }
 
-message CourseInfoRequest {
-    string user_id = 1;
-    string course_id = 2;
-    int year = 3;
-    int n_credits = 4;
-}
 
 // The request message containing the user's name.
 message HelloRequest {

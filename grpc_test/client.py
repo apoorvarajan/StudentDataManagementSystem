@@ -14,8 +14,7 @@ def run():
     print("Will try to greet world ...")
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = backend_pb2_grpc.SDMS_BackendStub(channel)
-        response = stub.GetGrade(backend_pb2.GradeRequest(user_id=''))
-        stud.SetCourse(backend_pb2.CourseInfoRequest(user_id='a', ..., xyz=5))
+        response = stub.GetGrade(backend_pb2.GradeRequest(user_id='bob123', course_code="COMPSCI 520", token="abc"))
     print("Greeter client received: " + response.message)
 
 
