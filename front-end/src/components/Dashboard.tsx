@@ -12,7 +12,23 @@ const Dashboard = (props:any)=>{
     let sname = "[Student Name]"
     let dashBoardSections = ["Profile","Academics","Course Planning Assistant"]
     let dashboardList=[
-        []
+        [{
+            'Sign Up For Alerts':"/profile#alert",
+            'Personal Information':"/profile#pInfo",
+            'IT Accounts and Password':"/profile#itacc"
+        }],
+        [{
+            "Academic Summary":"/academics#summary",
+            "Grades":"/academics#grades",
+            "Course History":"/academics#chist",
+            "Transcript Request":"/academics#treq",
+            "Graduation":"/academics#grad"
+        }],
+        [{
+            "Current Courses":"/cpa#ccourses",
+            "Check Requirement":"/cpa#req",
+            "Browse all courses":"/cpa#browse"
+        }]
     ]
     return <div className="dashboard-page">
         <div className="home-header-wrap">
@@ -25,21 +41,29 @@ const Dashboard = (props:any)=>{
                 </div>
                 <div className="dashboard-date"> Today is {datestring}</div>
             </div>
-                {/* <div>
+            <div className="dashboard-item-wrap">
+                {dashBoardSections.map((item,key)=>{
+                    return <div  className="dashboard-item">
+                            <div className="dashboard-heading">{item}</div>
+                            <div className="sub-item-wrap">
+                                {dashboardList[key].map((subitem:any)=>{
+                                    return Object.entries(subitem).map(([elem,redirect])=>{
+                                        const url = redirect as string;
+                                        return <div className="dashboard-sub-item" onClick={()=> window.location.href=url}>{elem}</div>
+                                    })
+                                })}
+                            </div>
+                        </div>
+                })}
+            </div>
+            <div>
                     <div className="todo-heading-dashboard"> To-Do</div>
                     <div className="paper">
                         <div className="pattern">
                             You don't have any tasks pending!
                         </div>
                     </div>
-                </div> */}
-            <div>
-                {dashBoardSections.map((item)=>{
-                    return <div  className="dashboard-item">
-                            <div>{item}</div>
-                        </div>
-                })}
-            </div>
+                </div>
         </div>
     </div>
 }
