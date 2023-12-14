@@ -1,35 +1,35 @@
 import React from 'react'
 
 const PersonalInformation = (props:any) => {
-    return <div  className="profile-right-section" >
-                <div>
+    return <div className="signup-alert-wrap alert-sec">
+                <div className="pInfo-sec">
                     <div className="profile-label">
-                    Name:
+                        Name:
                     </div>
                     <div className="profile-content">
                         John Doe
                     </div>
                 </div>
-                <div>
+                <div className="pInfo-sec">
                     <div className="profile-label">
-                    Pronouns:
+                        Pronouns:
                     </div>
                     <div className="profile-content">
                         he/him
                     </div>
                 </div>
-                <div>
+                <div className="pInfo-sec">
                     <div className="profile-label">
-                    Address:
+                        Address:
                     </div>
                     <div className="profile-content">
-                    Physical Address: 880, South Pleasant Street, Apt. No. 11 <br />
-                    City: Amherst  State: MA  Postal: 01002
+                        880, South Pleasant Street, Apt. No. 11 <br/>
+                        Amherst, MA, 01002
                     </div>
                 </div>
-                <div>
+                <div className="pInfo-sec">
                     <div className="profile-label">
-                    Emergency Contact:
+                        Emergency Contact:
                     </div>
                     <div className="profile-content">
                         Contact Name: Jack Doe <br />
@@ -37,9 +37,9 @@ const PersonalInformation = (props:any) => {
                         Telephone: +1413123456
                     </div>
                 </div>
-                <div>
-                    <div className="profile-label">
-                    Non-UMass Email:
+                <div className="pInfo-sec">
+                    <div className="profile-label ">
+                        Non-UMass Email:
                     </div>
                     <div className="profile-content">
                         johnd@gmail.com
@@ -47,23 +47,12 @@ const PersonalInformation = (props:any) => {
                 </div>
                 <div>
                     <div className="profile-label">
-                    Phone:
+                        Phone:
                     </div>
                     <div className="profile-content">
-                    +1413224765
+                        +1413224765
                     </div>
                 </div>
-                <div>
-                    <div className="profile-label">
-                    UMass Amherst Emergency Alerts:
-                    </div>
-                    <div className="profile-content">
-                        UMass email id: johndoe@umass.edu
-                        Non-UMass email id: johnd@gmail.com
-                        Phone: +1413224765
-                    </div>
-                </div>
-                
             </div>
 }
 export default PersonalInformation

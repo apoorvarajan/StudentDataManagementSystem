@@ -1,10 +1,10 @@
 import React from 'react'
 
 const ITAccountsAndPassword = (props:any) => {
-    return <div  className="profile-right-section" >
-                <div>
+    return <div className="signup-alert-wrap">
+                <div className="alert-sec">
                     <div className="profile-label">
-                    My IT Account:
+                        My IT Account:
                     </div>
                     <div className="profile-content">
                         Account Name: johndoe <br />
@@ -14,9 +14,9 @@ const ITAccountsAndPassword = (props:any) => {
                         Email Type: Google <br />
                     </div>
                 </div>
-                <div>
+                <div className="alert-sec">
                     <div className="profile-label">
-                    UCard / Library Barcode:
+                        UCard / Library Barcode:
                     </div>
                     <div className="profile-content">
                         Spire ID: 12345678 <br />

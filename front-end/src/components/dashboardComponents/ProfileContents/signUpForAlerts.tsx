@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const SignUpForAlerts = (props:any) => {
-    return <div  className="profile-right-section" >
-                <div>
+    const [enableEditPhone,toggleEditPhone]=useState(false)
+    const [enableEditEmail,toggleEditEmail]=useState(false)
+    return <div className="signup-alert-wrap">
+                <div className="alert-sec">
                     <div className="profile-label">
-                    Cell Phone Number to Receive Text Messages:
+                        Cell Phone Number to Receive Text Messages:
                     </div>
                     <div className="profile-content">
-                        +1413224765
+                        <span>
+                            <input defaultValue="4138476204" className="alert-phone" disabled={enableEditPhone}/>
+                        </span>
+                        {!enableEditPhone && <span className="edit" onClick={()=>toggleEditPhone(true)}>Edit</span>}
                     </div>
                 </div>
-                <div>
+                <div className="alert-sec">
                     <div className="profile-label">
-                    Email Addresses to Receive Emergency Emails:
+                        Email Addresses to Receive Emergency Email:
                     </div>
                     <div className="profile-content">
-                        johndoe@umass.edu <br />
-                        johnd@gmail.com
+                        <input defaultValue="apoorvarajan@umass.edu" className="alert-phone" disabled={enableEditEmail}/>
+                        {!enableEditEmail && <span className="edit"  onClick={()=>toggleEditEmail(true)}>Edit</span>}
                     </div>
                 </div>
                 
