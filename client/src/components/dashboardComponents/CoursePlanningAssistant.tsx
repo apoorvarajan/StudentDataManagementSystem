@@ -48,7 +48,7 @@ class CoursePlanningAssistant extends React.Component<any,any>{
           </div>
         </div>
         <div>
-          {hash === "#ccourses" ? <CheckReq />:
+          {hash === "#req" ? <CheckReq />:
           hash === "#browse" ? <BrowseCourses /> : 
           scourses && <CurrentCourses scourses={scourses}/>}
         </div>

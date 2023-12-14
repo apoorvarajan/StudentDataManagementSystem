@@ -1,4 +1,4 @@
-import {LoginRequest,LoginReply,StudentDetailsReply,IDRequest,CurrentCoursesReply,BrowseReply,BrowseRequest} from '../proto/frontend_pb'
+import {LoginRequest,LoginReply,StudentDetailsReply,IDRequest,CurrentCoursesReply,BrowseReply,BrowseRequest,RequirementReply,RequirementRequest} from '../proto/frontend_pb'
 import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
 const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
 const callLogin = (data:any) => {
@@ -48,6 +48,17 @@ const callBrowseCourses = (data:any) => {
           .catch((error) => reject(error));
       });
 }
+const callCheckReq = (data:any) => {
+    return new Promise<RequirementReply>((resolve, reject) => {
+        const request = new RequirementRequest();
+        request.setCourseIdList(data.courses)
+        request.setToken(data.token)
+        sdmsClient
+          .getCourseRequirements(request, null)
+          .then((message) => resolve(message))
+          .catch((error) => reject(error));
+      });
+}
 const userAuth = async (data:any) => {
     let res:any = await callLogin(data)
     sessionStorage.setItem("token",res.array[1])
@@ -66,15 +77,13 @@ const studentCourse = async (data:any) => {
     
 }
 
-const courseReq = (data:any) => {
-    let response = {
-        "progress":"4/5"
-    }
-    return response
+const courseReq = async(data:any) => {
+    let res:any = await (await callCheckReq(data)).toObject()
+    return res
 }
 const browseCourse = async(data:any) => {
     let res:any = await (await callBrowseCourses(data)).toObject()
     return res
 }
 
-export default {userAuth,studentProfile,studentCourse,browseCourse}
+export default {userAuth,studentProfile,studentCourse,browseCourse,courseReq}

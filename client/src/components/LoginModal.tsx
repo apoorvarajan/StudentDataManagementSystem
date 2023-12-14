@@ -2,7 +2,6 @@ import React from 'react'
 
 const getValueAndLogin=(props:any)=>{
     const userId = (document.getElementById("userId") as HTMLInputElement)?.value
-    console.log()
     const pwd = (document.getElementById("pwd") as HTMLInputElement)?.value
     props.login({userId:userId,pwd:pwd,role:props.role})
 }
