@@ -1,131 +1,32 @@
-.academics-section-wrap{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    top: 0;
+.profile-section-wrap{
     display: flex;
-    z-index: 10001;
 }
-.academics-left-section{
-    width: 20%;
-    background: black;
-    height: 100%;
-    /* padding-top: 3em; */
-    z-index: -1;
-    color: white;
+.signup-alert-wrap{
+    margin: 1em;
 }
-.academics-right-section{
-    width: 70%;
-    height: 100%;
-    padding-top: 3em;
-    text-align: center;
-}
-.academic-content{
-    width: 100%;
-    background: lightslategray;
-    min-height: 3em;
-    padding: 1em;
+.alert-sec{
     margin: 1em;
     border: 1px solid black;
+    padding: 1em;
     border-radius: 0.3em;
-    line-height: 3em;
-    text-align: left;
-    color: white;
 }
-.academic-label{
-    text-align: left;
+.profile-label{
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0.5em;
+}
+.profile-content{
     margin: 1em;
+}
+.edit{
+    color: rgba(111,45,79);
     font-weight: bold;
+    margin: 0em 0.5em;
 }
-.academic-sec-item{
-    height: 3em;
-    line-height: 3em;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    border-collapse: collapse;
-    font-weight: bold;
-    border-top-right-radius: 0.3em;
-    border-bottom-right-radius: 0.3em;
-    border-right: 1px solid white;
-    text-align: center;
+.alert-phone{
+    border: none;
+    width: auto;
 }
-.myclasses-wrap{
-    margin: 3em;
-    border: 1px solid lightblue;
-    border-radius: 0.3em;
-    padding: 1em;
-}
-.myclass-classtitle{
-    background-color: lightblue;
-    height: 2.5em;
-    line-height: 2.5em;
-    border-radius: 0.3em;
-    margin-bottom: 2em;
-}
-.myclass-class-details{
-    border: 1px solid lightgray;
-    border-radius: 0.3em;
-    padding: 2em;
-    text-align: left;
-}
-.myclass-details-elem{
-    line-height: 2em;
-}
-.req-icon{
-    width: 1em;
-    margin-left: 1em;
-}
-.core-req-heading{
-    height: 2em;
-    font-size: 2em;
-    margin: 1em 0em;
-}
-.core-req-wrap{
-    text-align: left;
-    margin: 3em;
-}
-.core-req-item{
-    padding: 0.5em 1em;
-    background:lightblue;
-    margin: 1em;
-    border-radius: 0.3em;
-}
-.req-eligible-course{
-    background-color: darkred;
-    color: white;
-    text-align: center;
-    padding: 0.2em 1em;
-    border-radius: 0.3em;
-}
-.course-history-section{
-    margin: 10em;
-    background-color: lightgray;
-    border: 1px solid black;
-}
-.ch-table{
-    border: 1px solid white;
-    border-collapse: collapse;
-    width: 100%;
-}
-.ch-rowhead{
-    height: 2em;
-    font-weight: bold;
-}
-.ch-row-head-elem{
-    padding: 1em;
-    border: 2px solid white;
-    border-collapse: collapse;
-}
-.ch-row{
-    height: 2em;
-}
-.ch-elem{
-    padding: 1em;
-    border: 2px solid white;
-    border-collapse: collapse;
-}
-.grade-term-head{
-    font-weight: bold;
-    padding: 1em;
-    border-bottom: 2px solid darkred;
+.pInfo-sec{
+    border-bottom: 2px solid rgba(111,45,79);
 }

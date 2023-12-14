@@ -6,14 +6,6 @@
     display: flex;
     z-index: 10001;
 }
-.academics-left-section{
-    width: 30%;
-    background: black;
-    height: 100%;
-    /* padding-top: 3em; */
-    z-index: -1;
-    color: white;
-}
 .academics-right-section{
     width: 70%;
     height: 100%;
