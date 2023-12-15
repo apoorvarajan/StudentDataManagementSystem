@@ -1,5 +1,8 @@
 # StudentDataManagementSystem
 
+Demo video Link: https://drive.google.com/file/d/1syHbt6whFwtJGXvNylG4zD2wfdn3n72G/view?usp=sharing
+
+
 Installation:
 
 For Client:
