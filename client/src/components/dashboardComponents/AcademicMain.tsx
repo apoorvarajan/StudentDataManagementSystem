@@ -16,7 +16,7 @@ class AcademicMain extends React.Component<any,any>{
         this.state={
             profiledata:null,
             studentCourses:null,
-            hash:"#pInfo"
+            hash:window.location.hash
         }
     }
     componentDidMount = async () => {

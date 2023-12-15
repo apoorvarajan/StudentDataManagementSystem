@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import '../styles/dashboard.css'
 import '../styles/home.css'
-import DashboardSummary from './dashboardComponents/dashboardSummary'
 import api from '../controller/apiCalls'
 class Dashboard extends React.Component<any,any>{
     constructor(props:any){

@@ -14,7 +14,7 @@ class CoursePlanningAssistant extends React.Component<any,any>{
       profiledata:null,
       studentCourses:null,
       allCourses:null,
-      hash:"#pInfo"
+      hash:window.location.hash
   }
   }
   componentDidMount = async () => {
