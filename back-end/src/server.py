@@ -85,16 +85,34 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     
 
     def GetCourseRequirements(self, request, context):
-        return backend_pb2.RequirementReply(progress="4/5");
+        courses = set(get_current_courses(request.token, user_id=request.user_id))
+        courses.update(get_completed_courses(request.token, user_id=request.user_id))
+        courses.update(request.course_id)
+        user = get_student(request.token, user_id=request.user_id)
+        degree_requirements = get_degree_requirements(request.token, department=user['department'], degree=user['degree'])
+        requirements_mapping = {
+            r : v['eligible_courses'] for r, v in degree_requirements.items()}
+        course_to_req = {}
+        for req, crs in requirements_mapping.items():
+            for course in crs:
+                if course not in course_to_req:
+                    course_to_req[course] = []
+                course_to_req[course].append(req)
+        num_requirements = {
+            r : v['num_reqd'] for r, v in degree_requirements.items()}
+        completed, total = check_requirements_satisfied(courses, course_to_req, num_requirements)
+        reply = f'{completed}/{total} requirements satisfied'
+        return backend_pb2.RequirementReply(progress=reply)
 
     def GetStudentCourses(self, request, context):
         curr_courses_dict = {"course_number": "520", "dept": "COMPSCI", "n_credits": 3, "course_name": "Software Engineering", "instructors": ["Feather Cowboy"]}
         prev_courses_dict = {"course_number": "574", "dept": "COMPSCI", "n_credits": 3, "course_name": "IVC", "grade": "A", "semester": "Spring", "year": 2021}
         return backend_pb2.CurrentCoursesReply(course=[dict_to_current_course(curr_courses_dict)], prev_course=[dict_to_prev_course(prev_courses_dict)])
     
-    # def GetCourses(self, request, context):
-    #     courses_list = get_all_courses(request.token, degree=request.degree, department_id=request.dept)
-    #     return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
+    def GetCourses(self, request, context):
+        course_dict = {"course_number": "520", "dept": "COMPSCI", "n_credits": 3, "course_name": "Software Engineering", "description": "Learn how to write software", "req_satisfied": ["core", "elective"]}
+        return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
+        
     def SetStudentGrade(self, request, context):
         result = set_grade(request.token, user_id=request.user_id, course_id=request.course_id, grade=request.grade)
         #result = set_grade("", user_id="bob1253", course_id="COMPSCI 520", grade="B-")
