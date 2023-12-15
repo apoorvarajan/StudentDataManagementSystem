@@ -1,12 +1,13 @@
 from concurrent import futures
 import logging
-
 import grpc
 import backend_pb2 
 import backend_pb2_grpc
 import re
-
 import requests
+from sdms_server.api.api import *
+from sdms_server.validation.validation import *
+from dotenv import load_dotenv
 
 # Helper method to convert a dictionary to a Name message
 def dict_to_name(name_dict):
@@ -65,16 +66,22 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     #     return backend_pb2.GradeReply(grade="A")
     
     def Login(self, request, context):
-        print(request)
-        return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
+        status, token = authenticate(request.user_id, request.password, request.role)
+        if(status == False):
+            return backend_pb2.LoginReply(status=token, token="")
+        else:
+            return backend_pb2.LoginReply(status="Success", token=token)
+        #return backend_pb2.LoginReply(status="Success", token="fnejfnmfdskjfhuifnmnf")
     
     def GetStudentDetails(self, request, context):
-        name_dict = {"first_name": "Bob", "middle_name": "", "last_name": "Smith"}
-        address_dict = {"line1": "123 Main St", "city": "Anytown", "state": "CA", "zip": "12345"}
-        
-        return backend_pb2.StudentDetailsReply(name=dict_to_name(name_dict), email_id = "bob123@email.com", address=dict_to_address(address_dict), phone = "413 489 6576", 
-                                               advisor="Pelizabeth Earolski", dept = "COMPSCI", degree = "MS",
-                                               gpa = 3, grad_sem = "Spring", grad_year = 2024)
+        # name_dict = {"first_name": "Bob", "middle_name": "", "last_name": "Smith"}
+        # address_dict = {"line1": "123 Main St", "city": "Anytown", "state": "CA", "zip": "12345"}
+        student_details = get_student_details(request.token, user_id=request.user_id)
+        return backend_pb2.StudentDetailsReply(name=dict_to_name(student_details["name"]), email_id = student_details["email"], 
+                                               address=dict_to_address(student_details["address"]), phone = student_details["phone"], 
+                                               advisor=student_details["advisor"], dept = student_details["department"], 
+                                               degree = student_details["degree"], gpa = student_details["gpa"], grad_sem = student_details["grad_sem"], 
+                                               grad_year = student_details["grad_year"])
     
 
     def GetCourseRequirements(self, request, context):
@@ -85,10 +92,18 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
         prev_courses_dict = {"course_number": "574", "dept": "COMPSCI", "n_credits": 3, "course_name": "IVC", "grade": "A", "semester": "Spring", "year": 2021}
         return backend_pb2.CurrentCoursesReply(course=[dict_to_current_course(curr_courses_dict)], prev_course=[dict_to_prev_course(prev_courses_dict)])
     
-    def GetCourses(self, request, context):
-        course_dict = {"course_number": "520", "dept": "COMPSCI", "n_credits": 3, "course_name": "Software Engineering", "description": "Learn how to write software", "req_satisfied": ["core", "elective"]}
-        return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
-
+    # def GetCourses(self, request, context):
+    #     courses_list = get_all_courses(request.token, degree=request.degree, department_id=request.dept)
+    #     return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
+    def SetStudentGrade(self, request, context):
+        result = set_grade(request.token, user_id=request.user_id, course_id=request.course_id, grade=request.grade)
+        #result = set_grade("", user_id="bob1253", course_id="COMPSCI 520", grade="B-")
+        return backend_pb2.SetGradeReply(status=result)
+    
+    def SendEmail(self, request, context):
+        result = notify_user(request.token, user_id=request.user_id, subject=request.subject, body=request.body)
+        return backend_pb2.EmailReply(status=result)
+    
 def serve():
     port = "50051"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -102,4 +117,5 @@ def serve():
 
 if __name__ == "__main__":
     logging.basicConfig()
+    load_dotenv()
     serve()

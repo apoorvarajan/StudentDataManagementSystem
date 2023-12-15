@@ -162,3 +162,39 @@ class Course(_message.Message):
     description: str
     req_satisfied: _containers.RepeatedScalarFieldContainer[str]
     def __init__(self, course_number: _Optional[str] = ..., dept: _Optional[str] = ..., n_credits: _Optional[int] = ..., course_name: _Optional[str] = ..., description: _Optional[str] = ..., req_satisfied: _Optional[_Iterable[str]] = ...) -> None: ...
+
+class SetGradeRequest(_message.Message):
+    __slots__ = ("token", "user_id", "course_id", "grade")
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    COURSE_ID_FIELD_NUMBER: _ClassVar[int]
+    GRADE_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    user_id: str
+    course_id: str
+    grade: str
+    def __init__(self, token: _Optional[str] = ..., user_id: _Optional[str] = ..., course_id: _Optional[str] = ..., grade: _Optional[str] = ...) -> None: ...
+
+class SetGradeReply(_message.Message):
+    __slots__ = ("status",)
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    status: bool
+    def __init__(self, status: bool = ...) -> None: ...
+
+class EmailRequest(_message.Message):
+    __slots__ = ("token", "user_id", "subject", "body")
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    SUBJECT_FIELD_NUMBER: _ClassVar[int]
+    BODY_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    user_id: str
+    subject: str
+    body: str
+    def __init__(self, token: _Optional[str] = ..., user_id: _Optional[str] = ..., subject: _Optional[str] = ..., body: _Optional[str] = ...) -> None: ...
+
+class EmailReply(_message.Message):
+    __slots__ = ("status",)
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    status: bool
+    def __init__(self, status: bool = ...) -> None: ...

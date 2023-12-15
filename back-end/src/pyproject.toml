@@ -9,6 +9,7 @@ dependencies = [
     "pymongo",
     "pandas",
     "bcrypt",
+    "argon2-cffi",
     "pyjwt",
     "python-dotenv",
     "grpcio-tools",

@@ -8,6 +8,8 @@ service SDMS_Backend {
     rpc GetStudentCourses (IDRequest) returns (CurrentCoursesReply) {}
     rpc GetCourseRequirements (RequirementRequest) returns (RequirementReply) {}
     rpc GetCourses (BrowseRequest) returns (BrowseReply) {}
+    rpc SetStudentGrade (SetGradeRequest) returns (SetGradeReply) {}
+    rpc SendEmail (EmailRequest) returns (EmailReply) {}
 }
 
 
@@ -128,4 +130,28 @@ message Course {
     string course_name = 4;
     string description = 5;
     repeated string req_satisfied = 6; // array of requiremenets satisfied
+}
+
+// SetStudentGrade
+message SetGradeRequest {
+    string token = 1;
+    string user_id = 2;
+    string course_id = 3;
+    string grade = 4;
+}
+
+message SetGradeReply {
+    bool status = 1; //error or success
+}
+
+// SendEmail
+message EmailRequest {
+    string token = 1;
+    string user_id = 2;
+    string subject = 3;
+    string body = 4;
+}
+
+message EmailReply {
+    bool status = 1; //error or success
 }
