@@ -15,7 +15,7 @@ class FacultyPage extends React.Component<any,any>{
     }
     setCourseDesc = () => {
         const cId = (document.getElementById("cId2") as HTMLInputElement)?.value
-        const cDesc = (document.getElementById("cDesc") as HTMLInputElement)?.value
+        const cDesc = (document.getElementById("cDesc") as HTMLTextAreaElement)?.value
         let token = sessionStorage.getItem("token")
         api.setCourseDesc({cId:cId,token:token,courseDesc:cDesc,})
     }
