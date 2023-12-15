@@ -117,6 +117,10 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
         #result = set_grade("", user_id="bob1253", course_id="COMPSCI 520", grade="B-")
         return backend_pb2.SetGradeReply(status=result)
     
+    def SendEmail(self, request, context):
+        result = notify_user(request.token, user_id=request.user_id, subject=request.subject, body=request.body)
+        return backend_pb2.EmailReply(status=result)
+    
 def serve():
     port = "50051"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

@@ -1,0 +1,338 @@
+{
+  "fileCounts": {},
+  "anys": [
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 4,
+      "character": 33,
+      "text": "getCLS",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 4,
+      "character": 41,
+      "text": "getFID",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 4,
+      "character": 49,
+      "text": "getFCP",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 4,
+      "character": 57,
+      "text": "getLCP",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 4,
+      "character": 65,
+      "text": "getTTFB",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 5,
+      "character": 6,
+      "text": "getCLS",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 6,
+      "character": 6,
+      "text": "getFID",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 7,
+      "character": 6,
+      "text": "getFCP",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 8,
+      "character": 6,
+      "text": "getLCP",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\reportWebVitals.ts",
+      "line": 9,
+      "character": 6,
+      "text": "getTTFB",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 54,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 58,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 64,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 72,
+      "character": 8,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 80,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 97,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 101,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 107,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 115,
+      "character": 8,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\FrontendServiceClientPb.ts",
+      "line": 123,
+      "character": 4,
+      "text": "metadata",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\Dashboard.tsx",
+      "line": 16,
+      "character": 18,
+      "text": "error",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\Dashboard.tsx",
+      "line": 16,
+      "character": 35,
+      "text": "error",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\Dashboard.tsx",
+      "line": 19,
+      "character": 19,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\Dashboard.tsx",
+      "line": 64,
+      "character": 57,
+      "text": "subitem",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\Home.tsx",
+      "line": 8,
+      "character": 23,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\LoginModal.tsx",
+      "line": 2,
+      "character": 20,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\sideBar.tsx",
+      "line": 28,
+      "character": 57,
+      "text": "subitem",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\proto\\frontend.ts",
+      "line": 5,
+      "character": 52,
+      "text": "args",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicMain.tsx",
+      "line": 13,
+      "character": 22,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\CoursePlanningAssistant.tsx",
+      "line": 11,
+      "character": 33,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\dashboardSummary.tsx",
+      "line": 2,
+      "character": 26,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\ManageClasses.tsx",
+      "line": 3,
+      "character": 23,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\ProfileMain.tsx",
+      "line": 10,
+      "character": 21,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 49,
+      "character": 54,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 49,
+      "character": 64,
+      "text": "index",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 51,
+      "character": 73,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 51,
+      "character": 79,
+      "text": "class",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 52,
+      "character": 73,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 52,
+      "character": 79,
+      "text": "description",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 53,
+      "character": 73,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 53,
+      "character": 79,
+      "text": "units",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 54,
+      "character": 73,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\grades.tsx",
+      "line": 55,
+      "character": 73,
+      "text": "entry",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\AcademicContents\\summary.tsx",
+      "line": 2,
+      "character": 25,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\ProfileContents\\ITAccountsAndPassword.tsx",
+      "line": 2,
+      "character": 31,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\ProfileContents\\personalInformation.tsx",
+      "line": 2,
+      "character": 29,
+      "text": "props",
+      "kind": 1
+    },
+    {
+      "file": "client\\src\\components\\dashboardComponents\\ProfileContents\\signUpForAlerts.tsx",
+      "line": 2,
+      "character": 25,
+      "text": "props",
+      "kind": 1
+    }
+  ],
+  "percentage": 97.06799750467873,
+  "total": 1603,
+  "covered": 1556,
+  "uncovered": 47
+}
