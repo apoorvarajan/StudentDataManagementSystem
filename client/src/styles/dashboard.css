@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+.dashboard-page{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.dashboard-wrap{
+    margin: auto;
+    width: 100%;
+    background: lightgray;
+    /* height: 100%; */
+}
+.dashboard-row{
+    display: flex;
+}
+.dashboard-item-wrap{
+    display: flex;
+}
+.dashboard-item{
+    width: 30%;
+    /* height: 10em; */
+    border: 5px solid white;
+    background-color: rgba(111,45,79);
+    color: white;
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+.dashboard-heading{
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0.5em 0em;
+    border-bottom: 3px solid black;
+    width: 100%;
+}
+.dashboard-greeting-wrap{
+    background: lightslategray;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+.greeting-dashboard{
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 2em;
+}
+.todo-heading-dashboard{
+    padding: 0.5em 1em;
+    font-size: 1.2em;
+    background: black;
+    color: white;
+}
+.pattern{
+    min-height: 10em;
+    background-image: repeating-linear-gradient(white 0px, white 24px, lightslategray 25px);
+    font-family: 'Dancing Script', cursive;
+    font-size: 19px;
+    padding: 25px 1em 0em 1em;
+}
+.sub-item-wrap{
+    margin: 1em;
+    font-size: 1.1em;
+}
+.dashboard-sub-item{
+    margin: 1em;
+    text-decoration: underline;
+}
+.dashboard-sub-item:hover{
+    cursor: pointer;
+}
+.sidebar-section{
+    width: 25%;
+    background: rgba(111,45,79);
+    height: 100%;
+    color: white;
+    /* position: absolute; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.sideBar-elem{
+    text-align: center;
+    height: 3em;
+    line-height: 2em;
+    background: white;
+    color: black;
+    border: 1px solid black;
+}
+.browse-top{
+    margin: 2em;
+    font-size: 1.3em;
+    display: flex;
+}
+.bt-sec{
+    margin: 0em 1em;
+}

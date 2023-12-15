@@ -1,5 +1,32 @@
 # StudentDataManagementSystem
 
+Installation:
+
+For Client:
+
+Go to client directory: cd client
+
+1. npm i
+
+For Server:
+
+1. pip install requirements.txt
+
+To run the Client:
+
+Go to client directory: cd client
+
+1. run envoy : envoy --config-path /src/enoy.yaml - Keep it running
+
+2. run client: npm start
+
+To run Server:
+
+Go to back-end directory: cd back-end
+
+1. run server: python server.py
+
+
 Stakeholder:
 Students
 Professors

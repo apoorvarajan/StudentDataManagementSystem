@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+service SDMS_Backend {
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc Login (LoginRequest) returns (LoginReply) {}
+    rpc GetGrade (GradeRequest) returns (GradeReply) {}
+    // rpc GetStudentDetails (IDRequest) returns (StudentDetailsReply) {}
+    // rpc GetStudentCourses (IDRequest) returns (CurrentCoursesReply) {}
+    // rpc GetCourseRequirements () return () {}
+    // rpc GetCourses () returns () {}
+}
+
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+message GradeRequest {
+    string user_id = 1;
+    string course_code = 2;
+    string token = 3;
+}
+
+message GradeReply {
+    string grade = 1;
+}
+
+// SDMS
+message LoginRequest {
+    string user_id = 1;
+    string password = 2;
+    string role = 3;
+}
+
+message LoginReply {
+    string token = 1;
+}
+
+message IDRequest {
+    string user_id = 1;
+    string token = 2;
+}
+
+message StudentDetailsReply{
+    string name = 1;
+    string email = 2;
+    string department = 3;
+    string degree = 4;
+    string graduation_year = 5;
+    string current_gpa = 6;
+}
+
+// message CurrentCoursesReply{
+    
+// }

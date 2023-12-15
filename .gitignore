@@ -1,1 +1,5 @@
+credentials.yml
+.env
+__pycache__/
+*.py[cod]
 node_modules/

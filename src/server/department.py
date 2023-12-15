@@ -1,7 +1,5 @@
-from server.user import Faculty
-
 class Department:
-    def __init__(self, dept_id:str, dept_name:str, dept_head:Faculty):
+    def __init__(self, dept_id:str, dept_name:str, dept_head):
         self._dept_id = dept_id
         self._dept_name = dept_name
         self._dept_head = dept_head
@@ -15,6 +13,11 @@ class Department:
         return self._dept_name
     
     @property
-    def dept_head(self)->Faculty:
+    def dept_head(self):
+        if self._dept_head is None:
+            return None
         return self._dept_head.copy()
+    
+    def copy(self)->'Department':
+        return Department(self.dept_id, self.dept_name, self.dept_head)
     

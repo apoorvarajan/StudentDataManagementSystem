@@ -32,19 +32,23 @@ class BaseUser(ABC):
 
     @property
     def contact_details(self):
+        if self._contact_details is None:
+            return None
         return self._contact_details.copy()
 
     @property
     def emergency_contact(self):
+        if self._emergency_contact is None:
+            return None
         return self._emergency_contact.copy()
 
 class Student(BaseUser):
-    def __init__(self, user_id:str, first_name:str, middle_name:str,
-            last_name:str, contact_details:ContactDetails,
-            emergency_contact:EmergencyContact, student_type:str,
-            admission_year:int, exp_grad_year:int, program:str,
-            major:str, minor:str, concentration:str, dept:Department,
-            advisor:'Faculty'
+    def __init__(self, user_id:str, /, first_name:str=None, middle_name:str=None,
+            last_name:str=None, contact_details:ContactDetails=None,
+            emergency_contact:EmergencyContact=None, student_type:str=None,
+            admission_year:int=None, exp_grad_year:int=None, program:str=None,
+            major:str=None, minor:str=None, concentration:str=None,
+            dept:Department=None, advisor:'Faculty'=None, **kwargs
         ):
         super().__init__(user_id, first_name, middle_name, last_name,
             contact_details, emergency_contact)
@@ -92,6 +96,8 @@ class Student(BaseUser):
     
     @property
     def advisor(self)->'Faculty':
+        if self._advisor is None:
+            return None
         return self._advisor.copy()
     
     def copy(self)->'Student':
@@ -119,10 +125,14 @@ class Faculty(BaseUser):
     
     @property
     def dept(self)->Department:
+        if self._dept is None:
+            return None
         return self._dept.copy()
     
     @property
     def students(self)->list[Student]:
+        if self._students is None:
+            return None
         return [student.copy() for student in self._students]
     
     def copy(self)->'Faculty':

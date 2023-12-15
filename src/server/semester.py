@@ -11,3 +11,6 @@ class Season(Enum):
 class Semester:
     season : Season
     year : int
+
+    def copy(self):
+        return Semester(self.season, self.year)
