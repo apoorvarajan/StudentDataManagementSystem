@@ -7,6 +7,7 @@ const callLogin = (data:any) => {
         request.setUserId(data.userId)
         request.setPassword(data.pwd)
         request.setRole(data.role)
+        console.log(request)
         sdmsClient
           .login(request, null)
           .then((message) => resolve(message))
