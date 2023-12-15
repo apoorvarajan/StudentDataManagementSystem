@@ -118,12 +118,14 @@ class PreviousCourse(_message.Message):
     def __init__(self, course_number: _Optional[str] = ..., dept: _Optional[str] = ..., n_credits: _Optional[int] = ..., course_name: _Optional[str] = ..., grade: _Optional[str] = ..., semester: _Optional[str] = ..., year: _Optional[int] = ...) -> None: ...
 
 class RequirementRequest(_message.Message):
-    __slots__ = ("token", "course_id")
+    __slots__ = ("token", "user_id", "course_id")
     TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
     COURSE_ID_FIELD_NUMBER: _ClassVar[int]
     token: str
+    user_id: str
     course_id: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, token: _Optional[str] = ..., course_id: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, token: _Optional[str] = ..., user_id: _Optional[str] = ..., course_id: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class RequirementReply(_message.Message):
     __slots__ = ("progress",)

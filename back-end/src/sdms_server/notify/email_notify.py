@@ -12,6 +12,7 @@ from email.message import EmailMessage
 import base64
 import json
 import os
+import dotenv
 
 def encode_json_into_os(key, json_data):
     """
@@ -67,7 +68,8 @@ def send_mail(recipient:str, subject:str, body:str):
                 decode_json_from_os('MAIL_CREDENTIALS'), SCOPES)
             creds = flow.run_local_server(port=0)
         encode_json_into_os('MAIL_TOKEN', creds.to_json())
-
+        
+        dotenv.set_key(dotenv.find_dotenv(), 'MAIL_TOKEN', os.getenv('MAIL_TOKEN'))
     try:
         service = build("gmail", "v1", credentials=creds)
         message = EmailMessage()
