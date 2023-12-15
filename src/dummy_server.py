@@ -1,3 +1,4 @@
+from pymongo import ASCENDING, DESCENDING
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import yaml
@@ -78,11 +79,13 @@ def refresh_collection(db_name:str, collection_name:str, df_filename:str|Path):
 
         df : pd.DataFrame = pd.read_json(DATA_ROOT.joinpath(df_filename), lines=True)
         # df : pd.DataFrame = pd.read_csv(DATA_ROOT.joinpath(df_filename))
-        #df.password = df.password.apply(hash_password)
+        # df.password = df.password.apply(hash_password)
         df = df.to_dict('records')
 
         # create a new collection and set username as unique
-        collection.create_index('username', unique=True)
+        # collection.create_index('username', unique=True)
+        collection.create_index([("course_number", ASCENDING), ("department", DESCENDING)], unique=True)
+
 
         # print(df)
         # return 
@@ -445,7 +448,8 @@ def main():
 
 
     # update_course_grade('sdms', stu_from_inst, token, course_instance, {'username': 'bob123', 'grade': 3.0})
-    refresh_collection('sdms', 'students', 'dummy_students.jsonl')
+    # refresh_collection('sdms', 'users', 'dummy_users.jsonl')
+    refresh_collection('academics', 'course_details', 'dummy_courses.jsonl')
     # refresh_collection('sdms', 'users', 'dummy_users.jsonl')
     # reset_password(client, 'sdms', 'users', 'tommy', '2t0mmy') 
     # ------

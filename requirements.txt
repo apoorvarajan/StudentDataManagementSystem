@@ -5,3 +5,10 @@ pyjwt
 python-dotenv
 grpcio-tools
 ortools
+mongomock
+pytest
+argon2-cffi
+coverage
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
