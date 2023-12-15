@@ -7,15 +7,15 @@ const AcademicSummary = (props:any) => {
                         Advisor:
                     </div>
                     <div className="academic-content">
-                        Elizabeth Parolski
+                        {props.sdetails.advisor}
                     </div>
                 </div>
                 <div>
                     <div className="academic-label">
-                        Major:
+                        Program
                     </div>
                     <div className="academic-content">
-                        Computer Science
+                        {props.sdetails.degree + " "}
                     </div>
                 </div>
                 <div>
@@ -24,10 +24,7 @@ const AcademicSummary = (props:any) => {
                     </div>
                     <div className="academic-content academic-stat-content">
                         <div>
-                            Credits earned: 18
-                        </div>
-                        <div>
-                            CGPA:4.0
+                            CGPA: {" "+props.sdetails.gpa}
                         </div>
                     </div>
                 </div>

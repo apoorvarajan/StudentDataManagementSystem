@@ -1,5 +1,10 @@
 import React from 'react'
 
+const getValueAndLogin=(props:any)=>{
+    const userId = (document.getElementById("userId") as HTMLInputElement)?.value
+    const pwd = (document.getElementById("pwd") as HTMLInputElement)?.value
+    props.login({userId:userId,pwd:pwd,role:props.role})
+}
 const LoginModal = (props:any) => {
     return <div className="login-modal-container">
         <div className="login-ins"> If you are signing up, enter your school emailid and we will send you the password to your emailid</div>
@@ -14,7 +19,7 @@ const LoginModal = (props:any) => {
             </div>
         </div>
         <div className="login-modal-submit-button-wrap">
-            <div className="login-modal-button">
+            <div className="login-modal-button" onClick={()=>getValueAndLogin(props)}>
                 Login
             </div>
             <div className="login-modal-button">
