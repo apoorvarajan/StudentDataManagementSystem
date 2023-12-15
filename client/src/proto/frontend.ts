@@ -14,6 +14,8 @@ export interface ProtoGrpcType {
   Course: MessageTypeDefinition
   CurrentCourse: MessageTypeDefinition
   CurrentCoursesReply: MessageTypeDefinition
+  EmailReply: MessageTypeDefinition
+  EmailRequest: MessageTypeDefinition
   IDRequest: MessageTypeDefinition
   LoginReply: MessageTypeDefinition
   LoginRequest: MessageTypeDefinition
@@ -22,6 +24,8 @@ export interface ProtoGrpcType {
   RequirementReply: MessageTypeDefinition
   RequirementRequest: MessageTypeDefinition
   SDMS_Backend: SubtypeConstructor<typeof grpc.Client, _SDMS_BackendClient> & { service: _SDMS_BackendDefinition }
+  SetGradeReply: MessageTypeDefinition
+  SetGradeRequest: MessageTypeDefinition
   StudentDetailsReply: MessageTypeDefinition
 }
 

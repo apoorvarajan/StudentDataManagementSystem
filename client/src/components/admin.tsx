@@ -6,7 +6,7 @@ const sendNotif = () => {
     const sub = (document.getElementById("sub") as HTMLTextAreaElement)?.value
     const body = (document.getElementById("body") as HTMLTextAreaElement)?.value
     let token = sessionStorage.getItem("token")
-    api.sendNotif({user_id:uId,subject:sub,body:body})
+    api.sendNotif({user_id:uId,subject:sub,body:body,token:token})
 }
 const AdminPage = () => {
     const [sUp,sendUpdate]= useState(false)

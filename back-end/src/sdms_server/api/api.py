@@ -75,7 +75,7 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
         authenticated = check_password(password, saved_pwd)
 
         if not authenticated:
-            raise InvalidPasswordError()
+            raise UnauthorizedError()
 
         if role not in user_data['roles']:
             raise UnauthorizedError()
@@ -83,7 +83,7 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
         print(f'Authenticated. First Name: {user_data["name"]["first_name"]}')
         return True, jwt.encode({'username': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
 
-    except (InvalidPasswordError, UnauthorizedError) as e:
+    except (UnauthorizedError) as e:
         return False, str(e)
     
 # def get_satisfied_reqts(course_id:str, department_id:str, degree:str)->list:
@@ -102,7 +102,7 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
 #             raise UserNotFoundError(id)
 #     return True
 
-@permissions_required(admin=())
+#@permissions_required(admin=())
 def notify_user(auth_token_str:str, /, *, user_id:str, subject:str, body:str)->bool:
     email = get_user(auth_token_str, user_id=user_id)['email']
     send_mail(email, subject, body)

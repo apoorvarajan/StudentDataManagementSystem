@@ -254,5 +254,91 @@ export class SDMS_BackendClient {
     this.methodDescriptorGetCourses);
   }
 
+  methodDescriptorSetStudentGrade = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/SetStudentGrade',
+    grpcWeb.MethodType.UNARY,
+    frontend_pb.SetGradeRequest,
+    frontend_pb.SetGradeReply,
+    (request: frontend_pb.SetGradeRequest) => {
+      return request.serializeBinary();
+    },
+    frontend_pb.SetGradeReply.deserializeBinary
+  );
+
+  setStudentGrade(
+    request: frontend_pb.SetGradeRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.SetGradeReply>;
+
+  setStudentGrade(
+    request: frontend_pb.SetGradeRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: frontend_pb.SetGradeReply) => void): grpcWeb.ClientReadableStream<frontend_pb.SetGradeReply>;
+
+  setStudentGrade(
+    request: frontend_pb.SetGradeRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: frontend_pb.SetGradeReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/SDMS_Backend/SetStudentGrade',
+        request,
+        metadata || {},
+        this.methodDescriptorSetStudentGrade,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/SDMS_Backend/SetStudentGrade',
+    request,
+    metadata || {},
+    this.methodDescriptorSetStudentGrade);
+  }
+
+  methodDescriptorSendEmail = new grpcWeb.MethodDescriptor(
+    '/SDMS_Backend/SendEmail',
+    grpcWeb.MethodType.UNARY,
+    frontend_pb.EmailRequest,
+    frontend_pb.EmailReply,
+    (request: frontend_pb.EmailRequest) => {
+      return request.serializeBinary();
+    },
+    frontend_pb.EmailReply.deserializeBinary
+  );
+
+  sendEmail(
+    request: frontend_pb.EmailRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<frontend_pb.EmailReply>;
+
+  sendEmail(
+    request: frontend_pb.EmailRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: frontend_pb.EmailReply) => void): grpcWeb.ClientReadableStream<frontend_pb.EmailReply>;
+
+  sendEmail(
+    request: frontend_pb.EmailRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: frontend_pb.EmailReply) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/SDMS_Backend/SendEmail',
+        request,
+        metadata || {},
+        this.methodDescriptorSendEmail,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/SDMS_Backend/SendEmail',
+    request,
+    metadata || {},
+    this.methodDescriptorSendEmail);
+  }
+
 }
 

@@ -33,21 +33,21 @@ class Dashboard extends React.Component<any,any>{
     let dashBoardSections = ["Profile","Academics","Course Planning Assistant"]
     let dashboardList=[
         [{
-            'Sign Up For Alerts':"/profile?"+uId+"#alert",
-            'Personal Information':"/profile?"+uId+"#pInfo",
+            'Sign Up For Alerts':"/profile?id="+uId+"#alert",
+            'Personal Information':"/profile?id="+uId+"#pInfo",
             // 'IT Accounts and Password':"/profile#itacc"
         }],
         [{
-            "Academic Summary":"/academics?"+uId+"#summary",
-            "Grades":"/academics?"+uId+"#grades",
-            "Course History":"/academics?"+uId+"#chist",
-            "Transcript Request":"/academics?"+uId+"#treq",
-            "Graduation":"/academics?"+uId+"#grad"
+            "Academic Summary":"/academics?id="+uId+"#summary",
+            "Grades":"/academics?id="+uId+"#grades",
+            "Course History":"/academics?id="+uId+"#chist",
+            "Transcript Request":"/academics?id="+uId+"#treq",
+            "Graduation":"/academics?id="+uId+"#grad"
         }],
         [{
-            "Current Courses":"/cpa?"+uId+"#ccourses",
-            "Check Requirement":"/cpa?"+uId+"#req",
-            "Browse all courses":"/cpa?"+uId+"#browse"
+            "Current Courses":"/cpa?id="+uId+"#ccourses",
+            "Check Requirement":"/cpa?id="+uId+"#req",
+            "Browse all courses":"/cpa?id="+uId+"#browse"
         }]
     ]
     return <div className="dashboard-page">

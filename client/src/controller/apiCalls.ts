@@ -1,4 +1,4 @@
-import {LoginRequest,LoginReply,StudentDetailsReply,IDRequest,CurrentCoursesReply,BrowseReply,BrowseRequest,RequirementReply,RequirementRequest} from '../proto/frontend_pb'
+import {LoginRequest,LoginReply,StudentDetailsReply,IDRequest,CurrentCoursesReply,BrowseReply,BrowseRequest,RequirementReply,RequirementRequest,EmailReply,EmailRequest} from '../proto/frontend_pb'
 import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
 const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
 const callLogin = (data:any) => {
@@ -18,6 +18,7 @@ const callStudentProfile = (data:any) => {
         const request = new IDRequest();
         request.setUserId(data.userId)
         request.setToken(data.token)
+        console.log(request)
         sdmsClient
           .getStudentDetails(request, null)
           .then((message) => resolve(message))
@@ -71,24 +72,43 @@ const callGradeUpload = (data:any) => {
           .catch((error) => reject(error));
       });
 }
+const callSendEmail = (data:any) => {
+    return new Promise<EmailReply>((resolve, reject) => {
+        const request = new EmailRequest();
+        console.log(data)
+        request.setUserId(data.user_id)
+        request.setSubject(data.subject)
+        request.setBody(data.body)
+        request.setToken(data.token)
+        sdmsClient
+          .sendEmail(request, null)
+          .then((message) => resolve(message))
+          .catch((error) => reject(error));
+      });
+}
 
 const userAuth = async (data:any) => {
     let res:any = await callLogin(data)
     sessionStorage.setItem("token",res.array[1])
     sessionStorage.setItem("uId",data.userId)
-    if(data.role=="instructor"){
-        window.location.href=`/faculty?id=${data.userId}`
-    }
-    else if(data.role=="admin"){
-        window.location.href=`/admin?id=${data.userId}`
+    if (res.array[0]!="Success"){
+        window.alert(res.array[0])
     }
     else{
-        window.location.href=`/dashboard?id=${data.userId}`
+        if(data.role=="instructor"){
+            window.location.href=`/faculty?id=${data.userId}`
+        }
+        else if(data.role=="admin"){
+            window.location.href=`/admin?id=${data.userId}`
+        }
+        else{
+            window.location.href=`/dashboard?id=${data.userId}`
+        }
     }
-
 }
 const studentProfile = async (data:any) => {
     let res:any = await (await callStudentProfile(data)).toObject()
+    console.log(res)
     return res
 }
 
@@ -118,7 +138,7 @@ const setCourseDesc = async(data:any) => {
 }
 
 const sendNotif = async(data:any) => {
-    let res:any = await (await callGradeUpload(data)).toObject()
+    let res:any = await (await callSendEmail(data)).toObject()
     return res
 }
 

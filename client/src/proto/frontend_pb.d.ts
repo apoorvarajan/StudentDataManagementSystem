@@ -1,5 +1,4 @@
-import * as jspb from 'google-protobuf';
-
+import * as jspb from 'google-protobuf'
 
 
 
@@ -416,6 +415,102 @@ export namespace Course {
     courseName: string,
     description: string,
     reqSatisfiedList: Array<string>,
+  }
+}
+
+export class SetGradeRequest extends jspb.Message {
+  getToken(): string;
+  setToken(value: string): SetGradeRequest;
+
+  getUserId(): string;
+  setUserId(value: string): SetGradeRequest;
+
+  getCourseId(): string;
+  setCourseId(value: string): SetGradeRequest;
+
+  getGrade(): string;
+  setGrade(value: string): SetGradeRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetGradeRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SetGradeRequest): SetGradeRequest.AsObject;
+  static serializeBinaryToWriter(message: SetGradeRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetGradeRequest;
+  static deserializeBinaryFromReader(message: SetGradeRequest, reader: jspb.BinaryReader): SetGradeRequest;
+}
+
+export namespace SetGradeRequest {
+  export type AsObject = {
+    token: string,
+    userId: string,
+    courseId: string,
+    grade: string,
+  }
+}
+
+export class SetGradeReply extends jspb.Message {
+  getStatus(): boolean;
+  setStatus(value: boolean): SetGradeReply;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetGradeReply.AsObject;
+  static toObject(includeInstance: boolean, msg: SetGradeReply): SetGradeReply.AsObject;
+  static serializeBinaryToWriter(message: SetGradeReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetGradeReply;
+  static deserializeBinaryFromReader(message: SetGradeReply, reader: jspb.BinaryReader): SetGradeReply;
+}
+
+export namespace SetGradeReply {
+  export type AsObject = {
+    status: boolean,
+  }
+}
+
+export class EmailRequest extends jspb.Message {
+  getToken(): string;
+  setToken(value: string): EmailRequest;
+
+  getUserId(): string;
+  setUserId(value: string): EmailRequest;
+
+  getSubject(): string;
+  setSubject(value: string): EmailRequest;
+
+  getBody(): string;
+  setBody(value: string): EmailRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EmailRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: EmailRequest): EmailRequest.AsObject;
+  static serializeBinaryToWriter(message: EmailRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EmailRequest;
+  static deserializeBinaryFromReader(message: EmailRequest, reader: jspb.BinaryReader): EmailRequest;
+}
+
+export namespace EmailRequest {
+  export type AsObject = {
+    token: string,
+    userId: string,
+    subject: string,
+    body: string,
+  }
+}
+
+export class EmailReply extends jspb.Message {
+  getStatus(): boolean;
+  setStatus(value: boolean): EmailReply;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EmailReply.AsObject;
+  static toObject(includeInstance: boolean, msg: EmailReply): EmailReply.AsObject;
+  static serializeBinaryToWriter(message: EmailReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EmailReply;
+  static deserializeBinaryFromReader(message: EmailReply, reader: jspb.BinaryReader): EmailReply;
+}
+
+export namespace EmailReply {
+  export type AsObject = {
+    status: boolean,
   }
 }
 
