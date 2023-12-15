@@ -1,0 +1,6 @@
+{"course_number":"520", "n_credits": 3, "department": "COMPSCI", "course_name": "Software Engineering", "description": "Introduces students to the principal activities and state-of-the-art", "degree": ["MS", "BS"]}
+{"course_number":"589", "n_credits": 3, "department": "COMPSCI", "course_name": "Machine Learning", "description": "", "degree": ["MS", "BS"]}
+{"course_number":"677", "n_credits": 3, "department": "COMPSCI", "course_name": "Distributed and Operating Systems", "description": "", "degree": ["MS"]}
+{"course_number":"605", "n_credits": 3, "department": "MATH", "course_name": "Probability Theory I", "description": "", "degree": ["MS"]}
+{"course_number":"532", "n_credits": 3, "department": "COMPSCI", "course_name": "Systems for Data Science", "description": "", "degree": ["MS", "BS"]}
+{"course_number":"574", "n_credits": 3, "department": "COMPSCI", "course_name": "Intelligent Visual Computing", "description": "", "degree": ["MS", "BS"]}

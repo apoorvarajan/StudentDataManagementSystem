@@ -24,3 +24,11 @@ def get_multi_documents(db_name: str, collection: str, filter: dict, projection:
         result = collection.find(filter, projection)
     return result
 
+def set_one_document(db_name: str, collection: str, filter: dict, update: dict) -> None:
+    with MongoClient(
+            os.getenv('MONGO_URI'),
+            server_api=ServerApi(os.getenv('MONGO_SERVER_API_VER'))
+    ) as client:
+        db = client[db_name]
+        collection = db[collection]
+        collection.update_one(filter, update)

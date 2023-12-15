@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+service SDMS_Backend {
+    // rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc Login (LoginRequest) returns (LoginReply) {}
+    // rpc GetGrade (GradeRequest) returns (GradeReply) {}
+    rpc GetStudentDetails (IDRequest) returns (StudentDetailsReply) {}
+    rpc GetStudentCourses (IDRequest) returns (CurrentCoursesReply) {}
+    rpc GetCourseRequirements (RequirementRequest) returns (RequirementReply) {}
+    rpc GetCourses (BrowseRequest) returns (BrowseReply) {}
+    rpc SetStudentGrade (SetGradeRequest) returns (SetGradeReply) {}
+}
+
+
+// // The request message containing the user's name.
+// message HelloRequest {
+//     string name = 1;
+// }
+
+// // The response message containing the greetings
+// message HelloReply {
+//     string message = 1;
+// }
+
+// message GradeRequest {
+//     string user_id = 1;
+//     string course_code = 2;
+//     string token = 3;
+// }
+
+// message GradeReply {
+//     string grade = 1;
+// }
+
+// SDMS
+
+//login
+message LoginRequest {
+    string user_id = 1;
+    string password = 2;
+    string role = 3;
+}
+
+message LoginReply {
+    string status = 1; //error or success
+    string token = 2;
+}
+
+//GetStudentDetails
+message IDRequest {
+    string token = 1;
+    string user_id = 2;
+}
+
+message StudentDetailsReply{
+    Name name = 1;
+    string email_id = 2;
+    Address address = 3;
+    string phone = 4;
+    string advisor = 5;
+    string dept = 6;    //COMPSCI
+    string degree = 7; //MS
+    double gpa = 8;
+    string grad_sem = 9;
+    int32 grad_year = 10;
+}
+
+message Name {
+    string first_name = 1;
+    string middle_name = 2;
+    string last_name = 3;
+}
+
+message Address {
+    string line1 = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+}
+// GetStudentCourses
+
+message CurrentCoursesReply {
+    repeated CurrentCourse course = 1; //list of CurrentCourse type objects
+    repeated PreviousCourse prev_course = 2; //list of PreviousCourse type objects
+}
+
+message CurrentCourse{
+    string course_number = 1;
+    string dept = 2;
+    int32 n_credits = 3;
+    string course_name = 4;
+    repeated string instructors = 6;
+}
+
+message PreviousCourse{
+    string course_number = 1;
+    string dept = 2;
+    int32 n_credits = 3;
+    string course_name = 4;
+    string grade = 5;
+    string semester = 7;
+    int32 year = 8;
+}
+// GetCourseRequirements
+message RequirementRequest {
+    string token = 1;
+    repeated string course_id= 2;
+}
+
+message RequirementReply {
+    string progress = 1; // eg: "4/5"
+}
+
+// GetCourses
+message BrowseRequest {
+    string token = 1;
+    string degree = 2; //MS
+    string dept = 3; //COMPSCI
+}
+
+message BrowseReply {
+    repeated Course course = 1;
+}
+
+message Course {
+    string course_number = 1;
+    string dept = 2;
+    int32 n_credits = 3;
+    string course_name = 4;
+    string description = 5;
+    repeated string req_satisfied = 6; // array of requiremenets satisfied
+}
+
+// SetStudentGrade
+message SetGradeRequest {
+    string token = 1;
+    string user_id = 2;
+    string course_id = 3;
+    string grade = 4;
+}
+
+message SetGradeReply {
+    bool status = 1; //error or success
+}
