@@ -105,7 +105,8 @@ message PreviousCourse{
 // GetCourseRequirements
 message RequirementRequest {
     string token = 1;
-    repeated string course_id= 2;
+    string user_id = 2;
+    repeated string course_id= 3;
 }
 
 message RequirementReply {
