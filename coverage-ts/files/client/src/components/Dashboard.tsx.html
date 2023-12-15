@@ -1,0 +1,103 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Dashboard.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">client\src\components\Dashboard.tsx</td><td class="">96.83%</td><td class="">80%</td><td class="">126</td><td class="">122</td><td class="">4</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import React,{useState} from &#x27;react&#x27;
+import &#x27;../styles/dashboard.css&#x27;
+import &#x27;../styles/home.css&#x27;
+import DashboardSummary from &#x27;./dashboardComponents/dashboardSummary&#x27;
+import {GradeRequest, GradeReply} from &#x27;../proto/frontend_pb&#x27;
+import { SDMS_BackendClient } from &quot;../proto/FrontendServiceClientPb&quot;;
+const sdmsClient = new SDMS_BackendClient(&quot;http://&quot; + &quot;localhost&quot; + &quot;:8081&quot;);
+function getUsers() {
+    return new Promise&lt;GradeReply&gt;((resolve, reject) =&gt; {
+        const request = new GradeRequest();
+        request.setUserId(&#x27;bob123&#x27;)
+        request.setCourseCode(&quot;COMPSCI 520&quot;)
+        request.setToken(&#x27;abc&#x27;)
+        sdmsClient
+          .getGrade(request, null)
+          .then((message) =&gt; {console.log(message.getGrade())})
+          .catch((error) =&gt; reject(error));
+      });
+  }
+const Dashboard = (props:any)=&gt;{
+    getUsers()
+
+    const today_date = new Date()
+    let hours = today_date.getHours();
+    let greeting = (hours &lt; 12)? &quot;Good Morning &quot; :
+             ((hours &lt;= 18 &amp;&amp; hours &gt;= 12 ) ? &quot;Good Afternoon &quot; : &quot;Good Evening &quot;);
+    const datestring=today_date.toDateString()
+    let sname = &quot;[Student Name]&quot;
+    let dashBoardSections = [&quot;Profile&quot;,&quot;Academics&quot;,&quot;Course Planning Assistant&quot;]
+    let dashboardList=[
+        [{
+            &#x27;Sign Up For Alerts&#x27;:&quot;/profile#alert&quot;,
+            &#x27;Personal Information&#x27;:&quot;/profile#pInfo&quot;,
+            &#x27;IT Accounts and Password&#x27;:&quot;/profile#itacc&quot;
+        }],
+        [{
+            &quot;Academic Summary&quot;:&quot;/academics#summary&quot;,
+            &quot;Grades&quot;:&quot;/academics#grades&quot;,
+            &quot;Course History&quot;:&quot;/academics#chist&quot;,
+            &quot;Transcript Request&quot;:&quot;/academics#treq&quot;,
+            &quot;Graduation&quot;:&quot;/academics#grad&quot;
+        }],
+        [{
+            &quot;Current Courses&quot;:&quot;/cpa#ccourses&quot;,
+            &quot;Check Requirement&quot;:&quot;/cpa#req&quot;,
+            &quot;Browse all courses&quot;:&quot;/cpa#browse&quot;
+        }]
+    ]
+    return &lt;div className=&quot;dashboard-page&quot;&gt;
+        &lt;div className=&quot;home-header-wrap&quot;&gt;
+            &lt;div className=&quot;home-heading-text&quot;&gt;Dashboard&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;dashbpoard-wrap&quot;&gt;
+            &lt;div className=&quot;dashboard-greeting-wrap&quot;&gt;
+                &lt;div className=&quot;greeting-dashboard&quot;&gt;
+                    {greeting+ sname + &quot;!&quot;}
+                &lt;/div&gt;
+                &lt;div className=&quot;dashboard-date&quot;&gt; Today is {datestring}&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className=&quot;dashboard-item-wrap&quot;&gt;
+                {dashBoardSections.map((item,key)=&gt;{
+                    return &lt;div  className=&quot;dashboard-item&quot;&gt;
+                            &lt;div className=&quot;dashboard-heading&quot;&gt;{item}&lt;/div&gt;
+                            &lt;div className=&quot;sub-item-wrap&quot;&gt;
+                                {dashboardList[key].map((subitem:any)=&gt;{
+                                    return Object.entries(subitem).map(([elem,redirect])=&gt;{
+                                        const url = redirect as string;
+                                        return &lt;div className=&quot;dashboard-sub-item&quot; onClick={()=&gt; window.location.href=url}&gt;{elem}&lt;/div&gt;
+                                    })
+                                })}
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                })}
+            &lt;/div&gt;
+            &lt;div&gt;
+                    &lt;div className=&quot;todo-heading-dashboard&quot;&gt; To-Do&lt;/div&gt;
+                    &lt;div className=&quot;paper&quot;&gt;
+                        &lt;div className=&quot;pattern&quot;&gt;
+                            You don&#x27;t have any tasks pending!
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+}
+export default Dashboard</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;client\\src\\components\\Dashboard.tsx&quot;,&quot;line&quot;:16,&quot;character&quot;:18,&quot;text&quot;:&quot;error&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;client\\src\\components\\Dashboard.tsx&quot;,&quot;line&quot;:16,&quot;character&quot;:35,&quot;text&quot;:&quot;error&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;client\\src\\components\\Dashboard.tsx&quot;,&quot;line&quot;:19,&quot;character&quot;:19,&quot;text&quot;:&quot;props&quot;,&quot;kind&quot;:1},{&quot;file&quot;:&quot;client\\src\\components\\Dashboard.tsx&quot;,&quot;line&quot;:64,&quot;character&quot;:57,&quot;text&quot;:&quot;subitem&quot;,&quot;kind&quot;:1}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 14 Dec 2023 17:48:01 GMT</p>
+    </body>
+  </html>
+  

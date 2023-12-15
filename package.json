@@ -4,8 +4,10 @@
   "description": "Stakeholder:\r Students\r Professors\r Admin",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "ts-coverage": "typescript-coverage-report",
+    "start": "webpack",
+    "test": "jest --config jest.config.js --coverage --coverageDirectory=output/coverage/jest",
+    "test:coverage": "jest --config jest.config.js --coverage --coverageDirectory=output/coverage/jest"
   },
   "keywords": [],
   "author": "",
@@ -17,11 +19,33 @@
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.11",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-html-reporter": "^3.10.2",
     "jest-html-reporters": "^3.1.5",
     "ts-jest": "^29.1.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript-coverage-report": "^0.8.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/assets/css/__mocks__/styleMock.js"
+    },
+    "transform": {
+      ".+\\.(css|styl|less|sass|scss)$": "<rootDir>/node_modules/jest-css-modules-transform"
+    },
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ],
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom"
+  },
+  "dependencies": {
+    "coverage": "^0.4.1",
+    "google-protobuf": "^3.21.2",
+    "grpc-web": "^1.5.0",
+    "jest-css-modules-transform": "^4.4.2"
   }
 }
