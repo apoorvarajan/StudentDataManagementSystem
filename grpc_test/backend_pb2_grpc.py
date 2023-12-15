@@ -19,12 +19,34 @@ class SDMS_BackendStub(object):
                 request_serializer=backend__pb2.HelloRequest.SerializeToString,
                 response_deserializer=backend__pb2.HelloReply.FromString,
                 )
+        self.Login = channel.unary_unary(
+                '/SDMS_Backend/Login',
+                request_serializer=backend__pb2.LoginRequest.SerializeToString,
+                response_deserializer=backend__pb2.LoginReply.FromString,
+                )
+        self.GetGrade = channel.unary_unary(
+                '/SDMS_Backend/GetGrade',
+                request_serializer=backend__pb2.GradeRequest.SerializeToString,
+                response_deserializer=backend__pb2.GradeReply.FromString,
+                )
 
 
 class SDMS_BackendServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SayHello(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Login(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetGrade(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +59,16 @@ def add_SDMS_BackendServicer_to_server(servicer, server):
                     servicer.SayHello,
                     request_deserializer=backend__pb2.HelloRequest.FromString,
                     response_serializer=backend__pb2.HelloReply.SerializeToString,
+            ),
+            'Login': grpc.unary_unary_rpc_method_handler(
+                    servicer.Login,
+                    request_deserializer=backend__pb2.LoginRequest.FromString,
+                    response_serializer=backend__pb2.LoginReply.SerializeToString,
+            ),
+            'GetGrade': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetGrade,
+                    request_deserializer=backend__pb2.GradeRequest.FromString,
+                    response_serializer=backend__pb2.GradeReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +94,39 @@ class SDMS_Backend(object):
         return grpc.experimental.unary_unary(request, target, '/SDMS_Backend/SayHello',
             backend__pb2.HelloRequest.SerializeToString,
             backend__pb2.HelloReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Login(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SDMS_Backend/Login',
+            backend__pb2.LoginRequest.SerializeToString,
+            backend__pb2.LoginReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetGrade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SDMS_Backend/GetGrade',
+            backend__pb2.GradeRequest.SerializeToString,
+            backend__pb2.GradeReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
