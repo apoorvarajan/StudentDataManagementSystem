@@ -34,7 +34,7 @@ def run():
         print(response_login)
 
         #response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
-        response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
+        response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token=response_login.token, user_id='bob123'))
         print(response_student)
 
         response_requirements = stub.GetCourseRequirements(backend_pb2.RequirementRequest(token='fnejfnmfdskjfhuifnmnf', course_id=['COMPSCI 520', 'COMPSCI 574']))
@@ -43,8 +43,11 @@ def run():
         response_courses = stub.GetStudentCourses(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
         print(response_courses)
 
-        response_all_courses = stub.GetCourses(backend_pb2.BrowseRequest(token='fnejfnmfdskjfhuifnmnf', degree='MS', dept='COMPSCI'))
-        print(response_all_courses)
+        # response_all_courses = stub.GetCourses(backend_pb2.BrowseRequest(token='fnejfnmfdskjfhuifnmnf', degree='MS', dept='COMPSCI'))
+        # print(response_all_courses)
+
+        response_set_grade = stub.SetStudentGrade(backend_pb2.SetGradeRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123', course_id='COMPSCI 520', grade='A'))
+        print(response_set_grade)
 
 if __name__ == "__main__":
     logging.basicConfig()

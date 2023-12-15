@@ -30,7 +30,7 @@ def get_user(auth_token_str:str, /, *, user_id:str)->dict:
     
     return result
 
-def get_user_cred(auth_token_str:str, /, *, user_id:str)->dict:
+def get_user_cred(*, user_id:str)->dict:
     result = get_one_document(os.getenv('USERS_DB'), os.getenv('USERS_COLL'), {'username': user_id}, 
                               {'_id': 0, 'password': 1, 'name': 1, 'roles': 1})
 
@@ -55,8 +55,17 @@ def get_student_details(auth_token_str:str, /, *, user_id:str)->dict:
      
     return {**user_details, **student_details}
 
-# def get_all_courses(auth_token_str:str, /, *, degree:str, department_id:str)->list:
-#     result = get_multi_documents(os.getenv('ACADEMICS_DB'), os.getenv('ALL_COURSES_COLL'), 
+def get_all_courses(auth_token_str:str, /, *, degree:str, department_id:str)->list:
+    result = get_multi_documents(os.getenv('ACADEMICS_DB'), os.getenv('ALL_COURSES_COLL'),
+                                 {'department': department_id, "type": {"$in": [degree]}}, {'_id': 0})
+    
+    if result is None:
+        raise ValueNotFoundError('department_id')
+    
+    return result
+    
+
+
 
 def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
     try:
@@ -75,4 +84,22 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
 
     except (InvalidPasswordError, UnauthorizedError) as e:
         return False, str(e)
+    
+# def get_satisfied_reqts(course_id:str, department_id:str, degree:str)->list:
+#     result = get_one_document(os.getenv('DEPT_DB'), os.getenv('DEGREES_COLL'),)
+
+
+def set_grade(auth_token_str:str, /, *, user_id:str, course_id: str, grade:str)->bool:
+    course_inst = get_one_document(os.getenv('ACADEMICS_DB'), os.getenv('CURR_COURSES_COLL'), 
+        {'department': course_id.split()[0], 'course_number': course_id.split()[1], 'students': user_id})
+    
+    # students = course_inst['students']
+    # for id in grades.keys():
+    #     if id in students.keys():
+    #         students[id]['course_grade'] = grades[id]
+    #         collection.update_one(filter_condition, {'$set': {'students': students}})
+    #     else:
+    #         raise UserNotFoundError(id)
+    # return True
+
     
