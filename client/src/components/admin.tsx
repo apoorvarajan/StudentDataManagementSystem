@@ -14,9 +14,9 @@ const AdminPage = () => {
                 <div className="faculty-id">
                     AdminId: {sessionStorage.getItem("uId")}
                 </div>
-                <div>
+                <div className="faculty-wrap2">
                     Send Notification to:
-                    <div>
+                    <div  className="inputs-faculty sub2">
                         <label htmlFor="u-id" className="login-input-field"> User Id:</label>
                         <input name="u-id" id="uId" type="text" className="login-input-field t"/>
                         <label htmlFor="sub" className="login-input-field"> Subject:</label>
@@ -25,7 +25,7 @@ const AdminPage = () => {
                         <textarea name="body" id="body" rows={4} cols={50}></textarea>
                     </div>
                 </div>
-                {!sUp &&<div>
+                {<div>
                     <div className="login-modal-button blah ad" onClick={()=> {
                         sendNotif()
                         sendUpdate(true)
