@@ -39,6 +39,11 @@ class SDMS_BackendStub(object):
                 request_serializer=backend__pb2.BrowseRequest.SerializeToString,
                 response_deserializer=backend__pb2.BrowseReply.FromString,
                 )
+        self.SetStudentGrade = channel.unary_unary(
+                '/SDMS_Backend/SetStudentGrade',
+                request_serializer=backend__pb2.SetGradeRequest.SerializeToString,
+                response_deserializer=backend__pb2.SetGradeReply.FromString,
+                )
 
 
 class SDMS_BackendServicer(object):
@@ -76,6 +81,12 @@ class SDMS_BackendServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetStudentGrade(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SDMS_BackendServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -103,6 +114,11 @@ def add_SDMS_BackendServicer_to_server(servicer, server):
                     servicer.GetCourses,
                     request_deserializer=backend__pb2.BrowseRequest.FromString,
                     response_serializer=backend__pb2.BrowseReply.SerializeToString,
+            ),
+            'SetStudentGrade': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetStudentGrade,
+                    request_deserializer=backend__pb2.SetGradeRequest.FromString,
+                    response_serializer=backend__pb2.SetGradeReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -196,5 +212,22 @@ class SDMS_Backend(object):
         return grpc.experimental.unary_unary(request, target, '/SDMS_Backend/GetCourses',
             backend__pb2.BrowseRequest.SerializeToString,
             backend__pb2.BrowseReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetStudentGrade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SDMS_Backend/SetStudentGrade',
+            backend__pb2.SetGradeRequest.SerializeToString,
+            backend__pb2.SetGradeReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
