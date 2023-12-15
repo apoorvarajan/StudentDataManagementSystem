@@ -1,0 +1,59 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>SDMS_Backend.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">client\src\proto\SDMS_Backend.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">241</td><td class="">241</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">// Original file: ../protos/frontend.proto
+
+import type * as grpc from &#x27;@grpc/grpc-js&#x27;
+import type { MethodDefinition } from &#x27;@grpc/proto-loader&#x27;
+import type { GradeReply as _GradeReply, GradeReply__Output as _GradeReply__Output } from &#x27;./GradeReply&#x27;;
+import type { GradeRequest as _GradeRequest, GradeRequest__Output as _GradeRequest__Output } from &#x27;./GradeRequest&#x27;;
+import type { HelloReply as _HelloReply, HelloReply__Output as _HelloReply__Output } from &#x27;./HelloReply&#x27;;
+import type { HelloRequest as _HelloRequest, HelloRequest__Output as _HelloRequest__Output } from &#x27;./HelloRequest&#x27;;
+
+export interface SDMS_BackendClient extends grpc.Client {
+  GetGrade(argument: _GradeRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  GetGrade(argument: _GradeRequest, metadata: grpc.Metadata, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  GetGrade(argument: _GradeRequest, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  GetGrade(argument: _GradeRequest, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  getGrade(argument: _GradeRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  getGrade(argument: _GradeRequest, metadata: grpc.Metadata, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  getGrade(argument: _GradeRequest, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  getGrade(argument: _GradeRequest, callback: grpc.requestCallback&lt;_GradeReply__Output&gt;): grpc.ClientUnaryCall;
+  
+  SayHello(argument: _HelloRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  SayHello(argument: _HelloRequest, metadata: grpc.Metadata, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  SayHello(argument: _HelloRequest, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  SayHello(argument: _HelloRequest, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  sayHello(argument: _HelloRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  sayHello(argument: _HelloRequest, metadata: grpc.Metadata, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  sayHello(argument: _HelloRequest, options: grpc.CallOptions, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  sayHello(argument: _HelloRequest, callback: grpc.requestCallback&lt;_HelloReply__Output&gt;): grpc.ClientUnaryCall;
+  
+}
+
+export interface SDMS_BackendHandlers extends grpc.UntypedServiceImplementation {
+  GetGrade: grpc.handleUnaryCall&lt;_GradeRequest__Output, _GradeReply&gt;;
+  
+  SayHello: grpc.handleUnaryCall&lt;_HelloRequest__Output, _HelloReply&gt;;
+  
+}
+
+export interface SDMS_BackendDefinition extends grpc.ServiceDefinition {
+  GetGrade: MethodDefinition&lt;_GradeRequest, _GradeReply, _GradeRequest__Output, _GradeReply__Output&gt;
+  SayHello: MethodDefinition&lt;_HelloRequest, _HelloReply, _HelloRequest__Output, _HelloReply__Output&gt;
+}
+</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Thu, 14 Dec 2023 17:48:01 GMT</p>
+    </body>
+  </html>
+  

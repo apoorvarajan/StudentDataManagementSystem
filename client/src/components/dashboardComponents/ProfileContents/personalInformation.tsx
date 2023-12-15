@@ -10,14 +10,7 @@ const PersonalInformation = (props:any) => {
                         John Doe
                     </div>
                 </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label">
-                        Pronouns:
-                    </div>
-                    <div className="profile-content">
-                        he/him
-                    </div>
-                </div>
+                
                 <div className="pInfo-sec">
                     <div className="profile-label">
                         Address:
@@ -27,24 +20,7 @@ const PersonalInformation = (props:any) => {
                         Amherst, MA, 01002
                     </div>
                 </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label">
-                        Emergency Contact:
-                    </div>
-                    <div className="profile-content">
-                        Contact Name: Jack Doe <br />
-                        Relationship: Friend <br />
-                        Telephone: +1413123456
-                    </div>
-                </div>
-                <div className="pInfo-sec">
-                    <div className="profile-label ">
-                        Non-UMass Email:
-                    </div>
-                    <div className="profile-content">
-                        johnd@gmail.com
-                    </div>
-                </div>
+                
                 <div>
                     <div className="profile-label">
                         Phone:
