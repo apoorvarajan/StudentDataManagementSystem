@@ -59,11 +59,29 @@ const callCheckReq = (data:any) => {
           .catch((error) => reject(error));
       });
 }
+
+const callGradeUpload = (data:any) => {
+    return new Promise<RequirementReply>((resolve, reject) => {
+        const request = new RequirementRequest();
+        request.setCourseIdList(data.courses)
+        request.setToken(data.token)
+        sdmsClient
+          .getCourseRequirements(request, null)
+          .then((message) => resolve(message))
+          .catch((error) => reject(error));
+      });
+}
+
 const userAuth = async (data:any) => {
     let res:any = await callLogin(data)
     sessionStorage.setItem("token",res.array[1])
     sessionStorage.setItem("uId",data.userId)
-    window.location.href=`/dashboard?id=${data.userId}`
+    if(data.role=="instructor"){
+        window.location.href=`/faculty?id=${data.userId}`
+    }
+    else{
+        window.location.href=`/dashboard?id=${data.userId}`
+    }
 
 }
 const studentProfile = async (data:any) => {
@@ -86,4 +104,14 @@ const browseCourse = async(data:any) => {
     return res
 }
 
-export default {userAuth,studentProfile,studentCourse,browseCourse,courseReq}
+const gradeUpload = async(data:any) => {
+    let res:any = await (await callGradeUpload(data)).toObject()
+    return res
+}
+
+const setCourseDesc = async(data:any) => {
+    let res:any = await (await callGradeUpload(data)).toObject()
+    return res
+}
+
+export default {userAuth,studentProfile,studentCourse,browseCourse,courseReq,gradeUpload,setCourseDesc}
