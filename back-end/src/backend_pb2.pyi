@@ -180,3 +180,21 @@ class SetGradeReply(_message.Message):
     STATUS_FIELD_NUMBER: _ClassVar[int]
     status: bool
     def __init__(self, status: bool = ...) -> None: ...
+
+class EmailRequest(_message.Message):
+    __slots__ = ("token", "user_id", "subject", "body")
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    SUBJECT_FIELD_NUMBER: _ClassVar[int]
+    BODY_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    user_id: str
+    subject: str
+    body: str
+    def __init__(self, token: _Optional[str] = ..., user_id: _Optional[str] = ..., subject: _Optional[str] = ..., body: _Optional[str] = ...) -> None: ...
+
+class EmailReply(_message.Message):
+    __slots__ = ("status",)
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    status: bool
+    def __init__(self, status: bool = ...) -> None: ...

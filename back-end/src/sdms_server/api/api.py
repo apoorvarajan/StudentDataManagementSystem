@@ -6,6 +6,7 @@ from sdms_server.authentication.authentication import check_password
 import jwt
 import os
 from typing import Tuple
+from sdms_server.notify.email_notify import *
 
 @permissions_required(
     student=(is_self, is_enrolled_in_course),
@@ -89,17 +90,21 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
 #     result = get_one_document(os.getenv('DEPT_DB'), os.getenv('DEGREES_COLL'),)
 
 
-def set_grade(auth_token_str:str, /, *, user_id:str, course_id: str, grade:str)->bool:
-    course_inst = get_one_document(os.getenv('ACADEMICS_DB'), os.getenv('CURR_COURSES_COLL'), 
-        {'department': course_id.split()[0], 'course_number': course_id.split()[1], 'students': user_id})
+# def set_grade(auth_token_str:str, /, *, user_id:str, course_id: str, grade:str)->bool:
+#     course_inst = get_one_document(os.getenv('ACADEMICS_DB'), os.getenv('CURR_COURSES_COLL'), 
+#         {'department': course_id.split()[0], 'course_number': course_id.split()[1]})
     
-    # students = course_inst['students']
-    # for id in grades.keys():
-    #     if id in students.keys():
-    #         students[id]['course_grade'] = grades[id]
-    #         collection.update_one(filter_condition, {'$set': {'students': students}})
-    #     else:
-    #         raise UserNotFoundError(id)
-    # return True
+#     students = course_inst['students'][]
+#     if id in students.keys():
+#             students[id]['course_grade'] = grades[id]
+#             collection.update_one(filter_condition, {'$set': {'students': students}})
+#         else:
+#             raise UserNotFoundError(id)
+#     return True
 
-    
+@permissions_required(admin=())
+def notify_user(auth_token_str:str, /, *, user_id:str, subject:str, body:str)->bool:
+    email = get_user(auth_token_str, user_id=user_id)['email']
+    send_mail(email, subject, body)
+
+    return True
