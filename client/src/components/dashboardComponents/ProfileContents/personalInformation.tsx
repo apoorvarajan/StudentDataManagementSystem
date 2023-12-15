@@ -7,26 +7,24 @@ const PersonalInformation = (props:any) => {
                         Name:
                     </div>
                     <div className="profile-content">
-                        John Doe
+                        {props.sdetails.name.firstName + " " + (props.sdetails.name.middleName ? (props.sdetails.middleName + " ") : "") + props.sdetails.name.lastName}
                     </div>
                 </div>
-                
                 <div className="pInfo-sec">
                     <div className="profile-label">
                         Address:
                     </div>
                     <div className="profile-content">
-                        880, South Pleasant Street, Apt. No. 11 <br/>
-                        Amherst, MA, 01002
+                        {props.sdetails.address.line1} , {props.sdetails.address.city} , {props.sdetails.address.state}<br/>
+                        zipcode: {props.sdetails.address.zip}
                     </div>
                 </div>
-                
                 <div>
                     <div className="profile-label">
                         Phone:
                     </div>
                     <div className="profile-content">
-                        +1413224765
+                        {props.sdetails.phone}
                     </div>
                 </div>
             </div>

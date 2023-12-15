@@ -1,49 +1,53 @@
 import React,{useState} from 'react'
 import '../styles/dashboard.css'
 import '../styles/home.css'
-import DashboardSummary from './dashboardComponents/dashboardSummary'
-import {GradeRequest, GradeReply} from '../proto/frontend_pb'
-import { SDMS_BackendClient } from "../proto/FrontendServiceClientPb";
-const sdmsClient = new SDMS_BackendClient("http://" + "localhost" + ":8081");
-function getUsers() {
-    return new Promise<GradeReply>((resolve, reject) => {
-        const request = new GradeRequest();
-        request.setUserId('bob123')
-        request.setCourseCode("COMPSCI 520")
-        request.setToken('abc')
-        sdmsClient
-          .getGrade(request, null)
-          .then((message) => {console.log(message.getGrade())})
-          .catch((error) => reject(error));
-      });
-  }
-const Dashboard = (props:any)=>{
-    getUsers()
-
+import api from '../controller/apiCalls'
+class Dashboard extends React.Component<any,any>{
+    constructor(props:any){
+        super(props)
+        this.state={
+            profiledata:null,
+            studentCourses:null,
+        }
+    }
+    componentDidMount= async ()=>{
+        let token = sessionStorage.getItem("token")
+        let studentId=window.location.search
+        let url_param = new URLSearchParams(studentId)
+        let studentProfile = await api.studentProfile({token:token,userId:url_param.get("id")})
+        this.setState({
+            profiledata:studentProfile
+        })
+    }
+    render(){
+    let sdetails = this.state.profiledata
     const today_date = new Date()
     let hours = today_date.getHours();
     let greeting = (hours < 12)? "Good Morning " :
              ((hours <= 18 && hours >= 12 ) ? "Good Afternoon " : "Good Evening ");
     const datestring=today_date.toDateString()
-    let sname = "[Student Name]"
+    let sname = sdetails && sdetails.name && sdetails.name.firstName
+    let studentId=window.location.search
+    let url_param = new URLSearchParams(studentId)
+    let uId=url_param.get("id")
     let dashBoardSections = ["Profile","Academics","Course Planning Assistant"]
     let dashboardList=[
         [{
-            'Sign Up For Alerts':"/profile#alert",
-            'Personal Information':"/profile#pInfo",
-            'IT Accounts and Password':"/profile#itacc"
+            'Sign Up For Alerts':"/profile?"+uId+"#alert",
+            'Personal Information':"/profile?"+uId+"#pInfo",
+            // 'IT Accounts and Password':"/profile#itacc"
         }],
         [{
-            "Academic Summary":"/academics#summary",
-            "Grades":"/academics#grades",
-            "Course History":"/academics#chist",
-            "Transcript Request":"/academics#treq",
-            "Graduation":"/academics#grad"
+            "Academic Summary":"/academics?"+uId+"#summary",
+            "Grades":"/academics?"+uId+"#grades",
+            "Course History":"/academics?"+uId+"#chist",
+            "Transcript Request":"/academics?"+uId+"#treq",
+            "Graduation":"/academics?"+uId+"#grad"
         }],
         [{
-            "Current Courses":"/cpa#ccourses",
-            "Check Requirement":"/cpa#req",
-            "Browse all courses":"/cpa#browse"
+            "Current Courses":"/cpa?"+uId+"#ccourses",
+            "Check Requirement":"/cpa?"+uId+"#req",
+            "Browse all courses":"/cpa?"+uId+"#browse"
         }]
     ]
     return <div className="dashboard-page">
@@ -82,5 +86,5 @@ const Dashboard = (props:any)=>{
                 </div>
         </div>
     </div>
-}
+}}
 export default Dashboard

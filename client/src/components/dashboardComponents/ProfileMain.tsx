@@ -7,12 +7,34 @@ import PersonalInformation from './ProfileContents/personalInformation';
 import ITAccountsAndPassword from './ProfileContents/ITAccountsAndPassword';
 import SideBar from '../sideBar'
 
+import api from '../../controller/apiCalls'
 
-const ProfileMain = (props: any) => {
-  const [hash,hashChange] = useState(window.location.hash)
-  window.onhashchange = () =>{
-    hashChange(window.location.hash)
-  }
+
+class ProfileMain extends React.Component<any,any>{
+  constructor(props:any){
+    super(props)
+    this.state={
+        profiledata:null,
+        hash:window.location.hash
+    }
+}
+  componentDidMount=async()=>{
+    let token = sessionStorage.getItem("token")
+    let studentId=window.location.search
+    let url_param = new URLSearchParams(studentId)
+    let studentProfile = await api.studentProfile({"token":token,"userId":url_param.get("id")})
+    this.setState({
+        profiledata:studentProfile
+    })
+}
+  render(){
+    let sdetails = this.state.profiledata
+    let hash = this.state.hash
+    window.onhashchange = () =>{
+      this.setState({
+        hash:window.location.hash
+      })
+    }
   return (
     <div className="profile-section-wrap">
         <SideBar/>
@@ -24,13 +46,13 @@ const ProfileMain = (props: any) => {
           </div>
         </div>
         <div>
-          {hash === "#alert" ? <SignUpForAlerts />:
-          hash === "#itacc" ? <ITAccountsAndPassword /> : 
-          <PersonalInformation />}
+          {sdetails && hash === "#alert" ? <SignUpForAlerts sdetails={sdetails}/>:
+          // sdetails && hash === "#itacc" ? <ITAccountsAndPassword sdetails={sdetails}/> : 
+          sdetails ? <PersonalInformation sdetails={sdetails}/>:null}
         </div>
       </div>
     </div>
   );
-};
+}};
 
 export default ProfileMain;
