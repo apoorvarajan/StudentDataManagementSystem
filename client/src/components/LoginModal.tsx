@@ -7,7 +7,7 @@ const getValueAndLogin=(props:any)=>{
 }
 const LoginModal = (props:any) => {
     return <div className="login-modal-container">
-        <div className="login-ins"> If you are signing up, enter your school emailid and we will send you the password to your emailid</div>
+        <div className="login-ins"> Sign in with your School id and password</div>
         <div className="login-modal-input-wrap">
             <div className="login-modal-input">
                 <label htmlFor="user-id" className="login-input-field"> User Id:</label>
@@ -22,12 +22,9 @@ const LoginModal = (props:any) => {
             <div className="login-modal-button" onClick={()=>getValueAndLogin(props)}>
                 Login
             </div>
-            <div className="login-modal-button">
+            <div className="login-modal-button" onClick={()=> props.cancel()}>
                 Cancel
             </div>
-        </div>
-        <div className="forgot-pwd">
-            Forgot password
         </div>
     </div>
 }
