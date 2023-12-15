@@ -79,6 +79,9 @@ const userAuth = async (data:any) => {
     if(data.role=="instructor"){
         window.location.href=`/faculty?id=${data.userId}`
     }
+    else if(data.role=="admin"){
+        window.location.href=`/admin?id=${data.userId}`
+    }
     else{
         window.location.href=`/dashboard?id=${data.userId}`
     }

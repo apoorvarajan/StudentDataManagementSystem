@@ -8,6 +8,7 @@ import AcademicMain from './components/dashboardComponents/AcademicMain'
 import ProfileMain from './components/dashboardComponents/ProfileMain'
 import CoursePlanningAssistant from './components/dashboardComponents/CoursePlanningAssistant'
 import FacultyPage from './components/facultyPage'
+import AdminPage from './components/admin'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<HomeComponent />} />
             <Route path="/dashboard" element={<Dashboard />}/>
             <Route path="/faculty" element={<FacultyPage />}/>
+            <Route path="/admin" element={<AdminPage />}/>
             <Route path="/academics" element={<AcademicMain />}/>
             <Route path="/profile" element={<ProfileMain />}/>
             <Route path="/cpa" element={<CoursePlanningAssistant />}/>
