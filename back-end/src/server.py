@@ -109,9 +109,10 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
         prev_courses_dict = {"course_number": "574", "dept": "COMPSCI", "n_credits": 3, "course_name": "IVC", "grade": "A", "semester": "Spring", "year": 2021}
         return backend_pb2.CurrentCoursesReply(course=[dict_to_current_course(curr_courses_dict)], prev_course=[dict_to_prev_course(prev_courses_dict)])
     
-    # def GetCourses(self, request, context):
-    #     courses_list = get_all_courses(request.token, degree=request.degree, department_id=request.dept)
-    #     return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
+    def GetCourses(self, request, context):
+        course_dict = {"course_number": "520", "dept": "COMPSCI", "n_credits": 3, "course_name": "Software Engineering", "description": "Learn how to write software", "req_satisfied": ["core", "elective"]}
+        return backend_pb2.BrowseReply(course=[dict_to_course(course_dict)])
+        
     def SetStudentGrade(self, request, context):
         result = set_grade(request.token, user_id=request.user_id, course_id=request.course_id, grade=request.grade)
         #result = set_grade("", user_id="bob1253", course_id="COMPSCI 520", grade="B-")
