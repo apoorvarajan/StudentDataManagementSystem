@@ -30,12 +30,18 @@ def run():
         stub = backend_pb2_grpc.SDMS_BackendStub(channel)
 
         #response_login = stub.Login(backend_pb2.LoginRequest(user_id='bob123', password='aaaa', role='student'))
-        response_login = stub.Login(backend_pb2.LoginRequest(user_id='bob123', password='aaaa', role='student'))
+        response_login = stub.Login(backend_pb2.LoginRequest(user_id='fcowboy', password='passw0rd', role='instructor'))
+        print(response_login)
+
+        response_set_grade = stub.SetStudentGrade(backend_pb2.SetGradeRequest(token=response_login.token, user_id='bob123', course_id='COMPSCI 520', grade='B'))
+        print(response_set_grade)
+
+        response_login = stub.Login(backend_pb2.LoginRequest(user_id='admin', password='admin', role='admin'))
         print(response_login)
 
         #response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123'))
-        response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token=response_login.token, user_id='bob123'))
-        print(response_student)
+        # response_student = stub.GetStudentDetails(backend_pb2.IDRequest(token=response_login.token, user_id='bob123'))
+        # print(response_student)
 
         # response_requirements = stub.GetCourseRequirements(backend_pb2.RequirementRequest(token='fnejfnmfdskjfhuifnmnf', course_id=['COMPSCI 520', 'COMPSCI 574']))
         # print(response_requirements)
@@ -46,8 +52,7 @@ def run():
         # response_all_courses = stub.GetCourses(backend_pb2.BrowseRequest(token='fnejfnmfdskjfhuifnmnf', degree='MS', dept='COMPSCI'))
         # print(response_all_courses)
 
-        # response_set_grade = stub.SetStudentGrade(backend_pb2.SetGradeRequest(token='fnejfnmfdskjfhuifnmnf', user_id='bob123', course_id='COMPSCI 520', grade='A'))
-        # print(response_set_grade)
+        
 
         response_email = stub.SendEmail(backend_pb2.EmailRequest(token=response_login.token, user_id='bob123', subject='Test', body='Test'))
         print(response_email)

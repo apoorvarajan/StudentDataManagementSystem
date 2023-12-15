@@ -1,4 +1,4 @@
-from sdms_server.database.db import get_one_document, get_multi_documents
+from sdms_server.database.db import get_one_document, get_multi_documents, set_one_document
 from sdms_server.exceptions.exceptions import *
 from sdms_server.authorization.permission import *
 from sdms_server.authorization.decorator import permissions_required
@@ -175,7 +175,7 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
             raise UnauthorizedError()
 
         print(f'Authenticated. First Name: {user_data["name"]["first_name"]}')
-        return True, jwt.encode({'username': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
+        return True, jwt.encode({'user_id': user_id, 'role':role}, os.getenv('JWT_SECRET'), algorithm=os.getenv('JWT_ALGORITHM'))
 
     except (UnauthorizedError) as e:
         return False, str(e)
@@ -185,15 +185,17 @@ def authenticate(user_id:str, password:str, role:str)->Tuple[bool, str]:
 
 @permissions_required(instructor=(is_instructor_of_course))
 def set_grade(auth_token_str:str, /, *, user_id:str, course_id: str, grade:str)->bool:
+    filter_condition = {'department': course_id.split()[0], 'course_number': course_id.split()[1]}
     course_inst = get_one_document(os.getenv('ACADEMICS_DB'), os.getenv('CURR_COURSES_COLL'), 
-        {'department': course_id.split()[0], 'course_number': course_id.split()[1]})
+        filter_condition)
     students = course_inst['students']
-    for id in grades.keys():
-        if id in students.keys():
-            students[id]['course_grade'] = grades[id]
-            collection.update_one(filter_condition, {'$set': {'students': students}})
-        else:
-            raise UserNotFoundError(id)
+    if user_id in students.keys():
+        students[user_id]['course_grade'] = grade
+        set_one_document(os.getenv('ACADEMICS_DB'), os.getenv('CURR_COURSES_COLL'),
+                            filter_condition, {'$set': {'students': students}}) 
+        
+    else:
+        raise StudentNotEnrolledInCourseError()
     return True
 
 @permissions_required(admin=())
