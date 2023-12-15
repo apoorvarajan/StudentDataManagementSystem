@@ -85,7 +85,24 @@ class Greeter(backend_pb2_grpc.SDMS_BackendServicer):
     
 
     def GetCourseRequirements(self, request, context):
-        return backend_pb2.RequirementReply(progress="4/5");
+        courses = set(get_current_courses(request.token, user_id=request.user_id))
+        courses.update(get_completed_courses(request.token, user_id=request.user_id))
+        courses.update(request.course_id)
+        user = get_student(request.token, user_id=request.user_id)
+        degree_requirements = get_degree_requirements(request.token, department=user['department'], degree=user['degree'])
+        requirements_mapping = {
+            r : v['eligible_courses'] for r, v in degree_requirements.items()}
+        course_to_req = {}
+        for req, crs in requirements_mapping.items():
+            for course in crs:
+                if course not in course_to_req:
+                    course_to_req[course] = []
+                course_to_req[course].append(req)
+        num_requirements = {
+            r : v['num_reqd'] for r, v in degree_requirements.items()}
+        completed, total = check_requirements_satisfied(courses, course_to_req, num_requirements)
+        reply = f'{completed}/{total} requirements satisfied'
+        return backend_pb2.RequirementReply(progress=reply)
 
     def GetStudentCourses(self, request, context):
         curr_courses_dict = {"course_number": "520", "dept": "COMPSCI", "n_credits": 3, "course_name": "Software Engineering", "instructors": ["Feather Cowboy"]}
