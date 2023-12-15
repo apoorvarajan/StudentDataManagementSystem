@@ -117,4 +117,9 @@ const setCourseDesc = async(data:any) => {
     return res
 }
 
-export default {userAuth,studentProfile,studentCourse,browseCourse,courseReq,gradeUpload,setCourseDesc}
+const sendNotif = async(data:any) => {
+    let res:any = await (await callGradeUpload(data)).toObject()
+    return res
+}
+
+export default {userAuth,studentProfile,studentCourse,browseCourse,courseReq,gradeUpload,setCourseDesc,sendNotif}
