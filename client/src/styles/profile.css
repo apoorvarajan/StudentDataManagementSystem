@@ -178,3 +178,15 @@
     color: white;
     font-weight: bold;
 }
+.k{
+    text-align: center;
+    color: white;
+    width: 20%;
+    height: 1.25em;
+}
+.select-bt{
+    height: 1.5em;
+    font-size: 1em;
+    margin: 1em 0em;
+    padding: 0em 1em ;
+}
